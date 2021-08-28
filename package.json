@@ -1,0 +1,48 @@
+{
+  "name": "@me_slack/vueeasyform",
+  "version": "0.0.1",
+  "description": "Coming soon...",
+  "main": "dist/vueeasyform.js",
+  "module": "dist/vueeasyform.js",
+  "unpkg": "dist/vueeasyform.min.js",
+  "browser": {
+    "./sfc": "src/vue_easy_form.vue"
+  },
+  "scripts": {
+    "build": "npm run build:umd & npm run build:es & npm run build:unpkg",
+    "build:umd": "rollup --config build/rollup.config.js --format umd --file dist/vueeasyform.umd.js",
+    "build:es": "rollup --config build/rollup.config.js --format es --file dist/vueeasyform.esm.js",
+    "build:unpkg": "rollup --config build/rollup.config.js --format iife --file dist/vueeasyform.min.js"
+  },
+  "dependencies": {
+    "validatorjs": "^3.22.1"
+  },
+  "devDependencies": {
+    "rollup": "^1.17.0",
+    "@rollup/plugin-buble": "^0.21.3",
+    "@rollup/plugin-commonjs": "^11.1.0",
+    "rollup-plugin-vue": "^5.0.1",
+    "vue": "^2.6.10",
+    "vue-template-compiler": "^2.6.10"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andyslack/VueEasyForm.git"
+  },
+  "keywords": [
+    "form",
+    "vue",
+    "vuejs",
+    "vueeasyform",
+    "vueform",
+    "vue-form",
+    "vue-easy",
+    "vue-easy-form"
+  ],
+  "author": "Andy Slack",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/andyslack/VueEasyForm/issues"
+  },
+  "homepage": "https://github.com/andyslack/VueEasyForm#readme"
+}
