@@ -116,8 +116,8 @@
 
 <script>
 import * as Validator from 'validatorjs';
-import Loading from "./views/loading";
-import FormModels from "./views/form_models";
+import Loading from "./loading";
+import FormModels from "./form_models";
 
 export default {
     name: "VueEasyForm",
