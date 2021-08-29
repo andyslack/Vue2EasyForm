@@ -1,5 +1,5 @@
 // Import vue component
-import component from './views/form.vue';
+import component from './vueeasyform.vue';
 
 // Declare install function executed by Vue.use()
 export function install(Vue) {

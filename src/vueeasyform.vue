@@ -1,11 +1,10 @@
 <template>
     <div>
-
         <div
             v-for="[key, record] of Object.entries(this.localform.fields)"
             :key="key"
-            :class="record.classes ? record.classes : ''"
-            :style="record.styles ? record.styles : ''"
+            :class="record.div.classes ? record.div.classes : ''"
+            :style="record.div.styles ? record.div.styles : ''"
           >
 
             <div
@@ -24,10 +23,7 @@
                            style="font-size: smaller; color: red;">&nbsp;&nbsp; (Required)
                     </label>
 
-                    <div v-if="record.input"
-                         :class="record.input.classes ? record.input.classes : ''"
-                         :style="record.input.styles ? record.input.styles : ''"
-                    >
+                    <div v-if="record.input">
                         <input
                         :placeholder="record.placeholder"
                         :type="record.input.type"
@@ -40,10 +36,7 @@
                     />
                     </div>
 
-                    <div v-else-if="record.dropdown"
-                         :class="record.dropdown.classes ? record.dropdown.classes : ''"
-                         :style="record.dropdown.styles ? record.dropdown.styles : ''"
-                    >
+                    <div v-else-if="record.dropdown">
 
                         <div v-if="record.dropdown.model">
                             <FormModels :record="record" :index="key" @changed="updateValueByKey"></FormModels>
@@ -116,8 +109,8 @@
 
 <script>
 import * as Validator from 'validatorjs';
-import Loading from "./loading";
-import FormModels from "./form_models";
+import Loading from "./views/loading.vue";
+import FormModels from "./views/form_models.vue";
 
 export default {
     name: "VueEasyForm",

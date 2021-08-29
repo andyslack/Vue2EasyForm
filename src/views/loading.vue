@@ -1,10 +1,11 @@
 <template>
     <div class="load">
-        <img src="../assets/loading.gif" :width="width" alt="Loading"/>
+        <img :src="require('../assets/loading.gif')" :width="width" alt="Loading"/>
     </div>
 </template>
 
 <script>
+
 export default {
     name: "loading",
     props:{
