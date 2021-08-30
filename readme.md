@@ -25,17 +25,18 @@ Image (small video/gif)
 }
 ```
 ## Fields
-- label
-- description
-- placeholder
-- [input, dropdown, checkbox, submit] (see below)
-- required
-- disabled
-- success
-- error
-- value - holds the current value of the field
-- classes
-- styles
+- label { text, classes, styles }
+- description {location=['top' 'bottom'], text, classes, styles}
+- placeholder 'string'
+- {input, dropdown, checkbox, submit} (see below)
+- required { required, text, classes, styles}
+- disabled: boolean
+- success: boolean
+- error: boolean
+- value: <mixed> holds the current value of the field
+- classes: string
+- styles: string
+- loading: boolean
 
 ###input
 - 

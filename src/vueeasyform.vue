@@ -1,109 +1,133 @@
 <template>
-    <div>
-        <div v-if="localform.fields">
+    <div id="VEF_container"
+        :class="localform.classes ? localform.classes : null"
+        :style="localform.styles ? localform.styles : null"
+    >
+        <div v-if="localform.fields"
+             id="VEF_fields"
+             :class="localform.fields.classes ? localform.fields.classes : null"
+             :style="localform.fields.styles ? localform.fields.styles : null"
+        >
             <div
-            v-for="[key, record] of Object.entries(localform.fields)"
+            v-for="[key, field] of Object.entries(localform.fields)"
             :key="key"
-            :class="record.div ? record.div.classes ? record.div.classes : null : null"
-            :style="record.div ? record.div.styles ? record.div.styles : null : null"
+            id="VEF_div"
+            :class="field.div ? field.div.classes ? field.div.classes : null : null"
+            :style="field.div ? field.div.styles ? field.div.styles : null : null"
           >
 
-            <div
-                 :class="record.col ? record.col.classes ? record.col.classes : null : null"
-                 :style="record.col ? record.col.styles ? record.col.styles : null : null"
-            >
-
-                <div v-if="record.loading">
-                    <Loading width="50"></Loading>
-                </div>
-                <div v-else>
-
-                    <label class="placeholder-label">{{ record.label }} </label>
-                    <label v-if="record.required"
-                           class="placeholder-label"
-                           style="font-size: smaller; color: red;">&nbsp;&nbsp; (Required)
-                    </label>
-
-                    <div v-if="record.input">
-                        <input
-                        :placeholder="record.placeholder"
-                        :type="record.input.type"
-                        :class="record.input ? record.input.classes ? record.input.classes : null : null"
-                        :style="record.input ? record.input.styles ? record.input.styles : null : null"
-                        v-model="record.value"
-                        :required="record.required"
-                        :disabled="record.disabled"
-                        @keyup="updateValueByKey({key: key, value: record.value})"
-                    />
-                    </div>
-
-                    <div v-else-if="record.dropdown">
-
-                        <div v-if="record.dropdown.model">
-                            <FormModels :record="record" :index="key" @changed="updateValueByKey"></FormModels>
-                        </div>
-
-                        <div v-else>
-                            <select
-                                v-model="record.value"
-                                :disabled="record.disabled"
-                                :required="record.required"
-                                :class="record.dropdown.classes ? record.dropdown.classes : null"
-                                :style="record.dropdown.styles ? record.dropdown.styles : null"
-                                :multiple="record.dropdown.multiple"
-                                @changed="updateValueByKey"
-                            >
-                                <option :key="index" :value="item.value" v-for="(item,index) in record.dropdown.options" :disabled="item.disabled">{{item.name}}</option>
-                            </select>
-                        </div>
-
-                    </div>
-
-                    <div v-else-if="record.checkbox">
-                        <input type="checkbox"
-                            v-model="record.value"
-                            :class="record.checkbox.classes ? record.checkbox.classes : null"
-                            :style="record.checkbox.styles ? record.checkbox.styles : null"
-                            :disabled="record.disabled ?record.disabled : false"
-                            @changed="updateValueByKey"
-                        >
-                    </div>
-
-                    <div v-else-if="record.button">
-                       <button
-                           :class="record.button.classes ? record.button.classes : ''"
-                           :style="record.button.styles ? record.button.styles : ''"
-                           @click="buttonClicked(key)"
-                           :disabled="record.disabled ?record.disabled : false"
-                       >
-                           {{record.button.label}}
-                       </button>
-                    </div>
+                <span v-if="field.loading">
+                    <Loading id="VEF_loading" width="50"></Loading>
+                </span>
+                <span v-else>
 
                     <label
-                        v-if="record.description"
-                        class="placeholder-label"
-                        :class="record.description ? record.description.classes ? record.description.classes : null : null"
-                        :style="record.description ? record.description.styles ? record.description.styles : null : null"
-                    >
-                        {{ record.description }}
+                        v-if="field.label && field.required.text"
+                        id="VEF_label"
+                        :class="field.label ? field.label.classes ? field.label.classes : null : null"
+                        :style="field.label ? field.label.styles ? field.label.styles : null : null"
+                    >{{ field.label.text }}
                     </label>
 
-                </div>
+                    <label v-if="field.required && field.required.required"
+                           id="VEF_required"
+                           :class="field.required ? field.required.classes ? field.required.classes : null : null"
+                           :style="field.required ? field.required.styles ? field.required.styles : null : null"
+                    > {{field.required.text}}
+                    </label>
+
+                     <label
+                         v-if="field.description && field.description.location && field.description.location === 'top'"
+                         class="placeholder-label"
+                         :class="field.description ? field.description.classes ? field.description.classes : null : null"
+                         :style="field.description ? field.description.styles ? field.description.styles : null : null"
+                     >
+                        {{ field.description.text }}
+                    </label>
+
+                        <input
+                            id="VEF_input"
+                            v-if="field.input"
+                        :placeholder="field.placeholder"
+                        :type="field.input.type"
+                        :class="field.input ? field.input.classes ? field.input.classes : null : null"
+                        :style="field.input ? field.input.styles ? field.input.styles : null : null"
+                        v-model="field.value"
+                        :required="field.required"
+                        :disabled="field.disabled"
+                        @keyup="updateValueByKey({key: key, value: field.value})"
+                    />
+                       <select
+                           v-if="field.dropdown && !field.dropdown.model"
+                           id="VEF_select"
+                           v-model="field.value"
+                           :disabled="field.disabled"
+                           :required="field.required"
+                           :class="field.dropdown.classes ? field.dropdown.classes : null"
+                           :style="field.dropdown.styles ? field.dropdown.styles : null"
+                           :multiple="field.dropdown.multiple"
+                           @changed="updateValueByKey"
+                       >
+                                <option id="VEF_select_option" :key="index" :value="item.value" v-for="(item,index) in field.dropdown.options" :disabled="item.disabled">{{item.name}}</option>
+                            </select>
+
+                            <FormModels
+                                id="VEF_select_model"
+                                v-if="field.dropdown && field.dropdown.model"
+                                :field="field"
+                                :index="key"
+                                @changed="updateValueByKey"
+                            ></FormModels>
+
+
+
+                        <input type="checkbox"
+                               id="VEF_checkbox"
+                            v-if="field.checkbox"
+                            v-model="field.value"
+                            :class="field.checkbox.classes ? field.checkbox.classes : null"
+                            :style="field.checkbox.styles ? field.checkbox.styles : null"
+                            :disabled="field.disabled ?field.disabled : false"
+                            @changed="updateValueByKey"
+                        >
+
+                       <button
+                           v-if="field.button"
+                           id="VEF_button"
+                           :class="field.button.classes ? field.button.classes : ''"
+                           :style="field.button.styles ? field.button.styles : ''"
+                           @click="buttonClicked(key)"
+                           :disabled="field.disabled ?field.disabled : false"
+                       >
+                           {{field.button.label}}
+                       </button>
+
+                    <label
+                        v-if="field.description && field.description.location && field.description.location === 'bottom'"
+                        class="placeholder-label"
+                        :class="field.description ? field.description.classes ? field.description.classes : null : null"
+                        :style="field.description ? field.description.styles ? field.description.styles : null : null"
+                    >
+                        {{ field.description.text }}
+                    </label>
+
+                </span>
 
             </div>
         </div>
-        </div>
         <div v-if="localform.submit"
-            :class="submit.col ? submit.col.classes ? submit.col.classes : null : null"
-            :style="submit.col ? submit.col.styles ? submit.col.styles : null : null"
+             id="VEF_submit"
+            :class="submit.classes ? submit.classes : null"
+            :style="submit.styles ? submit.styles : null"
         >
             <button
-                :class="submit.classes ? submit.classes : null"
-                :style="submit.styles ? submit.styles : null"
+                v-if="localform.submit.button"
+                id="VEF_submit_button"
+                :class="submit.button.classes ? submit.button.classes : null"
+                :style="submit.button.styles ? submit.button.styles : null"
                 @click="submit()"
             >
-                {{ localform.submit.label }}
+                {{ localform.submit.button.label }}
             </button>
         </div>
     </div>
