@@ -36,7 +36,8 @@
     "vue": "^2.6.10"
   },
   "dependencies": {
-    "validatorjs": "^3.22.1"
+    "validatorjs": "^3.22.1",
+    "vuesax": "^4.0.1-alpha.25"
   },
   "repository": {
     "type": "git",

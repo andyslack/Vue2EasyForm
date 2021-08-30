@@ -1,140 +1,135 @@
 <template>
-    <div id="VEF_container"
-        :class="localform.classes ? localform.classes : null"
-        :style="localform.styles ? localform.styles : null"
-    >
-        <div v-if="localform.fields"
-             id="VEF_fields"
-             :class="localform.fields.classes ? localform.fields.classes : null"
-             :style="localform.fields.styles ? localform.fields.styles : null"
-        >
+    <!--VueEasyForm Start-->
+    <div id="vef_container">
+        <div v-if="localform.fields" id="vef_fields">
             <div
             v-for="[key, field] of Object.entries(localform.fields)"
             :key="key"
-            id="VEF_div"
-            :class="field.div ? field.div.classes ? field.div.classes : null : null"
-            :style="field.div ? field.div.styles ? field.div.styles : null : null"
+            id="vef_div"
           >
 
                 <span v-if="field.loading">
-                    <Loading id="VEF_loading" width="50"></Loading>
+                    <Loading id="vef_loading" width="50"></Loading>
                 </span>
                 <span v-else>
 
                     <label
-                        v-if="field.label && field.required.text"
-                        id="VEF_label"
-                        :class="field.label ? field.label.classes ? field.label.classes : null : null"
-                        :style="field.label ? field.label.styles ? field.label.styles : null : null"
+                        v-if="field.label && field.label.text"
+                        id="vef_label"
                     >{{ field.label.text }}
                     </label>
 
                     <label v-if="field.required && field.required.required"
-                           id="VEF_required"
-                           :class="field.required ? field.required.classes ? field.required.classes : null : null"
-                           :style="field.required ? field.required.styles ? field.required.styles : null : null"
+                           id="vef_required"
                     > {{field.required.text}}
                     </label>
 
-                     <label
+                     <div
+                         id="vef_description_top"
                          v-if="field.description && field.description.location && field.description.location === 'top'"
-                         class="placeholder-label"
-                         :class="field.description ? field.description.classes ? field.description.classes : null : null"
-                         :style="field.description ? field.description.styles ? field.description.styles : null : null"
                      >
                         {{ field.description.text }}
-                    </label>
+                    </div>
 
-                        <input
-                            id="VEF_input"
+                        <vs-input
+                            id="vef_input"
                             v-if="field.input"
-                        :placeholder="field.placeholder"
+                            :name="key"
+                        :placeholder="field.input.placeholder"
                         :type="field.input.type"
-                        :class="field.input ? field.input.classes ? field.input.classes : null : null"
-                        :style="field.input ? field.input.styles ? field.input.styles : null : null"
                         v-model="field.value"
+                            :state="field.error ? 'danger' : field.success ? 'success' : null "
                         :required="field.required"
                         :disabled="field.disabled"
-                        @keyup="updateValueByKey({key: key, value: field.value})"
-                    />
-                       <select
+                            :danger="field.error"
+                            :success="field.success"
+                            :icon-before="field.input.icon ? field.input.icon.before ? field.input.icon.before : null : null"
+                            :icon-after="field.input.icon ? field.input.icon.after ? field.input.icon.after : null : null"
+                            @keyup="keyupValueByKey({key: key, value: field.value})"
+                            @blur="updateValueByKey({key: key, value: field.value})"
+                    >
+                            <template #icon v-if="field.input.icon">
+                                <i :class="`bx bx-${field.input.icon.bx}`"></i>
+                            </template>
+                        </vs-input>
+
+                       <vs-select
                            v-if="field.dropdown && !field.dropdown.model"
-                           id="VEF_select"
+                           id="vef_select"
                            v-model="field.value"
                            :disabled="field.disabled"
                            :required="field.required"
-                           :class="field.dropdown.classes ? field.dropdown.classes : null"
-                           :style="field.dropdown.styles ? field.dropdown.styles : null"
                            :multiple="field.dropdown.multiple"
+                           :danger="field.error"
+                           :success="field.success"
                            @changed="updateValueByKey"
                        >
-                                <option id="VEF_select_option" :key="index" :value="item.value" v-for="(item,index) in field.dropdown.options" :disabled="item.disabled">{{item.name}}</option>
-                            </select>
+                                <option id="vef_select_option" :key="index" :value="item.value" v-for="(item,index) in field.dropdown.options" :disabled="item.disabled">{{item.name}}</option>
+                            </vs-select>
 
                             <FormModels
-                                id="VEF_select_model"
+                                id="vef_select_model"
                                 v-if="field.dropdown && field.dropdown.model"
-                                :field="field"
+                                :record="field"
                                 :index="key"
+                                :danger="field.error"
+                                :success="field.success"
                                 @changed="updateValueByKey"
                             ></FormModels>
 
 
 
                         <input type="checkbox"
-                               id="VEF_checkbox"
+                               id="vef_checkbox"
                             v-if="field.checkbox"
                             v-model="field.value"
-                            :class="field.checkbox.classes ? field.checkbox.classes : null"
-                            :style="field.checkbox.styles ? field.checkbox.styles : null"
                             :disabled="field.disabled ?field.disabled : false"
                             @changed="updateValueByKey"
                         >
 
                        <button
                            v-if="field.button"
-                           id="VEF_button"
-                           :class="field.button.classes ? field.button.classes : ''"
-                           :style="field.button.styles ? field.button.styles : ''"
+                           id="vef_button"
                            @click="buttonClicked(key)"
                            :disabled="field.disabled ?field.disabled : false"
                        >
                            {{field.button.label}}
                        </button>
 
-                    <label
-                        v-if="field.description && field.description.location && field.description.location === 'bottom'"
-                        class="placeholder-label"
-                        :class="field.description ? field.description.classes ? field.description.classes : null : null"
-                        :style="field.description ? field.description.styles ? field.description.styles : null : null"
+                    <div
+                        v-if="!field.error && field.description && field.description.location && field.description.location === 'bottom'"
+                        id="vef_description_bottom"
                     >
                         {{ field.description.text }}
-                    </label>
+                    </div>
+
+                    <div
+                        v-if="field.error"
+                        id="vef_error_message"
+                    >
+                        {{ field.error_message }}
+                    </div>
 
                 </span>
 
             </div>
         </div>
         <div v-if="localform.submit"
-             id="VEF_submit"
-            :class="submit.classes ? submit.classes : null"
-            :style="submit.styles ? submit.styles : null"
+             id="vef_submit"
         >
-            <button
-                v-if="localform.submit.button"
-                id="VEF_submit_button"
-                :class="submit.button.classes ? submit.button.classes : null"
-                :style="submit.button.styles ? submit.button.styles : null"
-                @click="submit()"
+            <vs-button
+                id="vef_submit_button"
+                @click="submit"
             >
-                {{ localform.submit.button.label }}
-            </button>
+                {{ localform.submit.text }}
+            </vs-button>
         </div>
     </div>
+    <!--VueEasyForm End-->
 </template>
 
 <script>
-import * as Validator from 'validatorjs';
+let Validator = require('validatorjs');
 import Loading from "./views/loading.vue";
 import FormModels from "./views/form_models.vue";
 
@@ -158,8 +153,9 @@ export default {
     },
     methods: {
         submit() {
-            let passed = this.validateForm()
-            if (passed) {
+            this.buttonClicked('submit')
+
+            if (this.validateForm()) {
                 let data = {}
                 if(this.localform.fields){
                     for (const [name, field] of Object.entries(this.localform.fields)) {
@@ -167,71 +163,60 @@ export default {
                     }
                 }
                 this.$emit('submit', data)
-                this.buttonClicked('submit')
             }
         },
 
         buttonClicked(key){
-            this.$emit('form_button_clicked', key)
+            this.$emit('clicked', key)
         },
 
         validateField(key, field){
             let field_passed = true
+
+            let validations = []
+
+            if(field.required && field.required.required){
+                validations.push('required')
+            }
+
             if (field.input) {
-                if (field.input.required) {
-                    let validation = new Validator({[key]: field.value}, {[key]: ['required', 'string', field.input.validation.min ? `min:${field.input.validation.min}`: null, field.input.validation.max ? `max:${field.input.validation.max}`: null]})
 
-                    if(validation.fails()){
-                        field_passed = false
-                        this.localform.fields[key].success = false
-                        this.localform.fields[key].error = true
-                        this.$emit('error', validation.errors.first(key))
-                        return false
+                if(field.input.type){
+                    switch(field.input.type){
+                        case 'text':
+                            validations.push('string')
+                            break
+                        case 'url':
+                            validations.push('url')
+                            break
+                        case 'email':
+                            validations.push('email')
+                            break
                     }
                 }
 
-                if(field.input.validation){
-                    if (field.input.validation.type === 'url') {
-                        let validation = new Validator({[key]: field.value}, {[key]: ['url']})
-                        if(validation.fails()){
-                            field_passed = false
-                            this.localform.fields[key].success = false
-                            this.localform.fields[key].error = true
-                            this.$emit('error', validation.errors.first(key))
-                            return false
-                        }
-                    }
-                    if (field.input.validation.type === 'email') {
-                        let validation = new Validator({[key]: field.value}, {[key]: ['email']})
-                        if(validation.fails()){
-                            field_passed = false
-                            this.localform.fields[key].success = false
-                            this.localform.fields[key].error = true
-                            this.$emit('error', validation.errors.first(key))
-                            return false
-                        }
-                    }
+                if(field.input.min){
+                    validations.push(`min:${field.input.min}`)
                 }
 
-                if(field_passed){
-                    this.localform.fields[key].success = true
-                    this.localform.fields[key].error = false
+                if(field.input.max){
+                    validations.push(`min:${field.input.max}`)
                 }
             }
-            if (field.dropdown) {
-                if (field.dropdown.required) {
 
-                    let validation = new Validator({[key]: field.value}, {[key]: ['required', 'string']})
+            let validation = new Validator({[key]: field.value}, {[key]: validations})
 
-                    if(validation.fails()){
-                        field_passed = false
-                        this.localform.fields[key].success = false
-                        this.localform.fields[key].error = true
-                        this.$emit('error', validation.errors.first(key))
-                        return false
-                    }
-                }
+            if(validation.fails()){
+                field_passed = false
+                this.localform.fields[key].success = false
+                this.localform.fields[key].error = true
+                this.localform.fields[key].error_message = validation.errors.first(key)
+                this.$emit('error', validation.errors.first(key))
+                return false
             }
+
+            this.localform.fields[key].success = true
+            this.localform.fields[key].error = false
             return true
         },
 
@@ -243,6 +228,11 @@ export default {
             }
 
             return passed
+        },
+
+        keyupValueByKey(result){
+            this.localform.fields[result.key].value = result.value
+            this.$emit(`updated_${result.key}`, result.value)
         },
 
         updateValueByKey(result){
