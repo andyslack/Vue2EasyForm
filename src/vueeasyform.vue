@@ -4,13 +4,13 @@
             <div
             v-for="[key, record] of Object.entries(localform.fields)"
             :key="key"
-            :class="record.div.classes ? record.div.classes : ''"
-            :style="record.div.styles ? record.div.styles : ''"
+            :class="record.div ? record.div.classes ? record.div.classes : null : null"
+            :style="record.div ? record.div.styles ? record.div.styles : null : null"
           >
 
             <div
-                 :class="record.col && record.col.classes ? record.col.classes : 'col'"
-                 :style="record.col && record.col.styles ? record.col.styles : ''"
+                 :class="record.col ? record.col.classes ? record.col.classes : null : null"
+                 :style="record.col ? record.col.styles ? record.col.styles : null : null"
             >
 
                 <div v-if="record.loading">
@@ -19,7 +19,7 @@
                 <div v-else>
 
                     <label class="placeholder-label">{{ record.label }} </label>
-                    <label v-if="record.input ? record.input.required : record.dropdown ? record.dropdown.required : false"
+                    <label v-if="record.required"
                            class="placeholder-label"
                            style="font-size: smaller; color: red;">&nbsp;&nbsp; (Required)
                     </label>
@@ -28,11 +28,11 @@
                         <input
                         :placeholder="record.placeholder"
                         :type="record.input.type"
-                        :class="record.input && record.input.classes ? record.input.classes : ''"
-                        :style="record.input && record.input.styles ? record.input.styles : ''"
+                        :class="record.input ? record.input.classes ? record.input.classes : null : null"
+                        :style="record.input ? record.input.styles ? record.input.styles : null : null"
                         v-model="record.value"
-                        :required="record.input.required ? record.input.required : false"
-                        :disabled="record.disabled ? record.disabled : false"
+                        :required="record.required"
+                        :disabled="record.disabled"
                         @keyup="updateValueByKey({key: key, value: record.value})"
                     />
                     </div>
@@ -46,12 +46,14 @@
                         <div v-else>
                             <select
                                 v-model="record.value"
-                                :class="record.dropdown.classes ? record.dropdown.classes : ''"
-                                :style="record.dropdown.styles ? record.dropdown.styles : ''"
-                                :disabled="record.disabled ?record.disabled : false"
+                                :disabled="record.disabled"
+                                :required="record.required"
+                                :class="record.dropdown.classes ? record.dropdown.classes : null"
+                                :style="record.dropdown.styles ? record.dropdown.styles : null"
+                                :multiple="record.dropdown.multiple"
                                 @changed="updateValueByKey"
                             >
-                                <option :key="index" :value="item.value" v-for="(item,index) in record.dropdown.options" >{{item.name}}</option>
+                                <option :key="index" :value="item.value" v-for="(item,index) in record.dropdown.options" :disabled="item.disabled">{{item.name}}</option>
                             </select>
                         </div>
 
@@ -60,8 +62,8 @@
                     <div v-else-if="record.checkbox">
                         <input type="checkbox"
                             v-model="record.value"
-                            :class="record.checkbox.classes ? record.checkbox.classes : ''"
-                            :style="record.checkbox.styles ? record.checkbox.styles : ''"
+                            :class="record.checkbox.classes ? record.checkbox.classes : null"
+                            :style="record.checkbox.styles ? record.checkbox.styles : null"
                             :disabled="record.disabled ?record.disabled : false"
                             @changed="updateValueByKey"
                         >
@@ -81,8 +83,8 @@
                     <label
                         v-if="record.description"
                         class="placeholder-label"
-                        :class="record.description && record.description.classes ? record.description.classes : ''"
-                        :style="record.description && record.description.styles ? record.description.styles : 'font-size: smaller; color: rgba(0,0,0,.4);'"
+                        :class="record.description ? record.description.classes ? record.description.classes : null : null"
+                        :style="record.description ? record.description.styles ? record.description.styles : null : null"
                     >
                         {{ record.description }}
                     </label>
@@ -93,12 +95,12 @@
         </div>
         </div>
         <div v-if="localform.submit"
-            :class="submit.col && submit.col.classes ? submit.col.classes : 'col'"
-            :style="submit.col && submit.col.styles ? submit.col.styles : ''"
+            :class="submit.col ? submit.col.classes ? submit.col.classes : null : null"
+            :style="submit.col ? submit.col.styles ? submit.col.styles : null : null"
         >
             <button
-                :class="submit.classes ? submit.classes : ''"
-                :style="submit.styles ? submit.styles : ''"
+                :class="submit.classes ? submit.classes : null"
+                :style="submit.styles ? submit.styles : null"
                 @click="submit()"
             >
                 {{ localform.submit.label }}

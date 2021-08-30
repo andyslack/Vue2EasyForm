@@ -22,22 +22,9 @@ export default {
                     label: 'First Name',
                     description: 'This is where you add your first name',
                     placeholder: 'First Name',
-                    value: '',
                     input: {
                         type: 'text',
-                        classes: '',
-                        styles: '',
                     },
-                    div: {
-                        classes: '',
-                        styles: '',
-                    },
-                    col: {
-                        classes: '',
-                        styles: '',
-                    },
-                    success: false,
-                    error: false,
                 },
             },
             submit: {
