@@ -1,7 +1,5 @@
 import commonjs from '@rollup/plugin-commonjs'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
-import globals from 'rollup-plugin-node-globals'
-import builtins from 'rollup-plugin-node-builtins'
 import vue from 'rollup-plugin-vue' // Handle .vue SFC files
 import buble from '@rollup/plugin-buble' // Transpile/polyfill with reasonable browser support
 import json from "@rollup/plugin-json"
@@ -24,11 +22,8 @@ export default {
             compact: true,
         }),
         image(),
-        commonjs({
-            include: 'node_modules/**',
-        }),
+        commonjs(),
         nodeResolve({
-            jsnext: true,
             main: true,
             module: true
         }),
@@ -43,7 +38,5 @@ export default {
            },
            objectAssign: 'Object.assign',
         }), // Transpile to ES5*/
-        globals(),
-        builtins()
     ]
 };

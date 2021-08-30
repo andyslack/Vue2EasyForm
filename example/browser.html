@@ -4,50 +4,49 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Example Form</title>
-  <script src="https://unpkg.com/vue@3.0.4"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
   <script src="/dist/vueeasyform.min.js"></script>
 </head>
 <body>
-  <div id="app">
-  </div> 
+<div id="app">
+    <VueEasyForm :form="contact_form"></VueEasyForm>
+</div>
 
   <script>
-    const App = {
-      template: `
-          <VueEasyForm :form="contact_form"></VueEasyForm>
-      `,
 
-        name: 'Example Form',
-        data: () => ({
-            contact_form: {
-                first_name: {
-                    label: 'First Name',
-                    description: 'This is where you add your first name',
-                    placeholder: 'First Name',
-                    value: '',
-                    input: {
-                        type: 'text',
-                        classes: '',
-                        styles: '',
-                    },
-                    div: {
-                        classes: '',
-                        styles: '',
-                    },
-                    col: {
-                        classes: '',
-                        styles: '',
-                    },
-                    success: false,
-                    error: false,
-                },
-            }
-        })
-    }
+      var app = new Vue({
+          el: '#app',
+          name: 'Example Form',
+          components: {
+              VueEasyForm
+          },
+          data: () => ({
+              contact_form: {
+                  first_name: {
+                      label: 'First Name',
+                      description: 'This is where you add your first name',
+                      placeholder: 'First Name',
+                      value: '',
+                      input: {
+                          type: 'text',
+                          classes: '',
+                          styles: '',
+                      },
+                      div: {
+                          classes: '',
+                          styles: '',
+                      },
+                      col: {
+                          classes: '',
+                          styles: '',
+                      },
+                      success: false,
+                      error: false,
+                  },
+              }
+          })
+      })
 
-    const app = Vue.createApp(App)
-    app.component('VueEasyForm', VueEasyForm)
-    app.mount('#app')
   </script>
 </body>
 </html>
