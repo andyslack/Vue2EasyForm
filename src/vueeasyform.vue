@@ -1,7 +1,8 @@
 <template>
-    <div>
-        <div
-            v-for="[key, record] of Object.entries(this.localform.fields)"
+    <div v-if="localform">
+        <div v-if="localform.fields">
+            <div
+            v-for="[key, record] of Object.entries(localform.fields)"
             :key="key"
             :class="record.div.classes ? record.div.classes : ''"
             :style="record.div.styles ? record.div.styles : ''"
@@ -90,9 +91,9 @@
 
             </div>
         </div>
+        </div>
 
-        <div
-            v-if="localform.submit"
+        <div v-if="localform.submit"
             :class="submit.col && submit.col.classes ? submit.col.classes : 'col'"
             :style="submit.col && submit.col.styles ? submit.col.styles : ''"
         >
@@ -104,6 +105,7 @@
                 {{ localform.submit.label }}
             </button>
         </div>
+
     </div>
 </template>
 
@@ -135,10 +137,12 @@ export default {
             let passed = this.validateForm()
             if (passed) {
                 let data = {}
-                for (const [name, field] of Object.entries(this.localform.fields)) {
-                    data[name] = field.value
+                if(this.localform && this.localform.fields){
+                    for (const [name, field] of Object.entries(this.localform.fields)) {
+                        data[name] = field.value
+                    }
                 }
-                this.$emit('form_complete', data)
+                this.$emit('submit', data)
             }
         },
 
@@ -161,26 +165,29 @@ export default {
                     }
                 }
 
-                if (field.input.validation.type === 'url') {
-                    let validation = new Validator({[key]: field.value}, {[key]: ['url']})
-                    if(validation.fails()){
-                        field_passed = false
-                        this.localform.fields[key].success = false
-                        this.localform.fields[key].error = true
-                        this.$emit('error', validation.errors.first(key))
-                        return false
+                if(field.input.validation){
+                    if (field.input.validation.type === 'url') {
+                        let validation = new Validator({[key]: field.value}, {[key]: ['url']})
+                        if(validation.fails()){
+                            field_passed = false
+                            this.localform.fields[key].success = false
+                            this.localform.fields[key].error = true
+                            this.$emit('error', validation.errors.first(key))
+                            return false
+                        }
+                    }
+                    if (field.input.validation.type === 'email') {
+                        let validation = new Validator({[key]: field.value}, {[key]: ['email']})
+                        if(validation.fails()){
+                            field_passed = false
+                            this.localform.fields[key].success = false
+                            this.localform.fields[key].error = true
+                            this.$emit('error', validation.errors.first(key))
+                            return false
+                        }
                     }
                 }
-                if (field.input.validation.type === 'email') {
-                    let validation = new Validator({[key]: field.value}, {[key]: ['email']})
-                    if(validation.fails()){
-                        field_passed = false
-                        this.localform.fields[key].success = false
-                        this.localform.fields[key].error = true
-                        this.$emit('error', validation.errors.first(key))
-                        return false
-                    }
-                }
+
                 if(field_passed){
                     this.localform.fields[key].success = true
                     this.localform.fields[key].error = false
