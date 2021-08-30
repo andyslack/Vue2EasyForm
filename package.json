@@ -1,5 +1,5 @@
 {
-  "version": "0.0.14",
+  "version": "0.0.15",
   "name": "@me_slack/vue2easyform",
   "description": "A NPM for VueJS which makes working with forms really easy. Pass in a JSON object and get back a validated JSON object with the form field values.",
   "main": "dist/vueeasyform.umd.js",
