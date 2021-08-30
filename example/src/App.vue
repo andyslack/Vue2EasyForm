@@ -1,12 +1,12 @@
 <template>
     <div id="app">
-        <VueEasyForm :form="input" @submit="submitted" />
+        <VueEasyForm :form="input" @submit="submit" @updated="updated" @updated_first_name="updated_first_name" />
         <pre>{{output}}</pre>
     </div>
 </template>
 
 <script>
-import VueEasyForm from "@me_slack/vue2easyform";
+import VueEasyForm from "@me_slack/vue2easyform"
 
 export default {
     name: "App",
@@ -45,8 +45,14 @@ export default {
         }
     }),
     methods: {
-        submitted(value){
+        submit(value){
             this.output = value
+        },
+        updated(value){
+            this.output = value
+        },
+        updated_first_name(first_name){
+          alert(first_name)
         }
     }
 };

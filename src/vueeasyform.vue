@@ -1,5 +1,5 @@
 <template>
-    <div v-if="localform">
+    <div>
         <div v-if="localform.fields">
             <div
             v-for="[key, record] of Object.entries(localform.fields)"
@@ -33,7 +33,7 @@
                         v-model="record.value"
                         :required="record.input.required ? record.input.required : false"
                         :disabled="record.disabled ? record.disabled : false"
-                        @changed="updateValueByKey"
+                        @change="updateValueByKey({key: key, value: record.value})"
                     />
                     </div>
 
@@ -92,7 +92,6 @@
             </div>
         </div>
         </div>
-
         <div v-if="localform.submit"
             :class="submit.col && submit.col.classes ? submit.col.classes : 'col'"
             :style="submit.col && submit.col.styles ? submit.col.styles : ''"
@@ -105,7 +104,6 @@
                 {{ localform.submit.label }}
             </button>
         </div>
-
     </div>
 </template>
 
@@ -137,12 +135,13 @@ export default {
             let passed = this.validateForm()
             if (passed) {
                 let data = {}
-                if(this.localform && this.localform.fields){
+                if(this.localform.fields){
                     for (const [name, field] of Object.entries(this.localform.fields)) {
                         data[name] = field.value
                     }
                 }
                 this.$emit('submit', data)
+                this.buttonClicked('submit')
             }
         },
 
@@ -223,8 +222,14 @@ export default {
         updateValueByKey(result){
             this.localform.fields[result.key].value = result.value
 
+            let data = {}
+            for (const [name, field] of Object.entries(this.localform.fields)) {
+                data[name] = field.value
+            }
+            this.$emit('updated', data)
+
             if(this.validateField(result.key, this.localform.fields[result.key])){
-                this.$emit(`form_updated_${result.key}`, result.value)
+                this.$emit(`updated_${result.key}`, result.value)
             }
         }
     },
