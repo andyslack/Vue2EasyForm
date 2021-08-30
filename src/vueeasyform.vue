@@ -33,7 +33,7 @@
                         v-model="record.value"
                         :required="record.input.required ? record.input.required : false"
                         :disabled="record.disabled ? record.disabled : false"
-                        @change="updateValueByKey({key: key, value: record.value})"
+                        @keyup="updateValueByKey({key: key, value: record.value})"
                     />
                     </div>
 

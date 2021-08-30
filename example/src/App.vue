@@ -2,6 +2,7 @@
     <div id="app">
         <VueEasyForm :form="input" @submit="submit" @updated="updated" @updated_first_name="updated_first_name" />
         <pre>{{output}}</pre>
+        <pre>{{first_name_keyup}}</pre>
     </div>
 </template>
 
@@ -42,7 +43,8 @@ export default {
             submit: {
               label: 'Submit'
             }
-        }
+        },
+        first_name_keyup: ''
     }),
     methods: {
         submit(value){
@@ -52,7 +54,7 @@ export default {
             this.output = value
         },
         updated_first_name(first_name){
-          alert(first_name)
+          this.first_name_keyup = first_name
         }
     }
 };
