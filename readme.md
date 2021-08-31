@@ -6,6 +6,18 @@
 <a href="https://www.npmjs.com/package/@me_slack/vue2easyform"><img src="https://img.shields.io/npm/l/@me_slack/vue2easyform" alt="NPM"></a>
 </p>
 
+
+##Install
+
+```shell
+npm install @me_slack/vue2easyform
+```
+We use the Vuesax 4 framework to power the form, please ensure you have the next version installed.
+
+```shell
+npm install vuesax@next
+```
+
 ## Introduction
 
 

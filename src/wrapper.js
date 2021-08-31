@@ -1,16 +1,15 @@
 // Import vue component
 import component from './vueeasyform.vue';
-import { vsInput, vsButton, vsSelect, vsOption } from 'vuesax';
+import { vsInput, vsButton, vsSelect } from 'vuesax'
 
 // Declare install function executed by Vue.use()
 export function install(Vue) {
     if (install.installed) return;
     install.installed = true;
     Vue.component('VueEasyForm', component);
-    Vue.use('vsButton', vsButton);
-    Vue.use('vsSelect', vsSelect);
-    Vue.use('vsInput', vsInput);
-    Vue.use('vsOption', vsOption);
+    Vue.use(vsInput);
+    Vue.use(vsButton);
+    Vue.use(vsSelect);
 }
 
 // Create module definition for Vue.use()
