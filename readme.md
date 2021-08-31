@@ -20,38 +20,37 @@ Image (small video/gif)
 {
     fields: {
         first_name: {
-            label: 'First Name',
             description: 'This is where you add your first name',
-            placeholder: 'First Name',
+            
             input: {
                 type: 'text',
+               'label-placeholder': 'First Name',
             },
         },
     },
     submit: {
-        label: 'Submit'
+       label: 'Submit'
     }
 }
 ```
 ## Fields
-- label 'string'
-- description {text, location=['top' 'bottom']}
+- description: string
 - ['input', 'dropdown', 'checkbox', 'submit']: object, see below
 - required: {required: boolean, text: string}
 - disabled: boolean
 - success: boolean
 - error: boolean
-- value: <mixed> holds the current value of the field
+- error_message: string - if the field failed validation
 - loading: boolean
+- validation: {min: int, max: int}
+- value: <mixed> - holds the current value of the field
 
 ###input
-- type ['text', 'url', 'email']
-- min (number) - chars
-- max (number) - chars
-- icon {before: boolean, after: boolean, bx: 'string' - [boxicons](https://boxicons.com/) e.g. vuejs
-- placeholder 'string'
+https://vuesax.com/docs/components/Input.html#api
 
 ###dropdown (array of options)
+https://vuesax.com/docs/components/Select.html#api
+ - model: ['timezone']
  - options - Array of objects
    - value 
    - name
@@ -60,8 +59,10 @@ Image (small video/gif)
 
 
 ##Submit
-- text
-- 
+https://vuesax.com/docs/components/#api
+- label: string - the button text 
+
+
 ##classes
 
 ##styles
@@ -91,7 +92,7 @@ Output table
 You can run the example as follows:
 
 ```shell
-cd example && npm install && npm run serve
+cd examples && npm install && npm run serve
 ```
 
 Also available on [CodeSandbox.io](https://codesandbox.io/s/dazzling-mountain-lhhwu)

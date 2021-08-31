@@ -9,66 +9,57 @@
           >
 
                 <span v-if="field.loading">
-                    <Loading id="vef_loading" width="50"></Loading>
+                    <Loading width="50"></Loading>
                 </span>
                 <span v-else>
 
-                    <label
-                        v-if="field.label && field.label.text"
-                        id="vef_label"
-                    >{{ field.label.text }}
-                    </label>
-
-                    <label v-if="field.required && field.required.required"
-                           id="vef_required"
-                    > {{field.required.text}}
-                    </label>
-
-                     <div
-                         id="vef_description_top"
-                         v-if="field.description && field.description.location && field.description.location === 'top'"
-                     >
-                        {{ field.description.text }}
-                    </div>
-
                         <vs-input
-                            id="vef_input"
                             v-if="field.input"
+                            v-model="field.value"
                             :name="key"
-                        :placeholder="field.input.placeholder"
-                        :type="field.input.type"
-                        v-model="field.value"
+                            :placeholder="field.input.placeholder"
+                            :label-placeholder="field.input['label-placeholder']"
+                            :label="field.input.label"
+                            :type="field.input.type"
                             :state="field.error ? 'danger' : field.success ? 'success' : null "
-                        :required="field.required"
-                        :disabled="field.disabled"
+                            :required="field.required"
+                            :disabled="field.disabled"
                             :danger="field.error"
                             :success="field.success"
-                            :icon-before="field.input.icon ? field.input.icon.before ? field.input.icon.before : null : null"
-                            :icon-after="field.input.icon ? field.input.icon.after ? field.input.icon.after : null : null"
+                             :icon-after="field.input['icon-after']"
+                            :loading="field.input.loading"
                             @keyup="keyupValueByKey({key: key, value: field.value})"
                             @blur="updateValueByKey({key: key, value: field.value})"
                     >
                             <template #icon v-if="field.input.icon">
-                                <i :class="`bx bx-${field.input.icon.bx}`"></i>
+                                <i :class="`bx bx-${field.input.icon}`"></i>
                             </template>
                         </vs-input>
 
                        <vs-select
                            v-if="field.dropdown && !field.dropdown.model"
-                           id="vef_select"
                            v-model="field.value"
+                           :placeholder="field.dropdown.placeholder"
+                           :label-placeholder="field.dropdown['label-placeholder']"
+                           :label="field.dropdown.label"
                            :disabled="field.disabled"
-                           :required="field.required"
                            :multiple="field.dropdown.multiple"
-                           :danger="field.error"
-                           :success="field.success"
+                           :filter="field.dropdown.filter"
+                           :state="field.error ? 'danger' : field.success ? 'success' : null "
+                           :loading="field.dropdown.loading"
                            @changed="updateValueByKey"
                        >
-                                <option id="vef_select_option" :key="index" :value="item.value" v-for="(item,index) in field.dropdown.options" :disabled="item.disabled">{{item.name}}</option>
+                                <vs-option
+                                    v-for="item of field.dropdown.options"
+                                    :key="item.value"
+                                    :value="item.value"
+                                    :label="item.name">
+                                    {{item.name}}
+                                </vs-option>
+
                             </vs-select>
 
                             <FormModels
-                                id="vef_select_model"
                                 v-if="field.dropdown && field.dropdown.model"
                                 :record="field"
                                 :index="key"
@@ -77,10 +68,7 @@
                                 @changed="updateValueByKey"
                             ></FormModels>
 
-
-
                         <input type="checkbox"
-                               id="vef_checkbox"
                             v-if="field.checkbox"
                             v-model="field.value"
                             :disabled="field.disabled ?field.disabled : false"
@@ -89,25 +77,18 @@
 
                        <button
                            v-if="field.button"
-                           id="vef_button"
                            @click="buttonClicked(key)"
                            :disabled="field.disabled ?field.disabled : false"
                        >
                            {{field.button.label}}
                        </button>
 
-                    <div
-                        v-if="!field.error && field.description && field.description.location && field.description.location === 'bottom'"
-                        id="vef_description_bottom"
-                    >
-                        {{ field.description.text }}
+                     <div v-if="field.error" id="vef_error_message">
+                        {{ field.error_message }}
                     </div>
 
-                    <div
-                        v-if="field.error"
-                        id="vef_error_message"
-                    >
-                        {{ field.error_message }}
+                    <div v-else id="vef_description">
+                        {{ field.description }}
                     </div>
 
                 </span>
@@ -121,7 +102,7 @@
                 id="vef_submit_button"
                 @click="submit"
             >
-                {{ localform.submit.text }}
+                {{ localform.submit.label }}
             </vs-button>
         </div>
     </div>
@@ -175,32 +156,33 @@ export default {
 
             let validations = []
 
-            if(field.required && field.required.required){
+            if(field.required){
                 validations.push('required')
             }
 
-            if (field.input) {
 
-                if(field.input.type){
-                    switch(field.input.type){
-                        case 'text':
-                            validations.push('string')
-                            break
-                        case 'url':
-                            validations.push('url')
-                            break
-                        case 'email':
-                            validations.push('email')
-                            break
-                    }
+
+            if (field.input && field.input.type) {
+                switch (field.input.type) {
+                    case 'text':
+                        validations.push('string')
+                        break
+                    case 'url':
+                        validations.push('url')
+                        break
+                    case 'email':
+                        validations.push('email')
+                        break
+                }
+            }
+
+            if(field.validation){
+                if(field.validation.min){
+                    validations.push(`min:${field.validation.min}`)
                 }
 
-                if(field.input.min){
-                    validations.push(`min:${field.input.min}`)
-                }
-
-                if(field.input.max){
-                    validations.push(`min:${field.input.max}`)
+                if(field.validation.max){
+                    validations.push(`min:${field.validation.max}`)
                 }
             }
 

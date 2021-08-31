@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <VueEasyForm :form="input" @submit="submit" @updated="updated" @updated_first_name="updated_first_name" />
+        <VueEasyForm :form="contact_form" @submit="submit" @updated="updated" @updated_first_name="updated_first_name" />
         <pre>{{output}}</pre>
         <pre>{{first_name_keyup}}</pre>
     </div>
@@ -16,7 +16,7 @@ export default {
     },
     data: () => ({
         output: {},
-        input: {
+        contact_form: {
             fields: {
                 first_name: {
                     label: 'First Name',

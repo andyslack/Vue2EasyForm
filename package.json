@@ -33,7 +33,8 @@
     "src/**/*.vue"
   ],
   "peerDependencies": {
-    "vue": "^2.6.10"
+    "vue": "^2.6.10",
+    "vuesax": "^4.0.0-alpha.0"
   },
   "dependencies": {
     "validatorjs": "^3.22.1",
