@@ -23,18 +23,18 @@
     "@rollup/plugin-image": "^2.1.1",
     "@rollup/plugin-json": "^4.1.0",
     "@rollup/plugin-node-resolve": "^11.2.1",
-    "vue": "^2.6.10",
+    "vue": "^2.6.14",
     "vue-template-compiler": "^2.6.10",
     "rollup": "^2.56.3",
-    "rollup-plugin-vue": "^5.0.1"
+    "rollup-plugin-vue": "^5.0.1",
+    "vuesax": "^4.0.1-alpha.25"
   },
   "files": [
     "dist/*",
     "src/**/*.vue"
   ],
   "peerDependencies": {
-    "vue": "^2.6.10",
-    "vuesax": "^4.0.0-alpha.0"
+    "vue": "^2.6.10"
   },
   "dependencies": {
     "validatorjs": "^3.22.1",
