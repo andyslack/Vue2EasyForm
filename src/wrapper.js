@@ -1,7 +1,6 @@
 // Import vue component
 import component from './vueeasyform.vue';
-import { vsInput, vsButton, vsSelect } from 'vuesax'
-import 'boxicons'
+import { vsInput, vsButton, vsSelect, vsCheckbox } from 'vuesax'
 
 // Declare install function executed by Vue.use()
 export function install(Vue) {
@@ -11,6 +10,7 @@ export function install(Vue) {
     Vue.use(vsInput);
     Vue.use(vsButton);
     Vue.use(vsSelect);
+    Vue.use(vsCheckbox);
 }
 
 // Create module definition for Vue.use()

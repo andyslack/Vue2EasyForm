@@ -44,6 +44,11 @@ Image (small video/gif)
 }
 ```
 ## Fields
+| Object | Type  | Required  | Description | #id |
+|---|---|---|---|---|
+| `description`  | `string` |   |   |   |
+|   |   |   |   |   |
+|   |   |   |   |   |
 - description: string
 - ['input', 'dropdown', 'checkbox', 'submit']: object, see below
 - required: {required: boolean, text: string}
@@ -54,6 +59,8 @@ Image (small video/gif)
 - loading: boolean
 - validation: {min: int, max: int}
 - value: <mixed> - holds the current value of the field
+- pre: html - a hook to insert html immediately before the field
+- post: html a hook to insert html immediately after the field
 
 ###input
 https://vuesax.com/docs/components/Input.html#api
@@ -69,16 +76,18 @@ https://vuesax.com/docs/components/Select.html#api
    - disabled
  - multiple(boolean - default: false)
 
+###checkbox
+
+https://lusaxweb.github.io/vuesax/components/checkbox.html#change-icon
+
+- disabled (boolean)
+- color (defualts to primary)
+- icon (boxicon)
+
 
 ##Submit
 https://vuesax.com/docs/components/#api
-- label: string - the button text 
-
-
-##classes
-
-##styles
-
+- label: string - The text for the button
 
 Output table
 

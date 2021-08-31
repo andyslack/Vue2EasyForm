@@ -11,7 +11,15 @@
                 <span v-if="field.loading" :id="`vef_loading_${key}`">
                      <box-icon name='loader' animation='spin'></box-icon>
                 </span>
-                <span v-else>
+                <span
+                    :id="`vef_field_${key}`"
+                    v-else>
+
+                      <span
+                          v-if="field.input && field.pre"
+                          :id="`vef_input_pre_${key}`"
+                          :v-html="field.pre"
+                      ></span>
 
                         <vs-input
                             v-if="field.input"
@@ -37,20 +45,32 @@
                             </template>
                         </vs-input>
 
-                       <vs-select
-                           v-if="field.dropdown && !field.dropdown.model"
-                           v-model="field.value"
-                           :id="`vef_dropdown_${key}`"
-                           :placeholder="field.dropdown.placeholder"
-                           :label-placeholder="field.dropdown['label-placeholder']"
-                           :label="field.dropdown.label"
-                           :disabled="field.disabled"
-                           :multiple="field.dropdown.multiple"
-                           :filter="field.dropdown.filter"
-                           :state="field.error ? 'danger' : field.success ? 'success' : null "
-                           :loading="field.dropdown.loading"
-                           @changed="updateValueByKey"
-                       >
+                        <span
+                            v-if="field.input && field.post"
+                            :id="`vef_input_post_${key}`"
+                            :v-html="field.post"
+                        ></span>
+
+                      <span
+                          v-if="field.dropdown && field.pre"
+                          :id="`vef_dropdown_pre_${key}`"
+                          :v-html="field.pre"
+                      ></span>
+
+                        <vs-select
+                            v-if="field.dropdown && !field.dropdown.model"
+                            v-model="field.value"
+                            :id="`vef_dropdown_${key}`"
+                            :placeholder="field.dropdown.placeholder"
+                            :label-placeholder="field.dropdown['label-placeholder']"
+                            :label="field.dropdown.label"
+                            :disabled="field.disabled"
+                            :multiple="field.dropdown.multiple"
+                            :filter="field.dropdown.filter"
+                            :state="field.error ? 'danger' : field.success ? 'success' : null "
+                            :loading="field.dropdown.loading"
+                            @changed="updateValueByKey"
+                        >
                                 <vs-option
                                     v-for="item of field.dropdown.options"
                                     :key="item.value"
@@ -61,23 +81,49 @@
 
                             </vs-select>
 
-                            <FormModels
-                                v-if="field.dropdown && field.dropdown.model"
-                                :id="`vef_dropdown_${key}`"
-                                :record="field"
-                                :index="key"
-                                :danger="field.error"
-                                :success="field.success"
-                                @changed="updateValueByKey"
-                            ></FormModels>
+                         <FormModels
+                             v-if="field.dropdown && field.dropdown.model"
+                             :id="`vef_dropdown_${key}`"
+                             :record="field"
+                             :index="key"
+                             :danger="field.error"
+                             :success="field.success"
+                             @changed="updateValueByKey"
+                         ></FormModels>
 
-                        <input type="checkbox"
+                       <span
+                           v-if="field.dropdown && field.post"
+                           :id="`vef_dropdown_post_${key}`"
+                           :v-html="field.post"
+                       ></span>
+
+                        <span
+                            v-if="field.checkbox && field.pre"
+                            :id="`vef_checkbox_pre_${key}`"
+                            :v-html="field.pre"
+                        ></span>
+
+                        <vs-checkbox
                             v-if="field.checkbox"
                             v-model="field.value"
-                               :id="`vef_checkbox_${key}`"
-                            :disabled="field.disabled ?field.disabled : false"
+                            :id="`vef_checkbox_${key}`"
+                            :disabled="field.disabled ? field.disabled : null"
+                            :icon="field.checkbox.icon ? `bxs-${field.checkbox.icon}` : 'bxs-check-square'"
+                            icon-pack="bx"
                             @changed="updateValueByKey"
-                        >
+                        > </vs-checkbox>
+
+                     <span
+                         v-if="field.checkbox && field.post"
+                         :id="`vef_checkbox_post_${key}`"
+                         :v-html="field.post"
+                     ></span>
+
+                     <span
+                         v-if="field.button && field.post"
+                         :id="`vef_button_pre_${key}`"
+                         :v-html="field.pre"
+                     ></span>
 
                        <button
                            v-if="field.button"
@@ -87,6 +133,12 @@
                        >
                            {{field.button.label}}
                        </button>
+
+                     <span
+                         v-if="field.button && field.post"
+                         :id="`vef_button_post_${key}`"
+                         :v-html="field.post"
+                     ></span>
 
                      <div v-if="field.error" id="vef_error_message">
                         {{ field.error_message }}
@@ -142,8 +194,8 @@ export default {
             if (this.validateForm()) {
                 let data = {}
                 if(this.localform.fields){
-                    for (const [name, field] of Object.entries(this.localform.fields)) {
-                        data[name] = field.value
+                    for (const [key, field] of Object.entries(this.localform.fields)) {
+                        data[key] = field.value
                     }
                 }
                 this.$emit('submit', data)
@@ -236,7 +288,7 @@ export default {
             this.localform = form
             if(this.localform.fields){
                 //check if we have values passed in and if so, validate them
-                for(const [key, field] of this.localform.fields){
+                for (const [key, field] of Object.entries(this.localform.fields)) {
                     if(field.value){
                         this.validateField(key, field)
                     }
