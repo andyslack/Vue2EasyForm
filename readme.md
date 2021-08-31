@@ -10,13 +10,11 @@
 ##Install
 
 ```shell
-npm install @me_slack/vue2easyform
+npm install @me_slack/vue2easyform@latest
 ```
-We use the Vuesax 4 framework to power the form, please ensure you have the next version installed.
+We use the Vuesax 3 framework to power the form, please ensure you have this installed.
 
-```shell
-npm install vuesax@next
-```
+https://lusaxweb.github.io/vuesax/development/#quick-start-cdn
 
 ## Introduction
 
@@ -59,6 +57,8 @@ Image (small video/gif)
 
 ###input
 https://vuesax.com/docs/components/Input.html#api
+
+icon -> we use the https://boxicons.com/
 
 ###dropdown (array of options)
 https://vuesax.com/docs/components/Select.html#api

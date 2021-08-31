@@ -8,14 +8,15 @@
             id="vef_div"
           >
 
-                <span v-if="field.loading">
-                    <Loading width="50"></Loading>
+                <span v-if="field.loading" :id="`vef_loading_${key}`">
+                     <box-icon name='loader' animation='spin'></box-icon>
                 </span>
                 <span v-else>
 
                         <vs-input
                             v-if="field.input"
                             v-model="field.value"
+                            :id="`vef_input_${key}`"
                             :name="key"
                             :placeholder="field.input.placeholder"
                             :label-placeholder="field.input['label-placeholder']"
@@ -39,6 +40,7 @@
                        <vs-select
                            v-if="field.dropdown && !field.dropdown.model"
                            v-model="field.value"
+                           :id="`vef_dropdown_${key}`"
                            :placeholder="field.dropdown.placeholder"
                            :label-placeholder="field.dropdown['label-placeholder']"
                            :label="field.dropdown.label"
@@ -61,6 +63,7 @@
 
                             <FormModels
                                 v-if="field.dropdown && field.dropdown.model"
+                                :id="`vef_dropdown_${key}`"
                                 :record="field"
                                 :index="key"
                                 :danger="field.error"
@@ -71,12 +74,14 @@
                         <input type="checkbox"
                             v-if="field.checkbox"
                             v-model="field.value"
+                               :id="`vef_checkbox_${key}`"
                             :disabled="field.disabled ?field.disabled : false"
                             @changed="updateValueByKey"
                         >
 
                        <button
                            v-if="field.button"
+                           :id="`vef_button_${key}`"
                            @click="buttonClicked(key)"
                            :disabled="field.disabled ?field.disabled : false"
                        >
@@ -111,13 +116,11 @@
 
 <script>
 let Validator = require('validatorjs');
-import Loading from "./views/loading.vue";
 import FormModels from "./views/form_models.vue";
 
 export default {
     name: "VueEasyForm",
     components: {
-        Loading,
         FormModels
     },
     props: {
@@ -130,7 +133,7 @@ export default {
         localform: {}
     }),
     created: function () {
-        this.localform = {...this.form}
+        this.setupForm({...this.form})
     },
     methods: {
         submit() {
@@ -159,8 +162,6 @@ export default {
             if(field.required){
                 validations.push('required')
             }
-
-
 
             if (field.input && field.input.type) {
                 switch (field.input.type) {
@@ -229,11 +230,24 @@ export default {
             if(this.validateField(result.key, this.localform.fields[result.key])){
                 this.$emit(`updated_${result.key}`, result.value)
             }
+        },
+
+        setupForm(form){
+            this.localform = form
+            if(this.localform.fields){
+                //check if we have values passed in and if so, validate them
+                for(const [key, field] of this.localform.fields){
+                    if(field.value){
+                        this.validateField(key, field)
+                    }
+                }
+            }
+
         }
     },
     watch: {
         form(newForm) {
-            this.localform = {...newForm}
+            this.setupForm({...newForm})
         },
     },
 };

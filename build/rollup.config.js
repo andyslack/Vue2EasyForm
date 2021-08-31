@@ -32,7 +32,7 @@ export default {
             compileTemplate: true, // Explicitly convert template to render function
         }),
        buble({
-           presets: ['validatorjs', 'vuesax'],
+           presets: ['validatorjs'],
            transforms: {
                forOf: false
            },
