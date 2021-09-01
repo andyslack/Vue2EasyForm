@@ -75,6 +75,15 @@ https://vuesax.com/docs/components/Select.html#api
    - name
    - disabled
  - multiple(boolean - default: false)
+ - module (see below)
+
+###dropdown models
+
+Are prebuild dropdowns 
+
+- timezones
+- countires (with flags)
+- address lookup (input not module) - bring modules out of dropdown into stand alone.
 
 ###checkbox
 

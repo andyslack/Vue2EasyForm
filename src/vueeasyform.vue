@@ -8,20 +8,20 @@
             id="vef_div"
           >
 
-                <span v-if="field.loading" :id="`vef_loading_${key}`">
+                <div v-if="field.loading" :id="`vef_loading_${key}`">
                      <box-icon name='loader' animation='spin'></box-icon>
-                </span>
-                <span
+                </div>
+                <div
                     :id="`vef_field_${key}`"
                     v-else>
 
                       <span
-                          v-if="field.input && field.pre"
-                          :id="`vef_input_pre_${key}`"
-                          :v-html="field.pre"
+                          v-if="field.input"
+                          :id="`vef_field_pre_${key}`"
+                          v-html="field.pre"
                       ></span>
 
-                        <vs-input
+                    <vs-input
                             v-if="field.input"
                             v-model="field.value"
                             :id="`vef_input_${key}`"
@@ -45,19 +45,7 @@
                             </template>
                         </vs-input>
 
-                        <span
-                            v-if="field.input && field.post"
-                            :id="`vef_input_post_${key}`"
-                            :v-html="field.post"
-                        ></span>
-
-                      <span
-                          v-if="field.dropdown && field.pre"
-                          :id="`vef_dropdown_pre_${key}`"
-                          :v-html="field.pre"
-                      ></span>
-
-                        <vs-select
+                    <vs-select
                             v-if="field.dropdown && !field.dropdown.model"
                             v-model="field.value"
                             :id="`vef_dropdown_${key}`"
@@ -81,7 +69,7 @@
 
                             </vs-select>
 
-                         <FormModels
+                    <FormModels
                              v-if="field.dropdown && field.dropdown.model"
                              :id="`vef_dropdown_${key}`"
                              :record="field"
@@ -91,41 +79,24 @@
                              @changed="updateValueByKey"
                          ></FormModels>
 
-                       <span
-                           v-if="field.dropdown && field.post"
-                           :id="`vef_dropdown_post_${key}`"
-                           :v-html="field.post"
-                       ></span>
-
-                        <span
-                            v-if="field.checkbox && field.pre"
-                            :id="`vef_checkbox_pre_${key}`"
-                            :v-html="field.pre"
-                        ></span>
-
-                        <vs-checkbox
+                    <vs-checkbox
                             v-if="field.checkbox"
                             v-model="field.value"
                             :id="`vef_checkbox_${key}`"
                             :disabled="field.disabled ? field.disabled : null"
-                            :icon="field.checkbox.icon ? `bxs-${field.checkbox.icon}` : 'bxs-check-square'"
+                            :color="field.checkbox.color"
+                            :icon="field.checkbox.icon ? field.checkbox.icon : 'bx-check'"
                             icon-pack="bx"
                             @changed="updateValueByKey"
-                        > </vs-checkbox>
+                        >
+                        <span
+                        v-if="field.checkbox.label"
+                        :id="`vef_checkbox_label_${key}`"
+                        v-html="field.checkbox.label"
+                    ></span>
+                    </vs-checkbox>
 
-                     <span
-                         v-if="field.checkbox && field.post"
-                         :id="`vef_checkbox_post_${key}`"
-                         :v-html="field.post"
-                     ></span>
-
-                     <span
-                         v-if="field.button && field.post"
-                         :id="`vef_button_pre_${key}`"
-                         :v-html="field.pre"
-                     ></span>
-
-                       <button
+                    <button
                            v-if="field.button"
                            :id="`vef_button_${key}`"
                            @click="buttonClicked(key)"
@@ -135,9 +106,9 @@
                        </button>
 
                      <span
-                         v-if="field.button && field.post"
-                         :id="`vef_button_post_${key}`"
-                         :v-html="field.post"
+                         v-if="field.post"
+                         :id="`vef_field_post_${key}`"
+                         v-html="field.post"
                      ></span>
 
                      <div v-if="field.error" id="vef_error_message">
@@ -148,7 +119,7 @@
                         {{ field.description }}
                     </div>
 
-                </span>
+                </div>
 
             </div>
         </div>
