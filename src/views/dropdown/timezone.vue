@@ -2,8 +2,7 @@
         <select
             v-model="selected"
             @change="onChange"
-            :class="classes ? classes : ''"
-            :style="styles ? styles : ''"
+            :id="`vef_module_timezone_dropdown`"
         >
             <option :key="index" :value="zone.tzCode" v-for="(zone, index) in timezones">{{zone.name}}</option>
         </select>
@@ -16,12 +15,6 @@ export default {
 name: "TimezoneDropdown",
     props:{
         timezone: {
-            type: String,
-        },
-        classes: {
-            type: String,
-        },
-        styles: {
             type: String,
         },
     },

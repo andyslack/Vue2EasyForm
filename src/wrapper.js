@@ -1,6 +1,7 @@
 // Import vue component
+import './assets/style.css';
 import component from './vueeasyform.vue';
-import { vsInput, vsButton, vsSelect, vsCheckbox } from 'vuesax'
+import { vsInput, vsButton, vsSelect, vsCheckbox, vsTextarea, vsSelectItem } from 'vuesax'
 
 // Declare install function executed by Vue.use()
 export function install(Vue) {
@@ -10,7 +11,9 @@ export function install(Vue) {
     Vue.use(vsInput);
     Vue.use(vsButton);
     Vue.use(vsSelect);
+    Vue.use(vsSelectItem);
     Vue.use(vsCheckbox);
+    Vue.use(vsTextarea);
 }
 
 // Create module definition for Vue.use()

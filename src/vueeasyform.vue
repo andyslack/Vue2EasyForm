@@ -5,7 +5,7 @@
             <div
             v-for="[key, field] of Object.entries(localform.fields)"
             :key="key"
-            id="vef_div"
+            id="vef_field_div"
           >
 
                 <div v-if="field.loading" :id="`vef_loading_${key}`">
@@ -45,8 +45,18 @@
                             </template>
                         </vs-input>
 
+                    <vs-textarea
+                        v-if="field.textarea"
+                        v-model="field.value"
+                        :id="`vef_textarea_${key}`"
+                        :label="field.textarea.label"
+                        :counter="field.textarea.counter"
+                        :width="field.textarea.width"
+                        :height="field.textarea.height"
+                    />
+
                     <vs-select
-                            v-if="field.dropdown && !field.dropdown.model"
+                            v-if="field.dropdown"
                             v-model="field.value"
                             :id="`vef_dropdown_${key}`"
                             :placeholder="field.dropdown.placeholder"
@@ -59,25 +69,24 @@
                             :loading="field.dropdown.loading"
                             @changed="updateValueByKey"
                         >
-                                <vs-option
+                                <vs-select-item
                                     v-for="item of field.dropdown.options"
                                     :key="item.value"
                                     :value="item.value"
-                                    :label="item.name">
-                                    {{item.name}}
-                                </vs-option>
+                                    :text="item.name">
+                                </vs-select-item>
 
                             </vs-select>
 
-                    <FormModels
-                             v-if="field.dropdown && field.dropdown.model"
+                    <FormModule
+                             v-if="field.model"
                              :id="`vef_dropdown_${key}`"
                              :record="field"
                              :index="key"
                              :danger="field.error"
                              :success="field.success"
                              @changed="updateValueByKey"
-                         ></FormModels>
+                         ></FormModule>
 
                     <vs-checkbox
                             v-if="field.checkbox"
@@ -139,12 +148,12 @@
 
 <script>
 let Validator = require('validatorjs');
-import FormModels from "./views/form_models.vue";
+import FormModule from "./views/_form_module.vue";
 
 export default {
     name: "VueEasyForm",
     components: {
-        FormModels
+        FormModule
     },
     props: {
         form: {
@@ -203,6 +212,10 @@ export default {
                         validations.push('email')
                         break
                 }
+            }
+
+            if (field.textarea) {
+                validations.push('string')
             }
 
             if(field.validation){

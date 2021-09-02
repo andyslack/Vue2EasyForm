@@ -50,7 +50,7 @@ Image (small video/gif)
 |   |   |   |   |   |
 |   |   |   |   |   |
 - description: string
-- ['input', 'dropdown', 'checkbox', 'submit']: object, see below
+- ['input', 'dropdown', 'checkbox', 'module', 'submit']: object, see below
 - required: {required: boolean, text: string}
 - disabled: boolean
 - success: boolean
@@ -67,23 +67,32 @@ https://vuesax.com/docs/components/Input.html#api
 
 icon -> we use the https://boxicons.com/
 
+####Example:
+```json5
+
+```
+
+###Text Area
+https://lusaxweb.github.io/vuesax/components/textarea.html
+
+
+####Example:
+```json5
+
+```
+
 ###dropdown (array of options)
 https://vuesax.com/docs/components/Select.html#api
- - model: ['timezone']
  - options - Array of objects
    - value 
    - name
    - disabled
  - multiple(boolean - default: false)
- - module (see below)
 
-###dropdown models
+####Example:
+```json5
 
-Are prebuild dropdowns 
-
-- timezones
-- countires (with flags)
-- address lookup (input not module) - bring modules out of dropdown into stand alone.
+```
 
 ###checkbox
 
@@ -93,10 +102,39 @@ https://lusaxweb.github.io/vuesax/components/checkbox.html#change-icon
 - color (defualts to primary)
 - icon (boxicon)
 
+####Example:
+```json5
+
+```
+
+###Module
+
+Modules are pre-build form options which you can reuse by just specifying the name:
+
+Options are 
+
+```todo/test```
+- countires (with flags)
+- address lookup (input not module) - bring modules out of dropdown into stand alone.
+- `timezone_dropdown` - needs fixing/validating
+- `markdown`
+
+
+
+####Example:
+```json5
+
+```
+
 
 ##Submit
 https://vuesax.com/docs/components/#api
 - label: string - The text for the button
+
+####Example:
+```json5
+
+```
 
 Output table
 
@@ -126,3 +164,7 @@ cd examples && npm install && npm run serve
 ```
 
 Also available on [CodeSandbox.io](https://codesandbox.io/s/dazzling-mountain-lhhwu)
+
+##Shell Script
+
+```todo```
