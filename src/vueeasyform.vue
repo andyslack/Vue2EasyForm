@@ -90,10 +90,10 @@
                             @changed="updateValueByKey"
                         >
                         <span
-                        v-if="field.checkbox.label"
-                        :id="`vef_checkbox_label_${key}`"
-                        v-html="field.checkbox.label"
-                    ></span>
+                            v-if="field.checkbox.label"
+                            :id="`vef_checkbox_label_${key}`"
+                            v-html="field.checkbox.label"
+                        ></span>
                     </vs-checkbox>
 
                     <button
@@ -175,6 +175,11 @@ export default {
 
         buttonClicked(key){
             this.$emit('clicked', key)
+        },
+
+        initClick(key){
+            alert('VEF->initClick')
+            this.$emit('initClick', key)
         },
 
         validateField(key, field){
