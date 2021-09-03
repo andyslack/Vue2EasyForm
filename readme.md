@@ -105,8 +105,9 @@ This is the `key` you will get back in any [events](#events). For example:
 
 You can pass the following values:
 
-| Property         | Type      | Required | Description
-| `<mixed>`        | `object`  |  `true`  | See below for a list of available field types.| `vef_field_${key}` |
+| Property         | Type      | Required | Description | Div #id |
+| ------------------ | ----------- | ---------- | --------------------------------------------------------------------------------- | ---------------------- |
+| `<mixed>`        | `object`  |  `true`  | We currently support the following fields: <br /><br /> [input](#input), [textarea](#textarea), [dropdown](#dropdown), [checkbox](#checkbox), [button](#button), [module](#module) |  `vef_field_${key}` |
 | `value`          | `<mixed>` | `true`   | The property which holds the user input.                                          |                      |
 | `loading`        | `boolean` |          | Show a loading spinner in place of the field.<br /> <br /> Helpful if you are populating from an API                                                        | `vef_loading_${key}` |
 | `description`    | `string`  |      | Show the user a message below the field.                                       |       `vef_description`               |
@@ -117,22 +118,22 @@ You can pass the following values:
 | `error_message`| `string`       |          | The error message | `vef_error_message` |
 
 
-###input
+### input
 
 An input field with the Div #id `vef_input_${key}`
 
-| Property | Type | Required | Description | Div #id |
-| ---------- | ------ | ---------- | ------------- | --------- |
-| `type`      | `string`  |   `true`       | Currently supports `text` `email` `url` |         |
-| `label`      | `string`  |          |             |         |
-| ` placeholder`      | ` string`  |          |             |         |
-| `label-placeholder	`      | `string`  |          |             |         |
+| Property | Type | Required | Description |
+| ---------- | ------ | ---------- | ------------- | 
+| `type`      | `string`  |   `true`       | Currently supports `text` `email` `url` |         
+| `label`      | `string`  |          |             |         
+| ` placeholder`      | ` string`  |          |             |         
+| `label-placeholder	`      | `string`  |          |             |         
 | `i`      | `object`  |          | [See Icon](#icon)     |         |
-| `i_success`      | `object `  |          | [See Icon](#icon),  defaults to `bx bx-check` |         |
-| `i_error`      | ` object`  |          |   [See Icon](#icon),  defaults to `bx bx-error`    |         |
+| `i_success`      | `object `  |          | [See Icon](#icon),  defaults to `bx bx-check` |         
+| `i_error`      | ` object`  |          |   [See Icon](#icon),  defaults to `bx bx-error`    |         
 
 
-####Example:
+#### Example:
 
 ```json5
 {
@@ -145,7 +146,7 @@ An input field with the Div #id `vef_input_${key}`
 }
 ```
 
-###Text Area
+### textarea
 https://lusaxweb.github.io/vuesax/components/textarea.html
 
 
@@ -160,13 +161,13 @@ https://lusaxweb.github.io/vuesax/components/textarea.html
 | ` `      | ` `  |          |             |         |
 | ` `      | ` `  |          |             |         |
 
-####Example:
+#### Example:
 
 ```json5
 
 ```
 
-###dropdown (array of options)
+### dropdown (array of options)
 https://vuesax.com/docs/components/Select.html#api
 
 - options - Array of objects
@@ -187,13 +188,13 @@ https://vuesax.com/docs/components/Select.html#api
 | ` `      | ` `  |          |             |         |
 | ` `      | ` `  |          |             |         |
 
-####Example:
+#### Example:
 
 ```json5
 
 ```
 
-###checkbox
+### checkbox
 
 
 | Property | Type | Required | Description | Div #id |
@@ -213,7 +214,7 @@ https://lusaxweb.github.io/vuesax/components/checkbox.html#change-icon
 - color (defualts to primary)
 - i (-pack (string defualts to bx) icon (string - the actual class eg. bx bxs-heart defualts to bx-check))
 
-####Example:
+#### Example:
 
 ```json5
 
@@ -236,7 +237,7 @@ https://lusaxweb.github.io/vuesax/components/checkbox.html#change-icon
 - label
 - i (-before (boolean) - after (boolean) - icon (string - the actual class eg. bx bxs-heart))
 
-###Module
+### module
 
 Modules are pre-build form options which you can reuse by just specifying the name:
 
@@ -262,13 +263,13 @@ Options are
 - `timezone_dropdown` - needs fixing/validating
 - `markdown`
 
-####Example:
+#### Example:
 
 ```json5
 
 ```
 
-##Submit
+## submit
 
 
 | Property | Type | Required | Description | Div #id |
@@ -285,7 +286,7 @@ Options are
 - label: string - The text for the button
 - i (-before (boolean) - after (boolean) - icon (string - the actual class eg. bx bxs-heart))
 
-####Example:
+#### Example:
 
 ```json5
 
