@@ -10,7 +10,7 @@
 ##Install
 
 ```shell
-npm install --save @me_slack/vue2easyform@latest vuesax@^3 boxicons@^2.0.9
+npm install --save @me_slack/vue2easyform@latest vuesax@^3
 ```
 
 ```javascript
@@ -18,7 +18,6 @@ import Vue from 'vue'
 import Vuesax from 'vuesax'
 
 import 'vuesax/dist/vuesax.css'
-import 'boxicons'
 ```
 
 ```html

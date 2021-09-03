@@ -105,7 +105,7 @@
                         ></span>
                     </vs-checkbox>
 
-                    <button
+                    <vs-button
                            v-if="field.button"
                            :id="`vef_button_${key}`"
                            @click="buttonClicked(key)"
@@ -114,7 +114,7 @@
                         <i v-if="record.button.i && record.button.i.before" :class="record.button.i.icon" :id="`vef_button_icon_before_${key}`"></i>
                            {{field.button.label}}
                         <i v-if="record.button.i && record.button.i.after" :class="record.button.i.icon" :id="`vef_button_icon_after_${key}`"></i>
-                    </button>
+                    </vs-button>
 
                      <span
                          v-if="field.post"
