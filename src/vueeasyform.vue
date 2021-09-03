@@ -33,6 +33,7 @@
                             :val-icon-success="field.input.i_success ? field.input.i_success.icon ? field.input.i_success.icon : 'bx-check' : 'bx-check'"
                             :icon="field.input.i ? field.input.i.icon ? field.input.i.icon : null : null"
                             :icon-pack="field.input.i ? field.input.i.pack ? field.input.i.pack : 'bx' : 'bx'"
+                            :val-icon-pack="field.input.i_error ? field.input.i.i_error.pack ? field.input.i.i_error.pack : field.input.i_success ? field.input.i_success.pack : 'bx' : 'bx'"
                             :icon-after="field.input.i ? field.input.i.after ? field.input.i.after : null : null"
                             @keyup="keyupValueByKey({key: key, value: field.value})"
                             @blur="updateValueByKey({key: key, value: field.value})"
