@@ -28,15 +28,16 @@
                             :required="field.required"
                             :disabled="field.disabled"
                             :danger="field.error"
+                            :val-icon-danger="field.input.i_error ? field.input.i_error.icon ? field.input.i_error.icon : 'bx-error' : 'bx-error'"
                             :success="field.success"
-                             :icon-after="field.input['icon-after']"
+                            :val-icon-success="field.input.i_success ? field.input.i_success.icon ? field.input.i_success.icon : 'bx-check' : 'bx-check'"
+                            :icon="field.input.i ? field.input.i.icon ? field.input.i.icon : null : null"
+                            :icon-pack="field.input.i ? field.input.i.pack ? field.input.i.pack : null : 'bx'"
+                            :icon-after="field.input.i ? field.input.i.after ? field.input.i.after : null : null"
                             :loading="field.input.loading"
                             @keyup="keyupValueByKey({key: key, value: field.value})"
                             @blur="updateValueByKey({key: key, value: field.value})"
                     >
-                            <template #icon v-if="field.input.icon">
-                                <i :class="field.input.icon"></i>
-                            </template>
                         </vs-input>
 
                     <vs-textarea

@@ -17,7 +17,7 @@ On submit it will validate the inputs and return [@error](#@error) or if success
 ## Install
 
 ```shell
-npm install --save @me_slack/vue2easyform@latest vuesax@^3
+npm install --save @me_slack/vue2easyform@latest vuesax@^3 @boxicons@^2
 ```
 
 ```javascript
@@ -25,15 +25,20 @@ import Vue from 'vue'
 import Vuesax from 'vuesax'
 
 import 'vuesax/dist/vuesax.css'
+import 'boxicons'
 ```
 
 ```html
 <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css">
 ```
 
-## Dependencies
+## Required Dependencies
 
-- We require the [Vuesax 3 framework](https://lusaxweb.github.io/vuesax/development/#quick-start-cdn)
+- We require the [Vuesax 3 framework](https://lusaxweb.github.io/vuesax/development/#quick-start-cdn).
+
+## Optional Dependencies
+
+- We recommend [Boxicons](https://boxicons.com/) and use it as fallbacks in places.
 
 ## Usage
 
@@ -73,7 +78,6 @@ This is made up as follows:
 - validation: {min: int, max: int}
 - value: <mixed> - holds the current value of the field
 
-
 | Property         | Type      | Required | Description                                                                                                                                                 | Div #id              |
 | ------------------ | ----------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
 | [fields](#fields) | `object`  | `true`   | An object holding a number of field objects.<br /> <br /> Options include: `input`, `textarea`, `dropdown`,  <br /> `checkbox`, `module`, `button`, `submit` | `vef_fields`         |
@@ -91,7 +95,7 @@ fields:{
 }
 ```
 
-This is the `key` you will get back in any [events](#events). For example: 
+This is the `key` you will get back in any [events](#events). For example:
 
 ```javascript
 {
@@ -102,7 +106,7 @@ This is the `key` you will get back in any [events](#events). For example:
 You can pass the following values:
 
 | Property         | Type      | Required | Description
-| `<mixed>`        | `object`  |  `true`  | See below for a list of available field types.| See below | 
+| `<mixed>`        | `object`  |  `true`  | See below for a list of available field types.| `vef_field_${key}` |
 | `value`          | `<mixed>` | `true`   | The property which holds the user input.                                          |                      |
 | `loading`        | `boolean` |          | Show a loading spinner in place of the field.<br /> <br /> Helpful if you are populating from an API                                                        | `vef_loading_${key}` |
 | `description`    | `string`  |      | Show the user a message below the field.                                       |       `vef_description`               |
@@ -110,30 +114,35 @@ You can pass the following values:
 | `disabled` | `boolean`       |          |   If the field should be disabled                                                                                                                                                          |                      |
 | `success`  | `boolean`       |          |  If the field has been successfully validated   |                      |
 | `error` | `boolean`       |          |   If the field has failed validation    |                      |
-| `error_message`| `string`       |          | The error message | `vef_error_message` | 
+| `error_message`| `string`       |          | The error message | `vef_error_message` |
 
 
 ###input
 
+An input field with the Div #id `vef_input_${key}`
+
 | Property | Type | Required | Description | Div #id |
 | ---------- | ------ | ---------- | ------------- | --------- |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
+| `type`      | `string`  |   `true`       | Currently supports `text` `email` `url` |         |
+| `label`      | `string`  |          |             |         |
+| ` placeholder`      | ` string`  |          |             |         |
+| `label-placeholder	`      | `string`  |          |             |         |
+| `i`      | `object`  |          | [See Icon](#icon)     |         |
+| `i_success`      | `object `  |          | [See Icon](#icon),  defaults to `bx bx-check` |         |
+| `i_error`      | ` object`  |          |   [See Icon](#icon),  defaults to `bx bx-error`    |         |
 
-https://vuesax.com/docs/components/Input.html#api
-
-- icon (string - the actual class eg. bx bxs-heart))
 
 ####Example:
 
 ```json5
-
+{
+    email: {
+        type: 'email',
+        label: 'Email Address',
+        value: 'me@me.com',
+        placeholder: 'jon.doe@email.com',
+    }
+}
 ```
 
 ###Text Area
@@ -288,7 +297,12 @@ The following are reused elements
 
 ### Icons
 
+after - input, button, submit,
+before - button, submit
+icon: e.g. bxs-heart
+pack: e.g. bx
 
+- i (-before (boolean) - after (boolean) - icon (string - the actual class eg. bx bxs-heart))
 
 ## Events
 
