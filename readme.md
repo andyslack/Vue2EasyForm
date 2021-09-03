@@ -33,8 +33,7 @@ import 'vuesax/dist/vuesax.css'
 
 ## Dependencies
 
-- We use the [Vuesax 3 framework](https://lusaxweb.github.io/vuesax/development/#quick-start-cdn) to power the form
-- We use [boxicons](https://boxicons.com/usage) for rendering some of the modules
+- We require the [Vuesax 3 framework](https://lusaxweb.github.io/vuesax/development/#quick-start-cdn)
 
 ## Usage
 
@@ -54,7 +53,7 @@ data: () => ({
             }
         },
         submit: {
-             label: 'Send Email'
+            label: 'Send Email'
         }
     },
 })
@@ -70,9 +69,6 @@ The only prop you need is `form` this is the JSON object which builds out the fo
 
 This is made up as follows:
 
-- disabled: boolean
-- success: boolean
-- error: boolean
 - error_message: string - if the field failed validation
 - validation: {min: int, max: int}
 - value: <mixed> - holds the current value of the field
@@ -80,22 +76,44 @@ This is made up as follows:
 
 | Property         | Type      | Required | Description                                                                                                                                                 | Div #id              |
 | ------------------ | ----------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
-| `value`          | `<mixed>` | `true`   | The property which holds the user input.                                                                                                                    |                      |
-| [Field](#fields) | `object`  | `true`   | An object holding a number of field objects.<br /> <br /> Options include: `input`, `textarea`, `dropdown`,  <br /> `checkbox`, `module`, `button`, `submit` | `vef_fields`         |
-| `loading`        | `boolean` |          | Show a loading spinner in place of the field.<br /> <br /> Helpful if you are populating from an API                                                        | `vef_loading_${key}` |
-| `description` | `string`       |      | Show the user a message below the field.                                                                                                          |       `vef_description`               |
-| `required `              | `boolean`       |          |  If this a required field                                                                                                                                                       |                      |
-| ` `              | ` `       |          |                                                                                                                                                             |                      |
-| ` `              | ` `       |          |                                                                                                                                                             |                      |
-| ` `              | ` `       |          |                                                                                                                                                             |                      |
-| ` `              | ` `       |          |                                                                                                                                                             |                      |
-| ` `              | ` `       |          |                                                                                                                                                             |                      |
-| ` `              | ` `       |          |                                                                                                                                                             |                      |
+| [fields](#fields) | `object`  | `true`   | An object holding a number of field objects.<br /> <br /> Options include: `input`, `textarea`, `dropdown`,  <br /> `checkbox`, `module`, `button`, `submit` | `vef_fields`         |
+| [submit](#submit)  | `object` |         | If you wish to show a submit button which validates <br /> the inputs and returns the [@error](#@error) or <br /> the [@submit](@submit) {key:value} object.                                                                                                                                                      |                      |
 
 ## Fields
 
-###input
+Include your fields name as the key and the following data as the object, for example:
 
+```javascript
+fields:{
+    email: {
+        value: 'me@me.com'
+    }
+}
+```
+
+This is the `key` you will get back in any [events](#events). For example: 
+
+```javascript
+{
+    email: 'me@me.com'
+}
+```
+
+You can pass the following values:
+
+| Property         | Type      | Required | Description
+| `<mixed>`        | `object`  |  `true`  | See below for a list of available field types.| See below | 
+| `value`          | `<mixed>` | `true`   | The property which holds the user input.                                          |                      |
+| `loading`        | `boolean` |          | Show a loading spinner in place of the field.<br /> <br /> Helpful if you are populating from an API                                                        | `vef_loading_${key}` |
+| `description`    | `string`  |      | Show the user a message below the field.                                       |       `vef_description`               |
+| `required ` | `boolean`       |          |  If this a required field                                                                                                                                                       |                      |
+| `disabled` | `boolean`       |          |   If the field should be disabled                                                                                                                                                          |                      |
+| `success`  | `boolean`       |          |  If the field has been successfully validated   |                      |
+| `error` | `boolean`       |          |   If the field has failed validation    |                      |
+| `error_message`| `string`       |          | The error message | `vef_error_message` | 
+
+
+###input
 
 | Property | Type | Required | Description | Div #id |
 | ---------- | ------ | ---------- | ------------- | --------- |
@@ -143,9 +161,9 @@ https://lusaxweb.github.io/vuesax/components/textarea.html
 https://vuesax.com/docs/components/Select.html#api
 
 - options - Array of objects
-  - value
-  - name
-  - disabled
+    - value
+    - name
+    - disabled
 - multiple(boolean - default: false)
 
 
@@ -242,7 +260,6 @@ Options are
 ```
 
 ##Submit
-https://vuesax.com/docs/components/#api
 
 
 | Property | Type | Required | Description | Div #id |
@@ -264,6 +281,14 @@ https://vuesax.com/docs/components/#api
 ```json5
 
 ```
+
+## Shared
+
+The following are reused elements
+
+### Icons
+
+
 
 ## Events
 
