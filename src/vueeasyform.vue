@@ -1,6 +1,6 @@
 <template>
     <!--VueEasyForm Start-->
-    <div id="vef_container">
+    <div :id="`vef_form_${localform.name}`">
         <div v-if="localform.fields" id="vef_fields">
             <div
             v-for="[key, field] of Object.entries(localform.fields)"

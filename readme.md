@@ -48,6 +48,7 @@ import VueEasyForm from "@me_slack/vue2easyform"
 
 data: () => ({
     contact_form: {
+        name: 'contact_form',
         fields:{
             email: {
                 value: '',
@@ -77,6 +78,7 @@ This is made up as follows:
 
 | Property         | Type      | Required | Description                                                                                                                                                 | Div #id              |
 | ------------------ | ----------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| name | `string`  | `true`   | Used to help differentiate between multiple forms on the same page | `vef_form_${name}`   |
 | [fields](#fields) | `object`  | `true`   | An object holding a number of field objects.<br /> <br /> Options include: `input`, `textarea`, `dropdown`,  <br /> `checkbox`, `module`, `button`, `submit` | `vef_fields`         |
 | [submit](#submit)  | `object` | | If you wish to show a submit button which validates <br /> the inputs and returns the [@error](#@error) or  the [@submit](#@submit) <br /> `{key:value}` object.                                                                                                                                                      |                      |
 | [validation](#validation)  | `object` | | Pass additional validation params, see [validation](#validation)                                                                                                                                                   |                      |
