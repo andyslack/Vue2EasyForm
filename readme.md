@@ -261,7 +261,7 @@ The following are reused elements
 We are using [ValidatorJS](https://www.npmjs.com/package/validatorjs) for validation. 
 
 | Property | Type | Description |
-| ---------- | ------ | ---------- | ------------- | 
+| ---------- | ------ | ---------- |
 | `min`      | `number`  |  Validate that an attribute is at least a given size.  |  
 | `max`      | `number`  |  Validate that an attribute is no greater than a given size.  |
 
@@ -270,7 +270,7 @@ We are using [ValidatorJS](https://www.npmjs.com/package/validatorjs) for valida
 ### Icons
 
 | Property | Type | Description |
-| ---------- | ------ | ---------- | ------------- |
+| ---------- | ------ | ---------- | 
 | `icon`      | `string`  |  The icon you wish to use, e.g. `bxs-heart`   |  
 | `pack`      | `string`  |  The icon-pack you have installed e.g. `bx`  |
 | `after`      | `string`  |  Puts your icon after the element `input` `button` `submit` |
