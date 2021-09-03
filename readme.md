@@ -74,14 +74,11 @@ The only prop you need is `form` this is the JSON object which builds out the fo
 
 This is made up as follows:
 
-- error_message: string - if the field failed validation
-- validation: {min: int, max: int}
-- value: <mixed> - holds the current value of the field
-
 | Property         | Type      | Required | Description                                                                                                                                                 | Div #id              |
 | ------------------ | ----------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
 | [fields](#fields) | `object`  | `true`   | An object holding a number of field objects.<br /> <br /> Options include: `input`, `textarea`, `dropdown`,  <br /> `checkbox`, `module`, `button`, `submit` | `vef_fields`         |
-| [submit](#submit)  | `object` |         | If you wish to show a submit button which validates <br /> the inputs and returns the [@error](#@error) or <br /> the [@submit](@submit) {key:value} object.                                                                                                                                                      |                      |
+| [submit](#submit)  | `object` | | If you wish to show a submit button which validates <br /> the inputs and returns the [@error](#@error) or <br /> the [@submit](@submit) {key:value} object.                                                                                                                                                      |                      |
+| [validation](#validation)  | `object` | | Pass additional validation params, see [validation](#validation)                                                                                                                                                   |                      |
 
 ## Fields
 
@@ -118,7 +115,7 @@ You can pass the following values:
 | `error_message`| `string`       |          | The error message | `vef_error_message` |
 
 
-### input
+### Input
 
 An input field with the Div #id `vef_input_${key}`
 
@@ -146,7 +143,7 @@ An input field with the Div #id `vef_input_${key}`
 }
 ```
 
-### textarea
+### Textarea
 https://lusaxweb.github.io/vuesax/components/textarea.html
 
 
@@ -167,7 +164,7 @@ https://lusaxweb.github.io/vuesax/components/textarea.html
 
 ```
 
-### dropdown (array of options)
+### Dropdown (array of options)
 https://vuesax.com/docs/components/Select.html#api
 
 - options - Array of objects
@@ -194,7 +191,7 @@ https://vuesax.com/docs/components/Select.html#api
 
 ```
 
-### checkbox
+### Checkbox
 
 
 | Property | Type | Required | Description | Div #id |
@@ -220,7 +217,7 @@ https://lusaxweb.github.io/vuesax/components/checkbox.html#change-icon
 
 ```
 
-#### button
+#### Button
 
 
 | Property | Type | Required | Description | Div #id |
@@ -237,7 +234,7 @@ https://lusaxweb.github.io/vuesax/components/checkbox.html#change-icon
 - label
 - i (-before (boolean) - after (boolean) - icon (string - the actual class eg. bx bxs-heart))
 
-### module
+### Module
 
 Modules are pre-build form options which you can reuse by just specifying the name:
 
@@ -269,7 +266,7 @@ Options are
 
 ```
 
-## submit
+## Submit
 
 
 | Property | Type | Required | Description | Div #id |
@@ -295,6 +292,13 @@ Options are
 ## Shared
 
 The following are reused elements
+
+### Validation
+
+- min (number)
+- max (number)
+
+* [ ] Add more validation options from: [https://www.npmjs.com/package/validatorjs]()
 
 ### Icons
 
