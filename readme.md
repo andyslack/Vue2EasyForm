@@ -3,7 +3,9 @@
 <p style="text-align: center;">
 <a href="https://www.npmjs.com/package/@me_slack/vue2easyform"><img src="https://img.shields.io/npm/v/@me_slack/vue2easyform" alt="Version"></a>
 <a href="https://npmcharts.com/compare/@me_slack/vue2easyform?minimal=true"><img src="https://img.shields.io/npm/dt/@me_slack/vue2easyform" alt="Downloads"></a>
-<a href="https://www.npmjs.com/package/@me_slack/vue2easyform"><img src="https://img.shields.io//bundlephobia/esm/@me_slack/vue2easyform" alt="Size"></a>
+<a href="https://www.npmjs.com/package/@me_slack/vue2easyform"><img src="https://img.shields.io/bundlephobia/minzip/@me_slack/vue2easyform/latest" alt="Size"></a>
+<a href="https://github.com/andyslack/Vue2EasyForm/issues"><img src="https://img.shields.io/github/issues-raw/andyslack/vue2easyform" alt="Issues"></a>
+
 </p>
 
 Vue2EasyForm is a Vue2 component which makes working with forms very easy indeed.
