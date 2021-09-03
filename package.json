@@ -41,6 +41,9 @@
     "vue": "^2.6.10",
     "vuesax": "^3.12.2"
   },
+  "dependencies": {
+    "validatorjs": "^3.22.1"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/andyslack/VueEasyForm.git"

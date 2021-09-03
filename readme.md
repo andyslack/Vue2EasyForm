@@ -1,16 +1,16 @@
-<h2 align="center">Vue2EasyForm</h2>
+## Vue2EasyForm
 
-<p align="center">
-<a href="https://www.npmjs.com/package/@me_slack/vue2easyform"><img src="https://img.shields.io/npm/v/@me_slack/vue2easyform" alt="NPM"></a>
-<a href="https://npmcharts.com/compare/@me_slack/vue2easyform?minimal=true"><img src="https://img.shields.io/npm/dt/@me_slack/vue2easyform" alt="NPM"></a>
-<a href="https://www.npmjs.com/package/@me_slack/vue2easyform"><img src="https://img.shields.io/npm/l/@me_slack/vue2easyform" alt="NPM"></a>
+<p style="text-align: center;">
+<a href="https://www.npmjs.com/package/@me_slack/vue2easyform"><img src="https://img.shields.io/npm/v/@me_slack/vue2easyform" alt="Version"></a>
+<a href="https://npmcharts.com/compare/@me_slack/vue2easyform?minimal=true"><img src="https://img.shields.io/npm/dt/@me_slack/vue2easyform" alt="Downloads"></a>
+<a href="https://www.npmjs.com/package/@me_slack/vue2easyform"><img src="https://img.shields.io//bundlephobia/esm/@me_slack/vue2easyform" alt="Size"></a>
 </p>
 
 Vue2EasyForm is a Vue2 component which makes working with forms very easy indeed.
 
 Simply pass the [Form Prop](#props) into the component and it will [Emit Events](#events) as they happen.
 
-On submit it will validate the inputs and return [@error](#@error) or if successful a [@submit](@submit) {key:value} object.
+On submit it will validate the inputs and return [@error](#@error) or if successful a [@submit](#submit) {key:value} object.
 
 * [ ] Image (small video/gif)
 
@@ -77,7 +77,7 @@ This is made up as follows:
 | Property         | Type      | Required | Description                                                                                                                                                 | Div #id              |
 | ------------------ | ----------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
 | [fields](#fields) | `object`  | `true`   | An object holding a number of field objects.<br /> <br /> Options include: `input`, `textarea`, `dropdown`,  <br /> `checkbox`, `module`, `button`, `submit` | `vef_fields`         |
-| [submit](#submit)  | `object` | | If you wish to show a submit button which validates <br /> the inputs and returns the [@error](#@error) or  the [@submit](@submit) <br /> `{key:value}` object.                                                                                                                                                      |                      |
+| [submit](#submit)  | `object` | | If you wish to show a submit button which validates <br /> the inputs and returns the [@error](#@error) or  the [@submit](#@submit) <br /> `{key:value}` object.                                                                                                                                                      |                      |
 | [validation](#validation)  | `object` | | Pass additional validation params, see [validation](#validation)                                                                                                                                                   |                      |
 
 ## Fields
@@ -125,9 +125,9 @@ A field with the Div #id `vef_input_${key}`
 | `label`      | `string`  |          |    The label of the input         |         
 | ` placeholder`      | ` string`  |          |             |         
 | `label-placeholder	`      | `string`  |          |             |         
-| `i`      | `object`  |          | [See Icon](#icon)     |         |
-| `i_success`      | `object `  |          | [See Icon](#icon),  defaults to `bx bx-check` |         
-| `i_error`      | ` object`  |          |   [See Icon](#icon),  defaults to `bx bx-error`    |         
+| `i`      | `object`  |          | [See Icon](#icons)     |         |
+| `i_success`      | `object `  |          | [See Icon](#icons),  defaults to `bx bx-check` |         
+| `i_error`      | ` object`  |          |   [See Icon](#icons),  defaults to `bx bx-error`    |         
 
 
 #### Example:
@@ -175,7 +175,7 @@ A field with the Div #id `vef_dropdown_${key}`
 | `options`      | `array`  |  `true`      | The dropdown options passed as an array.  | 
 | `multiple`      | `boolean`  |        | Determines whether the selection is of multiple selection.  | 
 | `autocomplete`      | `boolean`  |        | Enables the use of autocomplete in the select.  | 
-| `i`      | `object`  |          | Element icon [See Icon](#icon)     |         |
+| `i`      | `object`  |          | Element icon [See Icon](#icons)     |         |
 
 #### Example:
 
@@ -194,7 +194,7 @@ A field with the Div #id `vef_checkbox_${key}`
 | ---------- | ------ | ---------- | ------------- | 
 | `label`      | `string`  |         | If you wish to add a label to the checkbox, Div #id `vef_checkbox_label_${key}` |  
 | `color`      | `string`  |         | Color options for checkBox. |  
-| `i`      | `object`  |          | [See Icon](#icon) defaults to bx-check   |
+| `i`      | `object`  |          | [See Icon](#icons) defaults to bx-check   |
 
 #### Button
 
@@ -203,7 +203,7 @@ An input field with the Div #id `vef_input_${key}`
 | Property | Type | Required | Description |
 | ---------- | ------ | ---------- | ------------- | 
 | `label`      | `string`  |         | The text for the button |  
-| `i`      | `object`  |          | [See Icon](#icon)   |
+| `i`      | `object`  |          | [See Icon](#icons)   |
 
 ### Module
 
@@ -239,7 +239,7 @@ The forms submit button with Div #id `vef_submit` and `vef_submit_button`
 | Property | Type | Required | Description |
 | ---------- | ------ | ---------- | ------------- | 
 | `label`      | `string`  |         | The text for the button |  
-| `i`      | `object`  |          | [See Icon](#icon)   |
+| `i`      | `object`  |          | [See Icon](#icons)   |
 
 
 #### Example:
@@ -294,11 +294,11 @@ Once the submit button is pressed (if you have one), it will validate the form a
 
 ### @updated
 
-- Watch the entire form for changes, you will get the same object of results as [@submit](#submit) each time the form is updated, however this will not have been validated.
+- Watch the entire form for changes, you will get the same object of results as [@submit](#@submit) each time the form is updated, however this will not have been validated.
 
 ### @clicked
 
-If a user clicks on a [button](#button) element, this event will fire with the name of your field as the value. This will also fire on [submit](#submit)
+If a user clicks on a [button](#button) element, this event will fire with the name of your field as the value. This will also fire on [submit](#@submit)
 
 ### @error
 
