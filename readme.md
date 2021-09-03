@@ -10,11 +10,23 @@
 ##Install
 
 ```shell
-npm install @me_slack/vue2easyform@latest
+npm install --save @me_slack/vue2easyform@latest vuesax@^3 boxicons@^2.0.9
 ```
-We use the Vuesax 3 framework to power the form, please ensure you have this installed.
 
-https://lusaxweb.github.io/vuesax/development/#quick-start-cdn
+```javascript
+import Vue from 'vue'
+import Vuesax from 'vuesax'
+
+import 'vuesax/dist/vuesax.css'
+import 'boxicons'
+```
+
+```html
+<link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css">
+```
+##Dependencies 
+- We use the [Vuesax 3 framework](https://lusaxweb.github.io/vuesax/development/#quick-start-cdn) to power the form
+- We use [boxicons](https://boxicons.com/usage) for rendering some of the modules
 
 ## Introduction
 
@@ -65,7 +77,8 @@ Image (small video/gif)
 ###input
 https://vuesax.com/docs/components/Input.html#api
 
-icon -> we use the https://boxicons.com/
+- icon (string - the actual class eg. bx bxs-heart))
+
 
 ####Example:
 ```json5
@@ -100,12 +113,17 @@ https://lusaxweb.github.io/vuesax/components/checkbox.html#change-icon
 
 - disabled (boolean)
 - color (defualts to primary)
-- icon (boxicon)
+- i (-pack (string defualts to bx) icon (string - the actual class eg. bx bxs-heart defualts to bx-check))
 
 ####Example:
 ```json5
 
 ```
+
+#### button
+- label
+- i (-before (boolean) - after (boolean) - icon (string - the actual class eg. bx bxs-heart))
+
 
 ###Module
 
@@ -114,7 +132,8 @@ Modules are pre-build form options which you can reuse by just specifying the na
 Options are 
 
 ```todo/test```
-- countires (with flags)
+- language dropdown (-mode -small (just symbols) - medium (just names) - large (names and symbols/shotcodes)) - options (array specify which ones to show otherwise all)
+- countires (-mode -small (just flags) - medium (just names) - large (names and flags/names)) - options (array specify which ones to show otherwise all)
 - address lookup (input not module) - bring modules out of dropdown into stand alone.
 - `timezone_dropdown` - needs fixing/validating
 - `markdown`
@@ -130,6 +149,8 @@ Options are
 ##Submit
 https://vuesax.com/docs/components/#api
 - label: string - The text for the button
+
+- i (-before (boolean) - after (boolean) - icon (string - the actual class eg. bx bxs-heart))
 
 ####Example:
 ```json5

@@ -41,7 +41,7 @@
                             @blur="updateValueByKey({key: key, value: field.value})"
                     >
                             <template #icon v-if="field.input.icon">
-                                <i :class="`bx bx-${field.input.icon}`"></i>
+                                <i :class="field.input.icon"></i>
                             </template>
                         </vs-input>
 
@@ -94,8 +94,8 @@
                             :id="`vef_checkbox_${key}`"
                             :disabled="field.disabled ? field.disabled : null"
                             :color="field.checkbox.color"
-                            :icon="field.checkbox.icon ? field.checkbox.icon : 'bx-check'"
-                            icon-pack="bx"
+                            :icon="field.checkbox.i ? field.checkbox.i.icon ? field.checkbox.i.icon : 'bx-check' : 'bx-check'"
+                            :icon-pack="field.checkbox.i ? field.checkbox.i.pack ? field.checkbox.i.pack : 'bx' : 'bx'"
                             @changed="updateValueByKey"
                         >
                         <span
@@ -111,8 +111,10 @@
                            @click="buttonClicked(key)"
                            :disabled="field.disabled ?field.disabled : false"
                        >
+                        <i v-if="record.button.i && record.button.i.before" :class="record.button.i.icon" :id="`vef_button_icon_before_${key}`"></i>
                            {{field.button.label}}
-                       </button>
+                        <i v-if="record.button.i && record.button.i.after" :class="record.button.i.icon" :id="`vef_button_icon_after_${key}`"></i>
+                    </button>
 
                      <span
                          v-if="field.post"
@@ -139,7 +141,10 @@
                 id="vef_submit_button"
                 @click="submit"
             >
+                <i v-if="localform.submit.i && localform.submit.i.before" :class="localform.submit.i.icon" id="vef_submit_icon_before"></i>
                 {{ localform.submit.label }}
+                <i v-if="localform.submit.i && localform.submit.i.after" :class="localform.submit.i.icon" id="vef_submit_icon_after"></i>
+
             </vs-button>
         </div>
     </div>
