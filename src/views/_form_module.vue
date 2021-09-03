@@ -1,11 +1,11 @@
 <template>
-        <div v-if="record.model === 'timezone_dropdown'">
-            <TimezoneDropdown
-                :timezone="record.value"
-                @changed="updateRecord"
-            >
-            </TimezoneDropdown>
-        </div>
+
+    <div v-switch="record.module.type">
+        <TimezoneDropdown v-case="'timezone_dropdown'"
+            :timezone="record.value"
+            @changed="updateRecord"
+        ></TimezoneDropdown>
+    </div>
 </template>
 
 <script>

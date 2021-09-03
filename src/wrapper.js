@@ -1,19 +1,14 @@
 // Import vue component
 import './assets/style.css';
 import component from './vueeasyform.vue';
-//import { vsInput, vsButton, vsSelect, vsCheckBox, vsTextarea, vsSelectItem } from 'vuesax'
+import VSwitch from 'v-switch-case'
 
 // Declare install function executed by Vue.use()
 export function install(Vue) {
     if (install.installed) return;
     install.installed = true;
     Vue.component('VueEasyForm', component);
-   /* Vue.use(vsInput);
-    Vue.use(vsButton);
-    Vue.use(vsSelect);
-    Vue.use(vsSelectItem);
-    Vue.use(vsCheckBox);
-    Vue.use(vsTextarea);*/
+    Vue.use(VSwitch)
 }
 
 // Create module definition for Vue.use()

@@ -77,7 +77,7 @@ This is made up as follows:
 | Property         | Type      | Required | Description                                                                                                                                                 | Div #id              |
 | ------------------ | ----------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
 | [fields](#fields) | `object`  | `true`   | An object holding a number of field objects.<br /> <br /> Options include: `input`, `textarea`, `dropdown`,  <br /> `checkbox`, `module`, `button`, `submit` | `vef_fields`         |
-| [submit](#submit)  | `object` | | If you wish to show a submit button which validates <br /> the inputs and returns the [@error](#@error) or <br /> the [@submit](@submit) {key:value} object.                                                                                                                                                      |                      |
+| [submit](#submit)  | `object` | | If you wish to show a submit button which validates <br /> the inputs and returns the [@error](#@error) or  the [@submit](@submit) <br /> `{key:value}` object.                                                                                                                                                      |                      |
 | [validation](#validation)  | `object` | | Pass additional validation params, see [validation](#validation)                                                                                                                                                   |                      |
 
 ## Fields
@@ -117,12 +117,12 @@ You can pass the following values:
 
 ### Input
 
-An input field with the Div #id `vef_input_${key}`
+A field with the Div #id `vef_input_${key}`
 
 | Property | Type | Required | Description |
 | ---------- | ------ | ---------- | ------------- | 
 | `type`      | `string`  |   `true`       | Currently supports `text` `email` `url` |         
-| `label`      | `string`  |          |             |         
+| `label`      | `string`  |          |    The label of the input         |         
 | ` placeholder`      | ` string`  |          |             |         
 | `label-placeholder	`      | `string`  |          |             |         
 | `i`      | `object`  |          | [See Icon](#icon)     |         |
@@ -144,149 +144,110 @@ An input field with the Div #id `vef_input_${key}`
 ```
 
 ### Textarea
-https://lusaxweb.github.io/vuesax/components/textarea.html
 
+A field with the Div #id `vef_textarea_${key}`
 
-| Property | Type | Required | Description | Div #id |
-| ---------- | ------ | ---------- | ------------- | --------- |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
+| Property | Type | Required | Description |
+| ---------- | ------ | ---------- | ------------- | 
+| `label`      | `string`  |        | The label of the textarea.  |   
+| `counter`      | `Number`  |        | Determines the maximum number of characters.  |   
+| `width`      | `string`  |        | Set the width of the textarea  |   
+| `height`      | `string`  |        | Set the width of the textarea   |   
 
 #### Example:
 
 ```json5
-
+{
+    message: {
+        label: 'Message',
+        counter: 150
+    }
+}
 ```
 
-### Dropdown (array of options)
-https://vuesax.com/docs/components/Select.html#api
+### Dropdown
 
-- options - Array of objects
-    - value
-    - name
-    - disabled
-- multiple(boolean - default: false)
+A field with the Div #id `vef_dropdown_${key}`
 
-
-| Property | Type | Required | Description | Div #id |
-| ---------- | ------ | ---------- | ------------- | --------- |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
+| Property | Type | Required | Description |
+| ---------- | ------ | ---------- | ------------- | 
+| `label`      | `string`  |        | The label of the dropdown.  | 
+| `options`      | `array`  |  `true`      | The dropdown options passed as an array.  | 
+| `multiple`      | `boolean`  |        | Determines whether the selection is of multiple selection.  | 
+| `autocomplete`      | `boolean`  |        | Enables the use of autocomplete in the select.  | 
+| `i`      | `object`  |          | Element icon [See Icon](#icon)     |         |
 
 #### Example:
 
 ```json5
-
+{
+   label: "Do you want a truth or dare?",
+   options: [{value: 'TRUTH', name: "Truth"}, {value: 'DARE', name: "Dare"}]
+}
 ```
 
 ### Checkbox
 
+A field with the Div #id `vef_checkbox_${key}`
 
-| Property | Type | Required | Description | Div #id |
-| ---------- | ------ | ---------- | ------------- | --------- |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-
-https://lusaxweb.github.io/vuesax/components/checkbox.html#change-icon
-
-- disabled (boolean)
-- color (defualts to primary)
-- i (-pack (string defualts to bx) icon (string - the actual class eg. bx bxs-heart defualts to bx-check))
-
-#### Example:
-
-```json5
-
-```
+| Property | Type | Required | Description |
+| ---------- | ------ | ---------- | ------------- | 
+| `label`      | `string`  |         | If you wish to add a label to the checkbox, Div #id `vef_checkbox_label_${key}` |  
+| `color`      | `string`  |         | Color options for checkBox. |  
+| `i`      | `object`  |          | [See Icon](#icon) defaults to bx-check   |
 
 #### Button
 
+An input field with the Div #id `vef_input_${key}`
 
-| Property | Type | Required | Description | Div #id |
-| ---------- | ------ | ---------- | ------------- | --------- |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-
-- label
-- i (-before (boolean) - after (boolean) - icon (string - the actual class eg. bx bxs-heart))
+| Property | Type | Required | Description |
+| ---------- | ------ | ---------- | ------------- | 
+| `label`      | `string`  |         | The text for the button |  
+| `i`      | `object`  |          | [See Icon](#icon)   |
 
 ### Module
 
-Modules are pre-build form options which you can reuse by just specifying the name:
+Modules are pre-built form options which can reused with the Div #id `vef_module_${key}`, support types are:
 
-Options are
+`timezone_dropdown`
 
+An input field 
 
-| Property | Type | Required | Description | Div #id |
-| ---------- | ------ | ---------- | ------------- | --------- |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
+| Property | Type | Required | Description |
+| ---------- | ------ | ---------- | ------------- | 
+| `type`      | `string`  |   `true`       | The type of module to render |  
 
-```todo/test```
-
-- language dropdown (-mode -small (just symbols) - medium (just names) - large (names and symbols/shotcodes)) - options (array specify which ones to show otherwise all)
-- countires (-mode -small (just flags) - medium (just names) - large (names and flags/names)) - options (array specify which ones to show otherwise all)
-- address lookup (input not module) - bring modules out of dropdown into stand alone.
-- `timezone_dropdown` - needs fixing/validating
-- `markdown`
+* [ ] language dropdown (-mode -small (just symbols) - medium (just names) - large (names and symbols/shotcodes)) - options (array specify which ones to show otherwise all)
+* [ ] countires (-mode -small (just flags) - medium (just names) - large (names and flags/names)) - options (array specify which ones to show otherwise all)
+* [ ] address lookup - Will need to look for external modules
+* [ ] google maps - show on a map the location passed (will require google api keys to be passed)
+* [ ] `markdown`
+* [ ] light/dark switcher
 
 #### Example:
 
 ```json5
-
+{
+    type: 'timezone_dropdown'
+}
 ```
 
 ## Submit
 
+The forms submit button with Div #id `vef_submit` and `vef_submit_button`
 
-| Property | Type | Required | Description | Div #id |
-| ---------- | ------ | ---------- | ------------- | --------- |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
-| ` `      | ` `  |          |             |         |
+| Property | Type | Required | Description |
+| ---------- | ------ | ---------- | ------------- | 
+| `label`      | `string`  |         | The text for the button |  
+| `i`      | `object`  |          | [See Icon](#icon)   |
 
-- label: string - The text for the button
-- i (-before (boolean) - after (boolean) - icon (string - the actual class eg. bx bxs-heart))
 
 #### Example:
 
 ```json5
-
+{
+    label: "Submit"
+}
 ```
 
 ## Shared
@@ -295,19 +256,22 @@ The following are reused elements
 
 ### Validation
 
-- min (number)
-- max (number)
+We are using [ValidatorJS](https://www.npmjs.com/package/validatorjs) for validation. 
 
-* [ ] Add more validation options from: [https://www.npmjs.com/package/validatorjs]()
+| Property | Type | Description |
+| ---------- | ------ | ---------- | ------------- | 
+| `min`      | `number`  |  Validate that an attribute is at least a given size.  |  
+| `max`      | `number`  |  Validate that an attribute is no greater than a given size.  |
+
+* [ ] Add more validation options
 
 ### Icons
 
-after - input, button, submit,
-before - button, submit
-icon: e.g. bxs-heart
-pack: e.g. bx
-
-- i (-before (boolean) - after (boolean) - icon (string - the actual class eg. bx bxs-heart))
+| Property | Type | Description |
+| ---------- | ------ | ---------- | ------------- |
+| `icon`      | `string`  |  The icon you wish to use, e.g. `bxs-heart`   |  
+| `pack`      | `string`  |  The icon-pack you have installed e.g. `bx`  |
+| `after`      | `string`  |  Puts your icon after the element `input` `button` `submit` |
 
 ## Events
 
@@ -315,34 +279,41 @@ The following events will be emitted to allow maximum flexibility to your applic
 
 ### @submit
 
-- a validated JSON
+Once the submit button is pressed (if you have one), it will validate the form and return a json object with a `{field: value}` pair:
 
-'updated_{{field}}'
+```javascript
+{
+    email: 'users@email.address'
+    message: 'The users message here'
+}
+```
 
-- a validated output
+### @updated_{{field}}
 
-'updated'
+- Watch a single field for changes, you will get the `value` object emitted when it changes and passes validation. 
 
-- unvalidated live JSON object
+### @updated
 
-'clicked'
+- Watch the entire form for changes, you will get the same object of results as [@submit](#submit) each time the form is updated, however this will not have been validated.
 
-- the name of the button clicked
+### @clicked
+
+If a user clicks on a [button](#button) element, this event will fire with the name of your field as the value. This will also fire on [submit](#submit)
 
 ### @error
 
-- returns validation errors for you to handle as they happen (multiple error $emits per form submissios)
+Each time a field fails a validation check an @error event will fire, you can choose to consume it if you wish. You will receive a `{field: message}` object for failing fields.
+
+*Note:* Validation checks happen both when field values change and on submit, you might receive multiple errors on a single form submission.
 
 ## Examples
 
-You can run the example as follows:
+You can see some prebuild examples here: 
 
-```shell
-cd examples && npm install && npm run serve
-```
+* [Basic](https://codesandbox.io/s/dazzling-mountain-lhhwu)
 
-Also available on [CodeSandbox.io](https://codesandbox.io/s/dazzling-mountain-lhhwu)
+* [ ] Share more advanced examples 
 
 ##Shell Script
 
-```todo```
+* [ ] Create a `runner.sh` script which will allow users to build the form json by entering commands for even easier form setup.

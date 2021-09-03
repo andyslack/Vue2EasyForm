@@ -34,7 +34,6 @@
                             :icon="field.input.i ? field.input.i.icon ? field.input.i.icon : null : null"
                             :icon-pack="field.input.i ? field.input.i.pack ? field.input.i.pack : null : 'bx'"
                             :icon-after="field.input.i ? field.input.i.after ? field.input.i.after : null : null"
-                            :loading="field.input.loading"
                             @keyup="keyupValueByKey({key: key, value: field.value})"
                             @blur="updateValueByKey({key: key, value: field.value})"
                     >
@@ -54,14 +53,11 @@
                             v-if="field.dropdown"
                             v-model="field.value"
                             :id="`vef_dropdown_${key}`"
-                            :placeholder="field.dropdown.placeholder"
-                            :label-placeholder="field.dropdown['label-placeholder']"
                             :label="field.dropdown.label"
-                            :disabled="field.disabled"
                             :multiple="field.dropdown.multiple"
-                            :filter="field.dropdown.filter"
+                            :icon="field.dropdown.i ? field.dropdown.i.icon ? field.dropdown.i.icon : null : null"
+                            :icon-pack="field.dropdown.i ? field.dropdown.i.pack ? field.dropdown.i.pack : null : null"
                             :state="field.error ? 'danger' : field.success ? 'success' : null "
-                            :loading="field.dropdown.loading"
                             @changed="updateValueByKey"
                         >
                                 <vs-select-item
@@ -72,16 +68,6 @@
                                 </vs-select-item>
 
                             </vs-select>
-
-                    <FormModule
-                             v-if="field.model"
-                             :id="`vef_dropdown_${key}`"
-                             :record="field"
-                             :index="key"
-                             :danger="field.error"
-                             :success="field.success"
-                             @changed="updateValueByKey"
-                         ></FormModule>
 
                     <vs-checkbox
                             v-if="field.checkbox"
@@ -106,16 +92,20 @@
                            @click="buttonClicked(key)"
                            :disabled="field.disabled ?field.disabled : false"
                        >
-                        <i v-if="record.button.i && record.button.i.before" :class="record.button.i.icon" :id="`vef_button_icon_before_${key}`"></i>
+                        <i v-if="record.button.i && !record.button.i.after" :class="record.button.i.icon" :id="`vef_button_icon_before_${key}`"></i>
                            {{field.button.label}}
                         <i v-if="record.button.i && record.button.i.after" :class="record.button.i.icon" :id="`vef_button_icon_after_${key}`"></i>
                     </vs-button>
 
-                     <span
-                         v-if="field.post"
-                         :id="`vef_field_post_${key}`"
-                         v-html="field.post"
-                     ></span>
+                    <FormModule
+                        v-if="field.module"
+                        :id="`vef_module_${key}`"
+                        :record="field"
+                        :index="key"
+                        :danger="field.error"
+                        :success="field.success"
+                        @changed="updateValueByKey"
+                    ></FormModule>
 
                      <div v-if="field.error" id="vef_error_message">
                         {{ field.error_message }}
@@ -136,7 +126,7 @@
                 id="vef_submit_button"
                 @click="submit"
             >
-                <i v-if="localform.submit.i && localform.submit.i.before" :class="localform.submit.i.icon" id="vef_submit_icon_before"></i>
+                <i v-if="localform.submit.i && !localform.submit.i.after" :class="localform.submit.i.icon" id="vef_submit_icon_before"></i>
                 {{ localform.submit.label }}
                 <i v-if="localform.submit.i && localform.submit.i.after" :class="localform.submit.i.icon" id="vef_submit_icon_after"></i>
 
@@ -186,11 +176,6 @@ export default {
             this.$emit('clicked', key)
         },
 
-        initClick(key){
-            alert('VEF->initClick')
-            this.$emit('initClick', key)
-        },
-
         validateField(key, field){
             let field_passed = true
 
@@ -235,7 +220,7 @@ export default {
                 this.localform.fields[key].success = false
                 this.localform.fields[key].error = true
                 this.localform.fields[key].error_message = validation.errors.first(key)
-                this.$emit('error', validation.errors.first(key))
+                this.$emit('error', {[key]: validation.errors.first(key)})
                 return false
             }
 

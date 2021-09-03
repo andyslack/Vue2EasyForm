@@ -27,10 +27,11 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-postcss": "^4.0.1",
     "rollup-plugin-vue": "^5.0.1",
+    "v-switch-case": "^1.0.3",
+    "validatorjs": "^3.22.1",
     "vue": "^2.6.14",
     "vue-template-compiler": "^2.6.10",
-    "vuesax": "^3.12.2",
-    "validatorjs": "^3.22.1"
+    "vuesax": "^3.12.2"
   },
   "files": [
     "dist/*",
