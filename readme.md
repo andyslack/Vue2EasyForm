@@ -6,8 +6,15 @@
 <a href="https://www.npmjs.com/package/@me_slack/vue2easyform"><img src="https://img.shields.io/npm/l/@me_slack/vue2easyform" alt="NPM"></a>
 </p>
 
+Vue2EasyForm is a Vue2 component which makes working with forms very easy indeed.
 
-##Install
+Simply pass the [Form Prop](#props) into the component and it will [Emit Events](#events) as they happen.
+
+On submit it will validate the inputs and return [@error](#@error) or if successful a [@submit](@submit) {key:value} object.
+
+* [ ] Image (small video/gif)
+
+## Install
 
 ```shell
 npm install --save @me_slack/vue2easyform@latest vuesax@^3
@@ -23,63 +30,90 @@ import 'vuesax/dist/vuesax.css'
 ```html
 <link rel="stylesheet" href="https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css">
 ```
-##Dependencies 
+
+## Dependencies
+
 - We use the [Vuesax 3 framework](https://lusaxweb.github.io/vuesax/development/#quick-start-cdn) to power the form
 - We use [boxicons](https://boxicons.com/usage) for rendering some of the modules
 
-## Introduction
+## Usage
 
+```javascript
+import VueEasyForm from "@me_slack/vue2easyform"
 
-Description
-
-Image (small video/gif)
-
-
-# INPUT object
-
-```json5
-{
-    fields: {
-        first_name: {
-            description: 'This is where you add your first name',
-            
-            input: {
-                type: 'text',
-               'label-placeholder': 'First Name',
-            },
+data: () => ({
+    contact_form: {
+        fields:{
+            email: {
+                value: '',
+                input: {
+                    type: 'email',
+                    placeholder: 'Email',
+                },
+                required: true
+            }
         },
+        submit: {
+             label: 'Send Email'
+        }
     },
-    submit: {
-       label: 'Submit'
-    }
-}
+})
 ```
-## Fields
-| Object | Type  | Required  | Description | #id |
-|---|---|---|---|---|
-| `description`  | `string` |   |   |   |
-|   |   |   |   |   |
-|   |   |   |   |   |
-- description: string
-- ['input', 'dropdown', 'checkbox', 'module', 'submit']: object, see below
-- required: {required: boolean, text: string}
+
+```html
+<VueEasyForm :form="conact_form" @submit="sendEmail" @updated_email="updateEmail"></VueEasyForm>
+```
+
+## Props
+
+The only prop you need is `form` this is the JSON object which builds out the form fields, buttons, etc.
+
+This is made up as follows:
+
 - disabled: boolean
 - success: boolean
 - error: boolean
 - error_message: string - if the field failed validation
-- loading: boolean
 - validation: {min: int, max: int}
 - value: <mixed> - holds the current value of the field
-- pre: html - a hook to insert html immediately before the field
-- post: html a hook to insert html immediately after the field
+
+
+| Property         | Type      | Required | Description                                                                                                                                                 | Div #id              |
+| ------------------ | ----------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
+| `value`          | `<mixed>` | `true`   | The property which holds the user input.                                                                                                                    |                      |
+| [Field](#fields) | `object`  | `true`   | An object holding a number of field objects.<br /> <br /> Options include: `input`, `textarea`, `dropdown`,  <br /> `checkbox`, `module`, `button`, `submit` | `vef_fields`         |
+| `loading`        | `boolean` |          | Show a loading spinner in place of the field.<br /> <br /> Helpful if you are populating from an API                                                        | `vef_loading_${key}` |
+| `description` | `string`       |      | Show the user a message below the field.                                                                                                          |       `vef_description`               |
+| `required `              | `boolean`       |          |  If this a required field                                                                                                                                                       |                      |
+| ` `              | ` `       |          |                                                                                                                                                             |                      |
+| ` `              | ` `       |          |                                                                                                                                                             |                      |
+| ` `              | ` `       |          |                                                                                                                                                             |                      |
+| ` `              | ` `       |          |                                                                                                                                                             |                      |
+| ` `              | ` `       |          |                                                                                                                                                             |                      |
+| ` `              | ` `       |          |                                                                                                                                                             |                      |
+
+## Fields
 
 ###input
+
+
+| Property | Type | Required | Description | Div #id |
+| ---------- | ------ | ---------- | ------------- | --------- |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+
 https://vuesax.com/docs/components/Input.html#api
 
 - icon (string - the actual class eg. bx bxs-heart))
 
-
 ####Example:
+
 ```json5
 
 ```
@@ -88,25 +122,63 @@ https://vuesax.com/docs/components/Input.html#api
 https://lusaxweb.github.io/vuesax/components/textarea.html
 
 
+| Property | Type | Required | Description | Div #id |
+| ---------- | ------ | ---------- | ------------- | --------- |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+
 ####Example:
+
 ```json5
 
 ```
 
 ###dropdown (array of options)
 https://vuesax.com/docs/components/Select.html#api
- - options - Array of objects
-   - value 
-   - name
-   - disabled
- - multiple(boolean - default: false)
+
+- options - Array of objects
+  - value
+  - name
+  - disabled
+- multiple(boolean - default: false)
+
+
+| Property | Type | Required | Description | Div #id |
+| ---------- | ------ | ---------- | ------------- | --------- |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
 
 ####Example:
+
 ```json5
 
 ```
 
 ###checkbox
+
+
+| Property | Type | Required | Description | Div #id |
+| ---------- | ------ | ---------- | ------------- | --------- |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
 
 https://lusaxweb.github.io/vuesax/components/checkbox.html#change-icon
 
@@ -115,67 +187,109 @@ https://lusaxweb.github.io/vuesax/components/checkbox.html#change-icon
 - i (-pack (string defualts to bx) icon (string - the actual class eg. bx bxs-heart defualts to bx-check))
 
 ####Example:
+
 ```json5
 
 ```
 
 #### button
+
+
+| Property | Type | Required | Description | Div #id |
+| ---------- | ------ | ---------- | ------------- | --------- |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+
 - label
 - i (-before (boolean) - after (boolean) - icon (string - the actual class eg. bx bxs-heart))
-
 
 ###Module
 
 Modules are pre-build form options which you can reuse by just specifying the name:
 
-Options are 
+Options are
+
+
+| Property | Type | Required | Description | Div #id |
+| ---------- | ------ | ---------- | ------------- | --------- |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
 
 ```todo/test```
+
 - language dropdown (-mode -small (just symbols) - medium (just names) - large (names and symbols/shotcodes)) - options (array specify which ones to show otherwise all)
 - countires (-mode -small (just flags) - medium (just names) - large (names and flags/names)) - options (array specify which ones to show otherwise all)
 - address lookup (input not module) - bring modules out of dropdown into stand alone.
 - `timezone_dropdown` - needs fixing/validating
 - `markdown`
 
-
-
 ####Example:
+
 ```json5
 
 ```
-
 
 ##Submit
 https://vuesax.com/docs/components/#api
-- label: string - The text for the button
 
+
+| Property | Type | Required | Description | Div #id |
+| ---------- | ------ | ---------- | ------------- | --------- |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+| ` `      | ` `  |          |             |         |
+
+- label: string - The text for the button
 - i (-before (boolean) - after (boolean) - icon (string - the actual class eg. bx bxs-heart))
 
 ####Example:
+
 ```json5
 
 ```
 
-Output table
+## Events
 
-###@emit
+The following events will be emitted to allow maximum flexibility to your application:
 
-'submit'
+### @submit
+
 - a validated JSON
 
 'updated_{{field}}'
+
 - a validated output
 
 'updated'
+
 - unvalidated live JSON object
 
 'clicked'
+
 - the name of the button clicked
 
-'error'
-- returns validation errors for you to handle
+### @error
 
-##Example
+- returns validation errors for you to handle as they happen (multiple error $emits per form submissios)
+
+## Examples
 
 You can run the example as follows:
 

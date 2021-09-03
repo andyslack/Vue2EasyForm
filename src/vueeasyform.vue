@@ -15,12 +15,6 @@
                     :id="`vef_field_${key}`"
                     v-else>
 
-                      <span
-                          v-if="field.input"
-                          :id="`vef_field_pre_${key}`"
-                          v-html="field.pre"
-                      ></span>
-
                     <vs-input
                             v-if="field.input"
                             v-model="field.value"
