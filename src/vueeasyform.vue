@@ -48,6 +48,8 @@
                         :counter="field.textarea.counter"
                         :width="field.textarea.width"
                         :height="field.textarea.height"
+                        @keyup="keyupValueByKey({key: key, value: field.value})"
+                        @blur="updateValueByKey({key: key, value: field.value})"
                     />
 
                     <vs-select
@@ -245,6 +247,19 @@ export default {
         },
 
         keyupValueByKey(result){
+
+            if(this.localform.fields[result.key].transform){
+
+                if(this.localform.fields[result.key].transform.uppercase){
+                    result = result.toUpperCase()
+                }
+
+                if(this.localform.fields[result.key].transform.lowercase){
+                    result = result.toLowerCase()
+                }
+
+            }
+
             this.localform.fields[result.key].value = result.value
             this.$emit(`updated_${result.key}`, result.value)
         },

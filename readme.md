@@ -80,8 +80,7 @@ This is made up as follows:
 | ------------------ | ----------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
 | name | `string`  | `true`   | Used to help differentiate between multiple forms on the same page | `vef_form_${name}`   |
 | [fields](#fields) | `object`  | `true`   | An object holding a number of field objects.<br /> <br /> Options include: `input`, `textarea`, `dropdown`,  <br /> `checkbox`, `module`, `button`, `submit` | `vef_fields`         |
-| [submit](#submit)  | `object` | | If you wish to show a submit button which validates <br /> the inputs and returns the [@error](#@error) or  the [@submit](#@submit) <br /> `{key:value}` object.                                                                                                                                                      |                      |
-| [validation](#validation)  | `object` | | Pass additional validation params, see [validation](#validation)                                                                                                                                                   |                      |
+| [submit](#submit)  | `object` | | If you wish to show a submit button which validates <br /> the inputs and returns the [@error](#@error) or  the [@submit](#@submit) <br /> `{key:value}` object.                                                                                                                                                      |                      | |                      |
 
 ## Fields
 
@@ -116,7 +115,8 @@ You can pass the following values:
 | `success`  | `boolean`       |          |  If the field has been successfully validated   |                      |
 | `error` | `boolean`       |          |   If the field has failed validation    |                      |
 | `error_message`| `string`       |          | The error message | `vef_error_message` |
-
+| [validation](#validation)  | `object` | | Pass additional validation params, see [validation](#validation)  | |                                                                                                                                                 |                      |
+| [transform](#transform)  | `object` | | Pass additional transformation params, see [transform](#transform) | |
 
 ### Input
 
@@ -268,6 +268,17 @@ We are using [ValidatorJS](https://www.npmjs.com/package/validatorjs) for valida
 | `in`      | `array`  |  Validate that the value is in array, e.g. `['truth', 'dare']`  |
 
 * [ ] Add more validation options
+
+### Transform
+
+Some fields allow you to transform content as it is entered, see below:
+
+| Property | Type | Description |
+| ---------- | ------ | ---------- |
+| `uppercase`      | `boolean`  |  If passed we will transform `input` `textarea` to uppercase  |  
+| `lowercase`      | `boolean`  |  If passed we will transform `input` `textarea` to lowercase  |  
+
+* [ ] Add more transform options
 
 ### Icons
 
