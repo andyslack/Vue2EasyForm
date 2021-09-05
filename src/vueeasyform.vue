@@ -251,11 +251,11 @@ export default {
             if(this.localform.fields[result.key].transform){
 
                 if(this.localform.fields[result.key].transform.uppercase){
-                    result = result.toUpperCase()
+                    result.value = result.value.toUpperCase()
                 }
 
                 if(this.localform.fields[result.key].transform.lowercase){
-                    result = result.toLowerCase()
+                    result.value = result.value.toLowerCase()
                 }
 
             }
