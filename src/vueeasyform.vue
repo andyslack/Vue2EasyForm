@@ -212,6 +212,10 @@ export default {
                 if(field.validation.max){
                     validations.push(`min:${field.validation.max}`)
                 }
+
+                if(field.validation.in){
+                    validations.push(`in:${field.validation.in}`)
+                }
             }
 
             let validation = new Validator({[key]: field.value}, {[key]: validations})

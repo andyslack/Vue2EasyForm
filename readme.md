@@ -263,8 +263,9 @@ We are using [ValidatorJS](https://www.npmjs.com/package/validatorjs) for valida
 
 | Property | Type | Description |
 | ---------- | ------ | ---------- |
-| `min`      | `number`  |  Validate that an attribute is at least a given size.  |  
-| `max`      | `number`  |  Validate that an attribute is no greater than a given size.  |
+| `min`      | `number`  |  Validate that the value is at least a given size.  |  
+| `max`      | `number`  |  Validate that the value  is no greater than a given size.  |
+| `in`      | `array`  |  Validate that the value is in array, e.g. `['truth', 'dare']`  |
 
 * [ ] Add more validation options
 
