@@ -238,7 +238,7 @@ export default {
                 }
 
                 if(field.validation.max){
-                    validations.push(`min:${field.validation.max}`)
+                    validations.push(`max:${field.validation.max}`)
                 }
 
                 if(field.validation.in){
