@@ -79,8 +79,7 @@ This is made up as follows:
 | Property         | Type      | Required | Description                                                                                                                                                 | Div #id              |
 | ------------------ | ----------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
 | name | `string`  | `true`   | Used to help differentiate between multiple forms on the same page | `vef_form_${name}`   |
-| [fields](#fields) | `object`  | `true`   | An object holding a number of field objects.<br /> <br /> Options include: `input`, `textarea`, `dropdown`,  <br /> `checkbox`, `module`, `button`, `submit` | `vef_fields`         |
-| [submit](#submit)  | `object` | | If you wish to show a submit button which validates <br /> the inputs and returns the [@error](#@error) or  the [@submit](#@submit) <br /> `{key:value}` object.                                                                                                                                                      |                      | |                      |
+| [fields](#fields) | `object`  | `true`   | An object holding a number of field objects.<br /> <br /> Options include: `input`, `textarea`, `dropdown`,  <br /> `checkbox`, `module`, `button`, `submit`, `markdown`, `submit` | `vef_fields`         |
 
 ## Fields
 
@@ -106,12 +105,15 @@ You can pass the following values:
 
 | Property         | Type      | Required | Description | Div #id |
 | ------------------ | ----------- | ---------- | --------------------------------------------------------------------------------- | ---------------------- |
-| `<mixed>`        | `object`  |  `true`  | We currently support the following fields: <br /><br /> [input](#input), [textarea](#textarea), [dropdown](#dropdown), [checkbox](#checkbox), [button](#button), [module](#module) |  `vef_field_${key}` |
+| `<mixed>`        | `object`  |  `true`  | We currently support the following fields: <br /><br /> [input](#input), [textarea](#textarea), [dropdown](#dropdown), [checkbox](#checkbox), [button](#button), [module](#module), [markdown](#markdown), [submit](#submit) |  `vef_field_${key}` |
 | `value`          | `<mixed>` | `true`   | The property which holds the user input.                                          |                      |
 | `loading`        | `boolean` |          | Show a loading spinner in place of the field.<br /> <br /> Helpful if you are populating from an API                                                        | `vef_loading_${key}` |
 | `description`    | `string`  |      | Show the user a message below the field.                                       |       `vef_description`               |
 | `required ` | `boolean`       |          |  If this a required field                                                                                                                                                       |                      |
 | `disabled` | `boolean`       |          |   If the field should be disabled                                                                                                                                                          |                      |
+| `responsive` | `object`       |          |  Allows you to set the width of the column ```{lg: 6, sm: 12, xs: 12}```                                                                                                                                                          |                      |
+| `class` | `string`       |          |  Allows you to pass in classes dynamically                                                                                                                                                           |                      |
+| `style` | `string`       |          |  Allows you to pass in styles dynamically                                                                                                                                                               |                      |
 | `success`  | `boolean`       |          |  If the field has been successfully validated   |                      |
 | `error` | `boolean`       |          |   If the field has failed validation    |                      |
 | `error_message`| `string`       |          | The error message | `vef_error_message` |
@@ -212,13 +214,30 @@ An input field with the Div #id `vef_input_${key}`
 
 Modules are pre-built form options which can reused with the Div #id `vef_module_${key}`, support types are:
 
-`timezone_dropdown`
+`timezone_dropdown`, `country_dropdown`
 
 An input field 
 
 | Property | Type | Required | Description |
 | ---------- | ------ | ---------- | ------------- | 
 | `type`      | `string`  |   `true`       | The type of module to render |  
+
+Pass the following properities depending on the type:
+
+#### timezone_dropdown
+
+| Property | Type | Required | Description |
+| ---------- | ------ | ---------- | ------------- | 
+| `timezone`      | `string`  |         | The timezone you wish to set as the default |  
+
+#### country_dropdown
+
+| Property | Type | Required | Description |
+| ---------- | ------ | ---------- | ------------- | 
+| `country`      | `string (ISO2)`  |         | The country you wish to set as the default,  if not passed we will <br> attempt to lookup from browser settings.  |  
+
+
+
 
 * [ ] language dropdown (-mode -small (just symbols) - medium (just names) - large (names and symbols/shotcodes)) - options (array specify which ones to show otherwise all)
 * [ ] countires (-mode -small (just flags) - medium (just names) - large (names and flags/names)) - options (array specify which ones to show otherwise all)
@@ -232,6 +251,22 @@ An input field
 ```json5
 {
     type: 'timezone_dropdown'
+}
+```
+
+### Markdown
+
+A field with the Div #id `vef_markdown_${key}`
+
+| Property | Type | Required | Description |
+| ---------- | ------ | ---------- | ------------- | 
+| `markdown`      | `strong`  |        | Some markdown to print to screen |    
+
+#### Example:
+
+```json5
+{
+    markdown: '# H1 ## H2 ### H3'
 }
 ```
 

@@ -1,20 +1,26 @@
 <template>
-
-    <div v-switch="record.module.type">
-        <TimezoneDropdown v-case="'timezone_dropdown'"
+    <div>
+        <TimezoneDropdown v-if="record.module.type === 'timezone_dropdown'"
             :timezone="record.value"
             @changed="updateRecord"
         ></TimezoneDropdown>
+
+        <CountryDropdown v-if="record.module.type === 'country_dropdown'"
+                          :country="record.value"
+                          @changed="updateRecord"
+        ></CountryDropdown>
     </div>
 </template>
 
 <script>
-import TimezoneDropdown from "./dropdown/timezone.vue";
+import TimezoneDropdown from "./modules/timezone_dropdown.vue";
+import CountryDropdown from "./modules/country_dropdown.vue";
 
 export default {
     name: "FormModule",
     components: {
         TimezoneDropdown,
+        CountryDropdown
     },
     props:{
         index: {

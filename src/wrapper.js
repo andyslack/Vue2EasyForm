@@ -1,14 +1,14 @@
 // Import vue component
 import './assets/style.css';
 import component from './vueeasyform.vue';
-import VSwitch from 'v-switch-case'
+import VueSimpleMarkdown from 'vue-simple-markdown'
 
 // Declare install function executed by Vue.use()
 export function install(Vue) {
     if (install.installed) return;
     install.installed = true;
     Vue.component('VueEasyForm', component);
-    Vue.use(VSwitch)
+    Vue.use(VueSimpleMarkdown)
 }
 
 // Create module definition for Vue.use()

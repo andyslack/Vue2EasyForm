@@ -2,3 +2,27 @@
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
 }
+
+.con-select{
+  width: unset;
+}
+
+.vs-con-input-label{
+  width: inherit;
+}
+
+.con-vs-checkbox{
+  justify-content: flex-start;
+}
+
+.vs-checkbox--input {
+  margin-left: -1rem;
+}
+
+.vuesax-app-is-ltr .vs-checkbox{
+  margin-right: 1rem;
+}
+
+.material-icons{
+  display: none;
+}

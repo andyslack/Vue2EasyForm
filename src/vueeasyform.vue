@@ -1,13 +1,16 @@
 <template>
     <!--VueEasyForm Start-->
-    <div :id="`vef_form_${localform.name}`">
+    <div :id="`vef_form_${localform.name}`" :style="localform.display ? `display: ${localform.display};` : null">
         <div v-if="localform.fields" id="vef_fields">
-            <div
+
+            <vs-col
             v-for="[key, field] of Object.entries(localform.fields)"
             :key="key"
             id="vef_field_div"
+            :vs-lg="field.responsive ? field.responsive.lg ? field.responsive.lg : '12' : '12'"
+            :vs-sm="field.responsive ? field.responsive.sm ? field.responsive.sm : '12' : '12'"
+            :vs-xs="field.responsive ? field.responsive.xs ? field.responsive.xs : '12' : '12'"
           >
-
                 <div v-if="field.loading" :id="`vef_loading_${key}`">
                      <box-icon name='loader' animation='spin'></box-icon>
                 </div>
@@ -35,6 +38,8 @@
                             :val-icon-success="field.input.i_success ? field.input.i_success.icon : 'bx-check'"
                             :val-icon-pack="field.input.i_error ? field.input.i.i_error.pack : 'bx'"
                             :icon-after="field.input.i ? field.input.i.after : null"
+                            :class="field.class"
+                            :style="field.style"
                             @keyup="keyupValueByKey({key: key, value: field.value})"
                             @blur="updateValueByKey({key: key, value: field.value})"
                     >
@@ -48,6 +53,8 @@
                         :counter="field.textarea.counter"
                         :width="field.textarea.width"
                         :height="field.textarea.height"
+                        :class="field.class"
+                        :style="field.style"
                         @keyup="keyupValueByKey({key: key, value: field.value})"
                         @blur="updateValueByKey({key: key, value: field.value})"
                     />
@@ -61,6 +68,8 @@
                             :icon="field.dropdown.i ? field.dropdown.i.icon ? field.dropdown.i.icon : null : null"
                             :icon-pack="field.dropdown.i ? field.dropdown.i.pack ? field.dropdown.i.pack : null : null"
                             :state="field.error ? 'danger' : field.success ? 'success' : null "
+                            :class="field.class"
+                            :style="field.style"
                             @changed="updateValueByKey"
                         >
                                 <vs-select-item
@@ -80,7 +89,9 @@
                             :color="field.checkbox.color"
                             :icon="field.checkbox.i ? field.checkbox.i.icon ? field.checkbox.i.icon : 'bx-check' : 'bx-check'"
                             :icon-pack="field.checkbox.i ? field.checkbox.i.pack ? field.checkbox.i.pack : 'bx' : 'bx'"
-                            @changed="updateValueByKey"
+                            :class="field.class"
+                            :style="field.style"
+                            @change="updateValueByKey({key: key, value: field.value})"
                         >
                         <span
                             v-if="field.checkbox.label"
@@ -94,6 +105,8 @@
                            :id="`vef_button_${key}`"
                            @click="buttonClicked(key)"
                            :disabled="field.disabled ?field.disabled : false"
+                           :class="field.class"
+                           :style="field.style"
                        >
                         <i v-if="record.button.i && !record.button.i.after" :class="record.button.i.icon" :id="`vef_button_icon_before_${key}`"></i>
                            {{field.button.label}}
@@ -107,8 +120,34 @@
                         :index="key"
                         :danger="field.error"
                         :success="field.success"
+                        :class="field.class"
+                        :style="field.style"
                         @changed="updateValueByKey"
                     ></FormModule>
+
+                    <vue-simple-markdown
+                        v-if="field.markdown"
+                        :id="`vef_markdown_${key}`"
+                        :source="field.markdown"
+                        :class="field.class"
+                        :style="field.style"
+                    ></vue-simple-markdown>
+
+                    <div v-if="field.submit"
+                         id="vef_submit"
+                    >
+                        <vs-button
+                            id="vef_submit_button"
+                            :class="field.class"
+                            :style="field.style"
+                            @click="submit"
+                        >
+                            <i v-if="field.submit.i && !field.submit.i.after" :class="field.submit.i.icon" id="vef_submit_icon_before"></i>
+                            {{ field.submit.label }}
+                            <i v-if="field.submit.i && field.submit.i.after" :class="field.submit.i.icon" id="vef_submit_icon_after"></i>
+
+                        </vs-button>
+                    </div>
 
                      <div v-if="field.error" id="vef_error_message">
                         {{ field.error_message }}
@@ -120,20 +159,7 @@
 
                 </div>
 
-            </div>
-        </div>
-        <div v-if="localform.submit"
-             id="vef_submit"
-        >
-            <vs-button
-                id="vef_submit_button"
-                @click="submit"
-            >
-                <i v-if="localform.submit.i && !localform.submit.i.after" :class="localform.submit.i.icon" id="vef_submit_icon_before"></i>
-                {{ localform.submit.label }}
-                <i v-if="localform.submit.i && localform.submit.i.after" :class="localform.submit.i.icon" id="vef_submit_icon_after"></i>
-
-            </vs-button>
+            </vs-col>
         </div>
     </div>
     <!--VueEasyForm End-->
@@ -237,13 +263,16 @@ export default {
         },
 
         validateForm(){
-            let passed = true
+            let form_passed = true
 
             for (const [key, field] of Object.entries(this.localform.fields)) {
-                passed = this.validateField(key, field)
+                let field_passed = this.validateField(key, field)
+                if(!field_passed){
+                    form_passed = false
+                }
             }
 
-            return passed
+            return form_passed
         },
 
         keyupValueByKey(result){

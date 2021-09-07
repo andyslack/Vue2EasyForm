@@ -8,7 +8,8 @@ import postcss from 'rollup-plugin-postcss'
 
 export default {
     external: [
-        'vue'
+        'vue',
+        'vue-simple-markdown'
     ],
     input: 'src/wrapper.js',
     output: {
@@ -36,7 +37,7 @@ export default {
             plugins: []
         }),
        buble({
-           presets: ['validatorjs'],
+           presets: ['validatorjs','vue-simple-markdown'],
            transforms: {
                forOf: false
            },
