@@ -80,6 +80,8 @@ This is made up as follows:
 | ------------------ | ----------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
 | name | `string`  | `true`   | Used to help differentiate between multiple forms on the same page | `vef_form_${name}`   |
 | [fields](#fields) | `object`  | `true`   | An object holding a number of field objects.<br /> <br /> Options include: `input`, `textarea`, `dropdown`,  <br /> `checkbox`, `module`, `button`, `submit`, `markdown`, `submit` | `vef_fields`         |
+| display | `string`  |   | Wrap the form with a display css element |       |
+| debug | `boolean`  |   | Will print emits and other helpful debugging into the console, default false |       |
 
 ## Fields
 

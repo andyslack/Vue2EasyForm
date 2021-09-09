@@ -6,7 +6,8 @@
             <vs-col
             v-for="[key, field] of Object.entries(localform.fields)"
             :key="key"
-            id="vef_field_div"
+            :id="`vef_field_div_${key}`"
+            class="vef_field_div"
             :vs-lg="field.responsive ? field.responsive.lg ? field.responsive.lg : '12' : '12'"
             :vs-sm="field.responsive ? field.responsive.sm ? field.responsive.sm : '12' : '12'"
             :vs-xs="field.responsive ? field.responsive.xs ? field.responsive.xs : '12' : '12'"
@@ -70,7 +71,7 @@
                             :state="field.error ? 'danger' : field.success ? 'success' : null "
                             :class="field.class"
                             :style="field.style"
-                            @changed="updateValueByKey"
+                            @changed="updateValueByKey({key: key, value: field.value})"
                         >
                                 <vs-select-item
                                     v-for="item of field.dropdown.options"
@@ -198,11 +199,13 @@ export default {
                     }
                 }
                 this.$emit('submit', data)
+                if(this.localform.debug){console.log(`VEF_SUBMIT: %o`, data);}
             }
         },
 
         buttonClicked(key){
             this.$emit('clicked', key)
+            if(this.localform.debug){console.log(`VEF_CLICKED: %s`, key);}
         },
 
         validateField(key, field){
@@ -254,6 +257,7 @@ export default {
                 this.localform.fields[key].error = true
                 this.localform.fields[key].error_message = validation.errors.first(key)
                 this.$emit('error', {[key]: validation.errors.first(key)})
+                if(this.localform.debug){console.log(`VEF_ERROR: %o`, {[key]: validation.errors.first(key)});}
                 return false
             }
 
@@ -291,6 +295,7 @@ export default {
 
             this.localform.fields[result.key].value = result.value
             this.$emit(`updated_${result.key}`, result.value)
+            if(this.localform.debug){console.log(`VEF_UPDATED_${result.key.toUpperCase()}: %s`, result.value);}
         },
 
         updateValueByKey(result){
@@ -301,9 +306,11 @@ export default {
                 data[name] = field.value
             }
             this.$emit('updated', data)
+            if(this.localform.debug){console.log(`VEF_UPDATED: %o`, data);}
 
             if(this.validateField(result.key, this.localform.fields[result.key])){
                 this.$emit(`updated_${result.key}`, result.value)
+                if(this.localform.debug){console.log(`VEF_UPDATED_${result.key.toUpperCase()}: %o`, data);}
             }
         },
 
@@ -317,7 +324,6 @@ export default {
                     }
                 }
             }
-
         }
     },
     watch: {

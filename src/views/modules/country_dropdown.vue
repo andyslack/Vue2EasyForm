@@ -5,6 +5,7 @@
         :id="`vef_module_country_dropdown`"
         :icon="i ? i.icon ? i.icon : 'bx-chevron-down' : 'bx-chevron-down'"
         :icon-pack="i ? i.pack ? i.pack : 'bx' : 'bx'"
+        @changed="changed"
     >
         <vs-select-item
             v-for="(value, key) of countries"
@@ -39,8 +40,10 @@ name: "CountryDropdown",
     methods: {
         selectCountry(){
 
-            if(countries[this.country.toUpperCase()]){
-                return this.country.toUpperCase()
+            if(this.country){
+                if(countries[this.country.toUpperCase()]){
+                    return this.country.toUpperCase()
+                }
             }
 
             if(countries[getCountry().toUpperCase()]){
@@ -48,10 +51,14 @@ name: "CountryDropdown",
             }
 
             return 'US'
+        },
+        changed(){
+            this.$emit('changed', this.selected)
         }
     },
     created() {
         this.selected = this.selectCountry()
+        this.$emit('changed', this.selected) //on first load emit the selected country
     },
     watch: {
         country(){
