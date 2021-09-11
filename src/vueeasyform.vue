@@ -154,7 +154,7 @@
                         {{ field.error_message }}
                     </div>
 
-                    <div v-if="field.success" id="vef_success_message">
+                    <div v-else-if="field.success" id="vef_success_message">
                         {{ field.success_message }}
                     </div>
 
@@ -259,15 +259,15 @@ export default {
                 field_passed = false
                 this.localform.fields[key].success = false
                 this.localform.fields[key].error = true
-                this.localform.fields[key].error_message = validation.errors.first(key)
-                this.$emit('error', {[key]: validation.errors.first(key)})
+                this.localform.fields[key].error_message = this.localform.fields[key].error_message ? this.localform.fields[key].error_message : validation.errors.first(key)
+                this.$emit('error', {[key]: this.localform.fields[key].error_message})
                 if(this.localform.debug){console.log(`VEF_ERROR: %o`, {[key]: validation.errors.first(key)});}
                 return false
+            }else{
+                this.localform.fields[key].success = true
+                this.localform.fields[key].error = false
+                return true
             }
-
-            this.localform.fields[key].success = true
-            this.localform.fields[key].error = false
-            return true
         },
 
         validateForm(){
