@@ -154,6 +154,10 @@
                         {{ field.error_message }}
                     </div>
 
+                    <div v-if="field.success" id="vef_success_message">
+                        {{ field.success_message }}
+                    </div>
+
                     <div v-else id="vef_description">
                         {{ field.description }}
                     </div>

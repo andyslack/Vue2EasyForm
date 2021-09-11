@@ -117,6 +117,7 @@ You can pass the following values:
 | `class` | `string`       |          |  Allows you to pass in classes dynamically                                                                                                                                                           |                      |
 | `style` | `string`       |          |  Allows you to pass in styles dynamically                                                                                                                                                               |                      |
 | `success`  | `boolean`       |          |  If the field has been successfully validated   |                      |
+| `success_message`| `string`       |          | The success message | `vef_success_message` |
 | `error` | `boolean`       |          |   If the field has failed validation    |                      |
 | `error_message`| `string`       |          | The error message | `vef_error_message` |
 | [validation](#validation)  | `object` | | Pass additional validation params, see [validation](#validation)  | |                                                                                                                                                 |                      |
