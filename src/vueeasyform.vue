@@ -263,13 +263,13 @@ export default {
                 this.$emit('error', {[key]: this.localform.fields[key].error_message})
                 if(this.localform.debug){console.log(`VEF_ERROR: %o`, {[key]: validation.errors.first(key)});}
                 return false
-            }else if(field.input && field.input.length === 0){
-                this.localform.fields[key].success = false
+            }else if(field.input && field.input.length > 0){
+                this.localform.fields[key].success = true
                 this.localform.fields[key].error = false
                 return true
             }
             else{
-                this.localform.fields[key].success = true
+                this.localform.fields[key].success = false
                 this.localform.fields[key].error = false
                 return true
             }
