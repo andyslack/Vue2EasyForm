@@ -32,6 +32,9 @@ name: "CountryDropdown",
         i: {
             type: String,
         },
+        locale: {
+            type: String,
+        }
     },
     data: () => ({
         selected: '',
@@ -46,8 +49,8 @@ name: "CountryDropdown",
                 }
             }
 
-            if(countries[getCountry().toUpperCase()]){
-                return getCountry().toUpperCase()
+            if(countries[getCountry(this.locale).toUpperCase()]){
+                return getCountry(this.locale).toUpperCase()
             }
 
             return 'US'
