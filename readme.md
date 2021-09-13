@@ -57,11 +57,13 @@ data: () => ({
                     placeholder: 'Email',
                 },
                 required: true
+            },
+            submit: {
+                submit: {
+                    label: 'Send Email'
+                }
             }
         },
-        submit: {
-            label: 'Send Email'
-        }
     },
 })
 ```
@@ -279,15 +281,16 @@ The forms submit button with Div #id `vef_submit` and `vef_submit_button`
 
 | Property | Type | Required | Description |
 | ---------- | ------ | ---------- | ------------- | 
-| `label`      | `string`  |         | The text for the button |  
-| `i`      | `object`  |          | [See Icon](#icons)   |
+| `submit`      | `object`  |         | ```{label: 'Submit', i: null}``` [See Icon](#icons)|
 
 
 #### Example:
 
 ```json5
 {
-    label: "Submit"
+    submit: {
+        label: "Submit"
+    }
 }
 ```
 

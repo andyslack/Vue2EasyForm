@@ -71,7 +71,7 @@
                             :state="field.error ? 'danger' : field.success ? 'success' : null "
                             :class="field.class"
                             :style="field.style"
-                            @changed="updateValueByKey({key: key, value: field.value})"
+                            @change="updateValueByKey({key: key, value: field.value})"
                         >
                                 <vs-select-item
                                     v-for="item of field.dropdown.options"
