@@ -240,8 +240,9 @@ Pass the following properities depending on the type:
 | Property | Type | Required | Description |
 | ---------- | ------ | ---------- | ------------- | 
 | `country`      | `string (ISO2)`  |         | The country you wish to set as the default,  if not passed we will <br> attempt to lookup from browser settings.  |  
-
-
+| `autocomplete`      | `boolean`  |        | Enables the use of autocomplete in the select.  | 
+| `i`      | `object`  |          | Element icon [See Icon](#icons)     |         |
+| `locale`      | `string(5)`  |        | Locale (e.g. en-GB)  | 
 
 
 * [ ] language dropdown (-mode -small (just symbols) - medium (just names) - large (names and symbols/shotcodes)) - options (array specify which ones to show otherwise all)

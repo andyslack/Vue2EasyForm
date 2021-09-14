@@ -1,13 +1,14 @@
 <template>
     <vs-select
         v-model="selected"
-        autocomplete
+        :autocomplete="field.module.autocomplete"
         :id="`vef_module_country_dropdown`"
-        :icon="i ? i.icon ? i.icon : 'bx-chevron-down' : 'bx-chevron-down'"
-        :icon-pack="i ? i.pack ? i.pack : 'bx' : 'bx'"
+        :icon="field.module.i ? field.module.i.icon ? field.module.i.icon : 'bx-chevron-down' : 'bx-chevron-down'"
+        :icon-pack="field.module.i ? field.module.i.pack ? field.module.i.pack : 'bx' : 'bx'"
         @changed="changed"
     >
         <vs-select-item
+            class="vef_module_country_dropdown_item"
             v-for="(value, key) of countries"
             :key="key"
             :value="key"
@@ -29,12 +30,9 @@ name: "CountryDropdown",
         country: {
             type: String,
         },
-        i: {
-            type: String,
+        field: {
+            type: Object,
         },
-        locale: {
-            type: String,
-        }
     },
     data: () => ({
         selected: '',
@@ -49,13 +47,14 @@ name: "CountryDropdown",
                 }
             }
 
-            if(countries[getCountry(this.locale).toUpperCase()]){
-                return getCountry(this.locale).toUpperCase()
+            if(countries[getCountry(this.field.module.locale).toUpperCase()]){
+                return getCountry(this.field.module.locale).toUpperCase()
             }
 
             return 'US'
         },
         changed(){
+
             this.$emit('changed', this.selected)
         }
     },

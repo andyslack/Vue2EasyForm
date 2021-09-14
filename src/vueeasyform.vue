@@ -1,6 +1,11 @@
 <template>
     <!--VueEasyForm Start-->
-    <div :id="`vef_form_${localform.name}`" :style="localform.display ? `display: ${localform.display};` : null">
+    <form
+        :id="`vef_form_${localform.name}`"
+        :style="localform.display ? `display: ${localform.display};` : null"
+        action=""
+        method="POST"
+    >
         <div v-if="localform.fields" id="vef_fields">
 
             <vs-col
@@ -22,6 +27,7 @@
                     <vs-input
                             v-if="field.input"
                             v-model="field.value"
+                            :autocomplete="key"
                             :id="`vef_input_${key}`"
                             :name="key"
                             :placeholder="field.input.placeholder"
@@ -166,7 +172,7 @@
 
             </vs-col>
         </div>
-    </div>
+    </form>
     <!--VueEasyForm End-->
 </template>
 

@@ -1,12 +1,14 @@
 <template>
     <div>
         <TimezoneDropdown v-if="record.module.type === 'timezone_dropdown'"
-            :timezone="record.value"
-            @changed="updateRecord"
+                        :timezone="record.value"
+                        :field="record"
+                        @changed="updateRecord"
         ></TimezoneDropdown>
 
         <CountryDropdown v-if="record.module.type === 'country_dropdown'"
                           :country="record.value"
+                         :field="record"
                           @changed="updateRecord"
         ></CountryDropdown>
     </div>
