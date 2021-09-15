@@ -37,7 +37,7 @@ export default {
             plugins: []
         }),
        buble({
-           presets: ['validatorjs','vue-simple-markdown'],
+           presets: ['validatorjs'],
            transforms: {
                forOf: false
            },
