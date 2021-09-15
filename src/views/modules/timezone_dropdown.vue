@@ -1,6 +1,7 @@
 <template>
         <select
             v-model="selected"
+            :autocomplete="field.autocomplete"
             @change="onChange"
             :id="`vef_module_timezone_dropdown`"
         >

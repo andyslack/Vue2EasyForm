@@ -25,7 +25,7 @@
                     <vs-input
                             v-if="field.input"
                             v-model="field.value"
-                            :autocomplete="key"
+                            :autocomplete="field.autocomplete"
                             :id="`vef_input_${key}`"
                             :name="key"
                             :placeholder="field.input.placeholder"
@@ -54,6 +54,7 @@
                         v-if="field.textarea"
                         v-model="field.value"
                         :id="`vef_textarea_${key}`"
+                        :autocomplete="field.autocomplete"
                         :label="field.textarea.label"
                         :counter="field.textarea.counter"
                         :width="field.textarea.width"
@@ -68,6 +69,7 @@
                             v-if="field.dropdown"
                             v-model="field.value"
                             :id="`vef_dropdown_${key}`"
+                            :autocomplete="field.autocomplete"
                             :label="field.dropdown.label"
                             :multiple="field.dropdown.multiple"
                             :icon="field.dropdown.i ? field.dropdown.i.icon ? field.dropdown.i.icon : null : null"
@@ -90,6 +92,7 @@
                             v-if="field.checkbox"
                             v-model="field.value"
                             :id="`vef_checkbox_${key}`"
+                            :autocomplete="field.autocomplete"
                             :disabled="field.disabled ? field.disabled : null"
                             :color="field.checkbox.color"
                             :icon="field.checkbox.i ? field.checkbox.i.icon ? field.checkbox.i.icon : 'bx-check' : 'bx-check'"
@@ -129,14 +132,6 @@
                         :style="field.style"
                         @changed="updateValueByKey"
                     ></FormModule>
-
-                    <vue-simple-markdown
-                        v-if="field.markdown"
-                        :id="`vef_markdown_${key}`"
-                        :source="field.markdown"
-                        :class="field.class"
-                        :style="field.style"
-                    ></vue-simple-markdown>
 
                     <div v-if="field.submit"
                          id="vef_submit"

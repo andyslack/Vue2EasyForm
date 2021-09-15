@@ -113,6 +113,7 @@ You can pass the following values:
 | `value`          | `<mixed>` | `true`   | The property which holds the user input.                                          |                      |
 | `loading`        | `boolean` |          | Show a loading spinner in place of the field.<br /> <br /> Helpful if you are populating from an API                                                        | `vef_loading_${key}` |
 | `description`    | `string`  |      | Show the user a message below the field.                                       |       `vef_description`               |
+| `autocomplete`    | `string`  |      | The string to use for the autocomplete see [WHATWG HTML](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill) standard  |                 |
 | `required ` | `boolean`       |          |  If this a required field                                                                                                                                                       |                      |
 | `disabled` | `boolean`       |          |   If the field should be disabled                                                                                                                                                          |                      |
 | `responsive` | `object`       |          |  Allows you to set the width of the column ```{lg: 6, sm: 12, xs: 12}```                                                                                                                                                          |                      |
@@ -244,12 +245,10 @@ Pass the following properities depending on the type:
 | `i`      | `object`  |          | Element icon [See Icon](#icons)     |         |
 | `locale`      | `string(5)`  |        | Locale (e.g. en-GB)  | 
 
-
 * [ ] language dropdown (-mode -small (just symbols) - medium (just names) - large (names and symbols/shotcodes)) - options (array specify which ones to show otherwise all)
 * [ ] countires (-mode -small (just flags) - medium (just names) - large (names and flags/names)) - options (array specify which ones to show otherwise all)
 * [ ] address lookup - Will need to look for external modules
 * [ ] google maps - show on a map the location passed (will require google api keys to be passed)
-* [ ] `markdown`
 * [ ] light/dark switcher
 
 #### Example:
@@ -257,22 +256,6 @@ Pass the following properities depending on the type:
 ```json5
 {
     type: 'timezone_dropdown'
-}
-```
-
-### Markdown
-
-A field with the Div #id `vef_markdown_${key}`
-
-| Property | Type | Required | Description |
-| ---------- | ------ | ---------- | ------------- | 
-| `markdown`      | `strong`  |        | Some markdown to print to screen |    
-
-#### Example:
-
-```json5
-{
-    markdown: '# H1 ## H2 ### H3'
 }
 ```
 
@@ -371,6 +354,6 @@ You can see some prebuild examples here:
 
 * [ ] Share more advanced examples 
 
-##Shell Script
+## Shell Script
 
 * [ ] Create a `runner.sh` script which will allow users to build the form json by entering commands for even easier form setup.
