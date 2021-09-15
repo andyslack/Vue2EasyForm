@@ -25,7 +25,7 @@
                     <vs-input
                             v-if="field.input"
                             v-model="field.value"
-                            :autocomplete="key.replace('_', ' ')"
+                            :autocomplete="key"
                             :id="`vef_input_${key}`"
                             :name="key"
                             :placeholder="field.input.placeholder"
