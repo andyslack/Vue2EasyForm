@@ -3,8 +3,6 @@
     <form
         :id="`vef_form_${localform.name}`"
         :style="localform.display ? `display: ${localform.display};` : null"
-        action=""
-        method="POST"
     >
         <div v-if="localform.fields" id="vef_fields">
 
@@ -27,7 +25,7 @@
                     <vs-input
                             v-if="field.input"
                             v-model="field.value"
-                            :autocomplete="key"
+                            :autocomplete="key.replace('_', ' ')"
                             :id="`vef_input_${key}`"
                             :name="key"
                             :placeholder="field.input.placeholder"
