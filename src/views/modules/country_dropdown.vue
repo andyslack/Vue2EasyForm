@@ -1,7 +1,7 @@
 <template>
     <vs-select
         v-model="selected"
-        :autocomplete="field.autocomplete"
+        :autocomplete="field.module.autocomplete"
         :id="`vef_module_country_dropdown`"
         :icon="field.module.i ? field.module.i.icon ? field.module.i.icon : 'bx-chevron-down' : 'bx-chevron-down'"
         :icon-pack="field.module.i ? field.module.i.pack ? field.module.i.pack : 'bx' : 'bx'"

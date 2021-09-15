@@ -69,7 +69,7 @@
                             v-if="field.dropdown"
                             v-model="field.value"
                             :id="`vef_dropdown_${key}`"
-                            :autocomplete="field.autocomplete"
+                            :autocomplete="field.dropdown.autocomplete"
                             :label="field.dropdown.label"
                             :multiple="field.dropdown.multiple"
                             :icon="field.dropdown.i ? field.dropdown.i.icon ? field.dropdown.i.icon : null : null"
