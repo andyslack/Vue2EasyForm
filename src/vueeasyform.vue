@@ -55,8 +55,8 @@
                             :icon-after="field.input.i ? field.input.i.after : null"
                             :class="field.class"
                             :style="field.style"
-                            @keyup="keyupValueByKey(field)"
-                            @blur="updateValueByKey(field)"
+                            @keyup="keyupValueByField(field)"
+                            @blur="updateValueByField(field)"
                         >
                         </vs-input>
 
@@ -71,8 +71,8 @@
                             :height="field.textarea.height"
                             :class="field.class"
                             :style="field.style"
-                            @keyup="keyupValueByKey(field)"
-                            @blur="updateValueByKey(field)"
+                            @keyup="keyupValueByField(field)"
+                            @blur="updateValueByField(field)"
                         />
 
                         <vs-select
@@ -87,7 +87,7 @@
                             :state="field.error ? 'danger' : field.success ? 'success' : null "
                             :class="field.class"
                             :style="field.style"
-                            @change="updateValueByKey(field)"
+                            @change="updateValueByField(field)"
                         >
                             <vs-select-item
                                 v-for="item of field.dropdown.options"
@@ -109,7 +109,7 @@
                             :icon-pack="field.checkbox.i ? field.checkbox.i.pack ? field.checkbox.i.pack : 'bx' : 'bx'"
                             :class="field.class"
                             :style="field.style"
-                            @change="updateValueByKey(field)"
+                            @change="updateValueByField(field)"
                         >
                         <span
                             v-if="field.checkbox.label"
@@ -134,13 +134,13 @@
                         <FormModule
                             v-if="field.module"
                             :id="`vef_module_${field.key}`"
-                            :record="field"
+                            :field="field"
                             :index="field.key"
                             :danger="field.error"
                             :success="field.success"
                             :class="field.class"
                             :style="field.style"
-                            @changed="updateValueByKey(field)"
+                            @changed="updateValueByKeyPair"
                         ></FormModule>
 
                         <div v-if="field.submit"
@@ -296,7 +296,7 @@ export default {
             }
         },
 
-        keyupValueByKey(field){
+        keyupValueByField(field){
 
             if(field.transform){
 
@@ -320,7 +320,7 @@ export default {
             if(this.localform.debug){console.log(`VEF_UPDATED_${field.key.toUpperCase()}: %s`, field.value);}
         },
 
-        updateValueByKey(field){
+        updateValueByField(field){
             for(const f in this.localform.fields){
                 if(field.key === this.localform.fields[f].key){
                     this.localform.fields[f].value = field.value
@@ -328,6 +328,28 @@ export default {
                     if(this.validateField(f, field)){
                         this.$emit(`updated_${field.key}`, field.value)
                         if(this.localform.debug){console.log(`VEF_UPDATED_${field.key.toUpperCase()}: %o`, field.value);}
+                    }
+                }
+            }
+
+            let data = {}
+
+            for (const f of this.localform.fields) {
+                data[f.key] = f.value
+            }
+
+            this.$emit('updated', data)
+            if(this.localform.debug){console.log(`VEF_UPDATED: %o`, data);}
+        },
+
+        updateValueByKeyPair(keypair){
+            for(const f in this.localform.fields){
+                if(keypair.key === this.localform.fields[f].key){
+                    this.localform.fields[f].value = keypair.value
+
+                    if(this.validateField(f, this.localform.fields[f])){
+                        this.$emit(`updated_${keypair.key}`, keypair.value)
+                        if(this.localform.debug){console.log(`VEF_UPDATED_${keypair.key.toUpperCase()}: %o`, keypair.value);}
                     }
                 }
             }

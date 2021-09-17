@@ -1,14 +1,13 @@
 <template>
     <div>
-        <TimezoneDropdown v-if="record.module.type === 'timezone_dropdown'"
-                        :timezone="record.value"
-                        :field="record"
+        <TimezoneDropdown v-if="field.module.type === 'timezone_dropdown'"
+                        :timezone="field.value"
+                        :field="field"
                         @changed="updateRecord"
         ></TimezoneDropdown>
 
-        <CountryDropdown v-if="record.module.type === 'country_dropdown'"
-                          :country="record.value"
-                         :field="record"
+        <CountryDropdown v-if="field.module.type === 'country_dropdown'"
+                         :field="field"
                           @changed="updateRecord"
         ></CountryDropdown>
     </div>
@@ -29,14 +28,14 @@ export default {
             type: String,
             required: true
         },
-        record: {
+        field: {
             type: Object,
             required: true
         },
     },
     methods: {
         updateRecord(value){
-            this.$emit('changed', value)
+            this.$emit('changed',{key: this.field.key, value: value})
         }
     },
 };

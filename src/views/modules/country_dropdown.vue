@@ -27,9 +27,6 @@ export default {
 name: "CountryDropdown",
     components: {},
     props:{
-        country: {
-            type: String,
-        },
         field: {
             type: Object,
         },
@@ -40,10 +37,9 @@ name: "CountryDropdown",
     }),
     methods: {
         selectCountry(){
-
-            if(this.country){
-                if(countries[this.country.toUpperCase()]){
-                    return this.country.toUpperCase()
+            if(this.field.value){
+                if(countries[this.field.value.toUpperCase()]){
+                    return this.field.value.toUpperCase()
                 }
             }
 
@@ -54,19 +50,15 @@ name: "CountryDropdown",
             return 'US'
         },
         changed(){
-
             this.$emit('changed', this.selected)
         }
     },
     created() {
         this.selected = this.selectCountry()
-        this.$emit('changed', this.selected) //on first load emit the selected country
     },
     watch: {
-        country(){
-            if(this.country){
-                this.selected = this.country
-            }
+        field(){
+            this.selectCountry()
         },
         selected(){
             this.$emit('changed', this.selected)
