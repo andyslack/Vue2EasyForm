@@ -36,8 +36,7 @@ export default {
     },
     methods: {
         updateRecord(value){
-            let result = {key: this.index, value: value}
-            this.$emit('changed', result)
+            this.$emit('changed', value)
         }
     },
 };

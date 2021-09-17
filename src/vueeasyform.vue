@@ -7,27 +7,37 @@
         <div v-if="localform.fields" id="vef_fields">
 
             <vs-col
-            v-for="[key, field] of Object.entries(localform.fields)"
-            :key="key"
-            :id="`vef_field_div_${key}`"
+            v-for="field of localform.fields"
+            :key="field.key"
+            :id="`vef_field_div_${field.key}`"
             class="vef_field_div"
             :vs-lg="field.responsive ? field.responsive.lg ? field.responsive.lg : '12' : '12'"
             :vs-sm="field.responsive ? field.responsive.sm ? field.responsive.sm : '12' : '12'"
             :vs-xs="field.responsive ? field.responsive.xs ? field.responsive.xs : '12' : '12'"
           >
-                <div v-if="field.loading" :id="`vef_loading_${key}`">
-                     <box-icon name='loader' animation='spin'></box-icon>
-                </div>
-                <div
-                    :id="`vef_field_${key}`"
-                    v-else>
+                    <div v-if="field.loading" :id="`vef_loading_${field.key}`">
+                        <box-icon name='loader' animation='spin'></box-icon>
+                    </div>
+                    <div :id="`vef_field_${field.key}`" v-show="!field.hidden" v-else>
 
-                    <vs-input
+                        <div
+                            v-if="field.section"
+                            :id="`vef_section_${field.key}`"
+                            :class="field.class ?  field.class : 'vef_section'"
+                            :style="field.style"
+                        >
+                            <div v-if="field.section.hr_above" class="vef_section_hr_above"><hr></div>
+                            <div v-if="field.section.header" :id="`vef_section_${field.key}_header`" class="vef_section_header">{{field.section.header}}</div>
+                            <div v-if="field.section.text" :id="`vef_section_${field.key}_text`" class="vef_section_text">{{field.section.text}}</div>
+                            <div v-if="field.section.hr_below" class="vef_section_hr_below"><hr></div>
+                        </div>
+
+                        <vs-input
                             v-if="field.input"
                             v-model="field.value"
                             :autocomplete="field.autocomplete"
-                            :id="`vef_input_${key}`"
-                            :name="key"
+                            :id="`vef_input_${field.key}`"
+                            :name="field.key"
                             :placeholder="field.input.placeholder"
                             :label-placeholder="field.input['label-placeholder']"
                             :label="field.input.label"
@@ -45,30 +55,30 @@
                             :icon-after="field.input.i ? field.input.i.after : null"
                             :class="field.class"
                             :style="field.style"
-                            @keyup="keyupValueByKey({key: key, value: field.value})"
-                            @blur="updateValueByKey({key: key, value: field.value})"
-                    >
+                            @keyup="keyupValueByKey(field)"
+                            @blur="updateValueByKey(field)"
+                        >
                         </vs-input>
 
-                    <vs-textarea
-                        v-if="field.textarea"
-                        v-model="field.value"
-                        :id="`vef_textarea_${key}`"
-                        :autocomplete="field.autocomplete"
-                        :label="field.textarea.label"
-                        :counter="field.textarea.counter"
-                        :width="field.textarea.width"
-                        :height="field.textarea.height"
-                        :class="field.class"
-                        :style="field.style"
-                        @keyup="keyupValueByKey({key: key, value: field.value})"
-                        @blur="updateValueByKey({key: key, value: field.value})"
-                    />
+                        <vs-textarea
+                            v-if="field.textarea"
+                            v-model="field.value"
+                            :id="`vef_textarea_${field.key}`"
+                            :autocomplete="field.autocomplete"
+                            :label="field.textarea.label"
+                            :counter="field.textarea.counter"
+                            :width="field.textarea.width"
+                            :height="field.textarea.height"
+                            :class="field.class"
+                            :style="field.style"
+                            @keyup="keyupValueByKey(field)"
+                            @blur="updateValueByKey(field)"
+                        />
 
-                    <vs-select
+                        <vs-select
                             v-if="field.dropdown"
                             v-model="field.value"
-                            :id="`vef_dropdown_${key}`"
+                            :id="`vef_dropdown_${field.key}`"
                             :autocomplete="field.dropdown.autocomplete"
                             :label="field.dropdown.label"
                             :multiple="field.dropdown.multiple"
@@ -77,21 +87,21 @@
                             :state="field.error ? 'danger' : field.success ? 'success' : null "
                             :class="field.class"
                             :style="field.style"
-                            @change="updateValueByKey({key: key, value: field.value})"
+                            @change="updateValueByKey(field)"
                         >
-                                <vs-select-item
-                                    v-for="item of field.dropdown.options"
-                                    :key="item.value"
-                                    :value="item.value"
-                                    :text="item.name">
-                                </vs-select-item>
+                            <vs-select-item
+                                v-for="item of field.dropdown.options"
+                                :key="item.value"
+                                :value="item.value"
+                                :text="item.name">
+                            </vs-select-item>
 
-                            </vs-select>
+                        </vs-select>
 
-                    <vs-checkbox
+                        <vs-checkbox
                             v-if="field.checkbox"
                             v-model="field.value"
-                            :id="`vef_checkbox_${key}`"
+                            :id="`vef_checkbox_${field.key}`"
                             :autocomplete="field.autocomplete"
                             :disabled="field.disabled ? field.disabled : null"
                             :color="field.checkbox.color"
@@ -99,69 +109,69 @@
                             :icon-pack="field.checkbox.i ? field.checkbox.i.pack ? field.checkbox.i.pack : 'bx' : 'bx'"
                             :class="field.class"
                             :style="field.style"
-                            @change="updateValueByKey({key: key, value: field.value})"
+                            @change="updateValueByKey(field)"
                         >
                         <span
                             v-if="field.checkbox.label"
-                            :id="`vef_checkbox_label_${key}`"
+                            :id="`vef_checkbox_label_${field.key}`"
                             v-html="field.checkbox.label"
                         ></span>
-                    </vs-checkbox>
+                        </vs-checkbox>
 
-                    <vs-button
-                           v-if="field.button"
-                           :id="`vef_button_${key}`"
-                           @click="buttonClicked(key)"
-                           :disabled="field.disabled ?field.disabled : false"
-                           :class="field.class"
-                           :style="field.style"
-                       >
-                        <i v-if="record.button.i && !record.button.i.after" :class="record.button.i.icon" :id="`vef_button_icon_before_${key}`"></i>
-                           {{field.button.label}}
-                        <i v-if="record.button.i && record.button.i.after" :class="record.button.i.icon" :id="`vef_button_icon_after_${key}`"></i>
-                    </vs-button>
-
-                    <FormModule
-                        v-if="field.module"
-                        :id="`vef_module_${key}`"
-                        :record="field"
-                        :index="key"
-                        :danger="field.error"
-                        :success="field.success"
-                        :class="field.class"
-                        :style="field.style"
-                        @changed="updateValueByKey"
-                    ></FormModule>
-
-                    <div v-if="field.submit"
-                         id="vef_submit"
-                    >
                         <vs-button
-                            id="vef_submit_button"
+                            v-if="field.button"
+                            :id="`vef_button_${field.key}`"
+                            @click="buttonClicked(field.key)"
+                            :disabled="field.disabled ?field.disabled : false"
                             :class="field.class"
                             :style="field.style"
-                            @click="submit"
                         >
-                            <i v-if="field.submit.i && !field.submit.i.after" :class="field.submit.i.icon" id="vef_submit_icon_before"></i>
-                            {{ field.submit.label }}
-                            <i v-if="field.submit.i && field.submit.i.after" :class="field.submit.i.icon" id="vef_submit_icon_after"></i>
-
+                            <i v-if="record.button.i && !record.button.i.after" :class="record.button.i.icon" :id="`vef_button_icon_before_${field.key}`"></i>
+                            {{field.button.label}}
+                            <i v-if="record.button.i && record.button.i.after" :class="record.button.i.icon" :id="`vef_button_icon_after_${field.key}`"></i>
                         </vs-button>
-                    </div>
 
-                     <div v-if="field.error" id="vef_error_message">
-                        {{ field.error_message }}
-                    </div>
+                        <FormModule
+                            v-if="field.module"
+                            :id="`vef_module_${field.key}`"
+                            :record="field"
+                            :index="field.key"
+                            :danger="field.error"
+                            :success="field.success"
+                            :class="field.class"
+                            :style="field.style"
+                            @changed="updateValueByKey(field)"
+                        ></FormModule>
 
-                    <div v-else-if="field.success" id="vef_success_message">
-                        {{ field.success_message }}
-                    </div>
+                        <div v-if="field.submit"
+                             id="vef_submit"
+                        >
+                            <vs-button
+                                id="vef_submit_button"
+                                :class="field.class"
+                                :style="field.style"
+                                @click="submit"
+                            >
+                                <i v-if="field.submit.i && !field.submit.i.after" :class="field.submit.i.icon" id="vef_submit_icon_before"></i>
+                                {{ field.submit.label }}
+                                <i v-if="field.submit.i && field.submit.i.after" :class="field.submit.i.icon" id="vef_submit_icon_after"></i>
 
-                    <div v-else id="vef_description">
-                        {{ field.description }}
-                    </div>
+                            </vs-button>
+                        </div>
 
-                </div>
+                        <div v-if="field.error" id="vef_error_message">
+                            {{ field.error_message }}
+                        </div>
+
+                        <div v-else-if="field.success" id="vef_success_message">
+                            {{ field.success_message }}
+                        </div>
+
+                        <div v-else id="vef_description">
+                            {{ field.description }}
+                        </div>
+
+                    </div>
 
             </vs-col>
         </div>
@@ -188,7 +198,8 @@ export default {
         localform: {}
     }),
     created: function () {
-        this.setupForm({...this.form})
+        if(this.form.debug){console.log(`VEF INIT`);}
+        this.setupForm(this.form)
     },
     methods: {
         submit() {
@@ -197,8 +208,8 @@ export default {
             if (this.validateForm()) {
                 let data = {}
                 if(this.localform.fields){
-                    for (const [key, field] of Object.entries(this.localform.fields)) {
-                        data[key] = field.value
+                    for (const field of this.localform.fields) {
+                        data[field.key] = field.value
                     }
                 }
                 this.$emit('submit', data)
@@ -211,8 +222,20 @@ export default {
             if(this.localform.debug){console.log(`VEF_CLICKED: %s`, key);}
         },
 
-        validateField(key, field){
-            let field_passed = true
+        validateForm(){
+            let form_passed = true
+
+            for (const f in this.localform.fields) {
+                let result = this.validateField(f, this.localform.fields[f])
+                if(!result){
+                    form_passed = false
+                }
+            }
+
+            return form_passed
+        },
+
+        validateField(f, field){
 
             let validations = []
 
@@ -252,91 +275,98 @@ export default {
                 }
             }
 
-            let validation = new Validator({[key]: field.value}, {[key]: validations})
+            let validation = new Validator({[field.key]: field.value}, {[field.key]: validations})
 
             if(validation.fails()){
-                field_passed = false
-                this.localform.fields[key].success = false
-                this.localform.fields[key].error = true
-                this.localform.fields[key].error_message = this.localform.fields[key].error_message ? this.localform.fields[key].error_message : validation.errors.first(key)
-                this.$emit('error', {[key]: this.localform.fields[key].error_message})
-                if(this.localform.debug){console.log(`VEF_ERROR: %o`, {[key]: validation.errors.first(key)});}
+                this.localform.fields[f].success = false
+                this.localform.fields[f].error = true
+                this.localform.fields[f].error_message = this.localform.fields[f].error_message ? this.localform.fields[f].error_message : validation.errors.first(field.key)
+                this.$emit('error', {[field.key]: this.localform.fields[f].error_message})
+                if(this.localform.debug){console.log(`VEF_ERROR: %o`, {[field.key]: validation.errors.first(field.key)});}
                 return false
             }else if(field.input && field.input.value && field.value.length >= 1){
-                this.localform.fields[key].success = true
-                this.localform.fields[key].error = false
+                this.localform.fields[f].success = true
+                this.localform.fields[f].error = false
                 return true
             }
             else{
-                this.localform.fields[key].success = false
-                this.localform.fields[key].error = false
+                this.localform.fields[f].success = false
+                this.localform.fields[f].error = false
                 return true
             }
         },
 
-        validateForm(){
-            let form_passed = true
+        keyupValueByKey(field){
 
-            for (const [key, field] of Object.entries(this.localform.fields)) {
-                let field_passed = this.validateField(key, field)
-                if(!field_passed){
-                    form_passed = false
-                }
-            }
+            if(field.transform){
 
-            return form_passed
-        },
-
-        keyupValueByKey(result){
-
-            if(this.localform.fields[result.key].transform){
-
-                if(this.localform.fields[result.key].transform.uppercase){
-                    result.value = result.value.toUpperCase()
+                if(field.transform.uppercase){
+                    field.value = field.value.toUpperCase()
                 }
 
-                if(this.localform.fields[result.key].transform.lowercase){
-                    result.value = result.value.toLowerCase()
+                if(field.transform.lowercase){
+                    field.value = field.value.toLowerCase()
                 }
 
             }
 
-            this.localform.fields[result.key].value = result.value
-            this.$emit(`updated_${result.key}`, result.value)
-            if(this.localform.debug){console.log(`VEF_UPDATED_${result.key.toUpperCase()}: %s`, result.value);}
+            for(const f in this.localform.fields){
+                if(field.key === this.localform.fields[f].key){
+                    this.localform.fields[f].value = field.value
+                }
+            }
+
+            this.$emit(`updated_${field.key}`, field.value)
+            if(this.localform.debug){console.log(`VEF_UPDATED_${field.key.toUpperCase()}: %s`, field.value);}
         },
 
-        updateValueByKey(result){
-            this.localform.fields[result.key].value = result.value
+        updateValueByKey(field){
+            for(const f in this.localform.fields){
+                if(field.key === this.localform.fields[f].key){
+                    this.localform.fields[f].value = field.value
+
+                    if(this.validateField(f, field)){
+                        this.$emit(`updated_${field.key}`, field.value)
+                        if(this.localform.debug){console.log(`VEF_UPDATED_${field.key.toUpperCase()}: %o`, field.value);}
+                    }
+                }
+            }
 
             let data = {}
-            for (const [name, field] of Object.entries(this.localform.fields)) {
-                data[name] = field.value
+
+            for (const f of this.localform.fields) {
+                data[f.key] = f.value
             }
+
             this.$emit('updated', data)
             if(this.localform.debug){console.log(`VEF_UPDATED: %o`, data);}
-
-            if(this.validateField(result.key, this.localform.fields[result.key])){
-                this.$emit(`updated_${result.key}`, result.value)
-                if(this.localform.debug){console.log(`VEF_UPDATED_${result.key.toUpperCase()}: %o`, data);}
-            }
         },
 
         setupForm(form){
-            this.localform = form
-            if(this.localform.fields){
-                //check if we have values passed in and if so, validate them
-                for (const [key, field] of Object.entries(this.localform.fields)) {
-                    if(field.value){
-                        this.validateField(key, field)
+            try {
+                this.localform = {...form}
+
+                if (this.localform.fields) {
+                    for (const f in this.localform.fields) {
+                        if (this.localform.fields[f].value) {
+                            this.validateField(f, this.localform.fields[f])
+                        }
+                    }
+                    console.log(`VEF SETUP: ${this.localform.fields.length} fields added`);
+
+                } else {
+                    if (this.localform.debug) {
+                        console.log(`VEF ERROR: No fields found %o`, this.localform.fields);
                     }
                 }
+            }catch (e) {
+                console.log(`VEF ERROR: %s %o`, e.message, e.stack);
             }
         }
     },
     watch: {
         form(newForm) {
-            this.setupForm({...newForm})
+            this.setupForm(newForm)
         },
     },
 };

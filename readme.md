@@ -49,21 +49,20 @@ import VueEasyForm from "@me_slack/vue2easyform"
 data: () => ({
     contact_form: {
         name: 'contact_form',
-        fields:{
-            email: {
-                value: '',
-                input: {
-                    type: 'email',
-                    placeholder: 'Email',
-                },
-                required: true
+        fields: [{
+            key: 'email',
+            value: '',
+            input: {
+                type: 'email',
+                placeholder: 'Email',
             },
+            required: true
+        }, {
+            key: 'submit',
             submit: {
-                submit: {
-                    label: 'Send Email'
-                }
+                label: 'Send Email'
             }
-        },
+        }]
     },
 })
 ```
@@ -81,20 +80,19 @@ This is made up as follows:
 | Property         | Type      | Required | Description                                                                                                                                                 | Div #id              |
 | ------------------ | ----------- | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
 | name | `string`  | `true`   | Used to help differentiate between multiple forms on the same page | `vef_form_${name}`   |
-| [fields](#fields) | `object`  | `true`   | An object holding a number of field objects.<br /> <br /> Options include: `input`, `textarea`, `dropdown`,  <br /> `checkbox`, `module`, `button`, `submit`, `markdown`, `submit` | `vef_fields`         |
+| [fields](#fields) | `array`  | `true`   | An array holding a number of field objects.<br /> <br /> Options include: `input`, `textarea`, `dropdown`,  <br /> `checkbox`, `module`, `button`, `submit`, `markdown`, `submit` | `vef_fields`         |
 | display | `string`  |   | Wrap the form with a display css element |       |
 | debug | `boolean`  |   | Will print emits and other helpful debugging into the console, default false |       |
 
 ## Fields
 
-Include your fields name as the key and the following data as the object, for example:
-
 ```javascript
-fields:{
-    email: {
+fields:[
+    {
+        key: 'email',
         value: 'me@me.com'
     }
-}
+]
 ```
 
 This is the `key` you will get back in any [events](#events). For example:
@@ -109,13 +107,15 @@ You can pass the following values:
 
 | Property         | Type      | Required | Description | Div #id |
 | ------------------ | ----------- | ---------- | --------------------------------------------------------------------------------- | ---------------------- |
-| `<mixed>`        | `object`  |  `true`  | We currently support the following fields: <br /><br /> [input](#input), [textarea](#textarea), [dropdown](#dropdown), [checkbox](#checkbox), [button](#button), [module](#module), [markdown](#markdown), [submit](#submit) |  `vef_field_${key}` |
+| `key`    | `string`  |      | The key for the key:pair returned on update/submission  |              |
+| `<mixed>`        | `object`  |  `true`  | We currently support the following fields: <br /><br /> [input](#input), [textarea](#textarea), [dropdown](#dropdown), [checkbox](#checkbox), [button](#button), [module](#module), [markdown](#markdown), [submit](#submit) , [section](#section) |  `vef_field_${key}` |
 | `value`          | `<mixed>` | `true`   | The property which holds the user input.                                          |                      |
 | `loading`        | `boolean` |          | Show a loading spinner in place of the field.<br /> <br /> Helpful if you are populating from an API                                                        | `vef_loading_${key}` |
 | `description`    | `string`  |      | Show the user a message below the field.                                       |       `vef_description`               |
 | `autocomplete`    | `string`  |      | The string to use for the autocomplete see [WHATWG HTML](https://html.spec.whatwg.org/multipage/form-control-infrastructure.html#autofill) standard  |                 |
 | `required ` | `boolean`       |          |  If this a required field                                                                                                                                                       |                      |
 | `disabled` | `boolean`       |          |   If the field should be disabled                                                                                                                                                          |                      |
+| `hidden` | `boolean`       |          |    Hides the field from view (default false)                                                                                                                                                |                      |
 | `responsive` | `object`       |          |  Allows you to set the width of the column ```{lg: 6, sm: 12, xs: 12}```                                                                                                                                                          |                      |
 | `class` | `string`       |          |  Allows you to pass in classes dynamically                                                                                                                                                           |                      |
 | `style` | `string`       |          |  Allows you to pass in styles dynamically                                                                                                                                                               |                      |
@@ -250,6 +250,7 @@ Pass the following properities depending on the type:
 * [ ] address lookup - Will need to look for external modules
 * [ ] google maps - show on a map the location passed (will require google api keys to be passed)
 * [ ] light/dark switcher
+* [ ] Key/Pair list with ADD / REMOVE Options 
 
 #### Example:
 
@@ -275,6 +276,27 @@ The forms submit button with Div #id `vef_submit` and `vef_submit_button`
     submit: {
         label: "Submit"
     }
+}
+```
+
+## Section
+
+You can split up your form with sections, passing the following options. #id `vef_section_${key}` class `vef_section`
+
+| Property | Type | Required | Description | ID | Class |
+| ---------- | ------ | ---------- | ------------- | ----|----|
+| `header`      | `string`  |         | Add a header to your section | `vef_section_${key}_header` | `vef_section_header`
+| `text`      | `string`  |         | Text for your section | `vef_section_${key}_text` | `vef_section_text`
+| `hr_above`      | `boolean`  |         | If you wish to show a HR above the header | | `vef_section_hr_above`
+| `hr_below`      | `boolean`  |         | If you wish to show a HR below the text | | `vef_section_hr_below`
+
+#### Example:
+
+```json5
+{
+    hr_above: true,
+    header: "Section Title",
+    text: "Section Text",
 }
 ```
 
