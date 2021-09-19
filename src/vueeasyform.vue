@@ -180,8 +180,9 @@
 </template>
 
 <script>
-let Validator = require('validatorjs');
-import FormModule from "./views/_form_module.vue";
+import {log} from "./functions/logger"
+const Validator = require('validatorjs')
+import FormModule from "./views/_form_module.vue"
 
 export default {
     name: "VueEasyForm",
@@ -198,7 +199,7 @@ export default {
         localform: {}
     }),
     created: function () {
-        if(this.form.debug){console.log(`VEF INIT`);}
+        log(this.form.debug, `VEF_INIT ${this.form.name}`, this.form);
         this.setupForm(this.form)
     },
     methods: {
@@ -212,14 +213,14 @@ export default {
                         data[field.key] = field.value
                     }
                 }
+                log(this.localform.debug, `VEF_SUBMIT`, data);
                 this.$emit('submit', data)
-                if(this.localform.debug){console.log(`VEF_SUBMIT: %o`, data);}
             }
         },
 
         buttonClicked(key){
+            log(this.localform.debug, `VEF_CLICKED ${key}`);
             this.$emit('clicked', key)
-            if(this.localform.debug){console.log(`VEF_CLICKED: %s`, key);}
         },
 
         validateForm(){
@@ -282,7 +283,7 @@ export default {
                 this.localform.fields[f].error = true
                 this.localform.fields[f].error_message = this.localform.fields[f].error_message ? this.localform.fields[f].error_message : validation.errors.first(field.key)
                 this.$emit('error', {[field.key]: this.localform.fields[f].error_message})
-                if(this.localform.debug){console.log(`VEF_ERROR: %o`, {[field.key]: validation.errors.first(field.key)});}
+                log(this.localform.debug, `VEF_ERROR`,  {[field.key]: validation.errors.first(field.key)});
                 return false
             }else if(field.input && field.input.value && field.value.length >= 1){
                 this.localform.fields[f].success = true
@@ -317,7 +318,7 @@ export default {
             }
 
             this.$emit(`updated_${field.key}`, field.value)
-            if(this.localform.debug){console.log(`VEF_UPDATED_${field.key.toUpperCase()}: %s`, field.value);}
+            log(this.localform.debug, `VEF_UPDATED_${field.key.toUpperCase()}`,  field.value);
         },
 
         updateValueByField(field){
@@ -327,7 +328,7 @@ export default {
 
                     if(this.validateField(f, field)){
                         this.$emit(`updated_${field.key}`, field.value)
-                        if(this.localform.debug){console.log(`VEF_UPDATED_${field.key.toUpperCase()}: %o`, field.value);}
+                        log(this.localform.debug, `VEF_UPDATED_${field.key.toUpperCase()}`,  field.value);
                     }
                 }
             }
@@ -339,7 +340,7 @@ export default {
             }
 
             this.$emit('updated', data)
-            if(this.localform.debug){console.log(`VEF_UPDATED: %o`, data);}
+            log(this.localform.debug, `VEF_UPDATED`,  data);
         },
 
         updateValueByKeyPair(keypair){
@@ -349,7 +350,7 @@ export default {
 
                     if(this.validateField(f, this.localform.fields[f])){
                         this.$emit(`updated_${keypair.key}`, keypair.value)
-                        if(this.localform.debug){console.log(`VEF_UPDATED_${keypair.key.toUpperCase()}: %o`, keypair.value);}
+                        log(this.localform.debug, `VEF_UPDATED_${keypair.key.toUpperCase()}`,  keypair.value);
                     }
                 }
             }
@@ -361,34 +362,40 @@ export default {
             }
 
             this.$emit('updated', data)
-            if(this.localform.debug){console.log(`VEF_UPDATED: %o`, data);}
+            log(this.localform.debug, `VEF VEF_UPDATED`,  data);
         },
 
         setupForm(form){
+
             try {
                 this.localform = {...form}
 
-                if (this.localform.fields) {
+                if (this.localform.fields && this.localform.fields.length > 0) {
+
+                    log(this.localform.debug, `VEF SETUP: ${this.localform.fields.length} fields found`);
+
                     for (const f in this.localform.fields) {
                         if (this.localform.fields[f].value) {
                             this.validateField(f, this.localform.fields[f])
+                            log(this.localform.debug, `VEF SETUP: ${this.localform.fields[f].key} checked`);
                         }
                     }
-                    console.log(`VEF SETUP: ${this.localform.fields.length} fields added`);
-
                 } else {
-                    if (this.localform.debug) {
-                        console.log(`VEF ERROR: No fields found %o`, this.localform.fields);
-                    }
+                    log(this.localform.debug, `VEF ERROR: No fields found`, this.localform.fields);
                 }
             }catch (e) {
-                console.log(`VEF ERROR: %s %o`, e.message, e.stack);
+                log(this.localform.debug, `VEF ERROR: ${e.message}`,  e.stack);
             }
         }
     },
     watch: {
-        form(newForm) {
-            this.setupForm(newForm)
+        form: {
+            handler: function(n) {
+                log(n.debug, `VEF_CHANGED ${n.name}`, n);
+                this.setupForm(n)
+            },
+            deep: true,
+            immediate: true
         },
     },
 };
