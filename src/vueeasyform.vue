@@ -244,7 +244,7 @@ export default {
                 validations.push('required')
             }
 
-            if (field.input && field.input.type) {
+            if (field.input && field.input.type && String(field.value).length > 0) {
                 switch (field.input.type) {
                     case 'text':
                         validations.push('string')
@@ -258,20 +258,20 @@ export default {
                 }
             }
 
-            if (field.textarea) {
+            if (field.textarea && String(field.value).length > 0) {
                 validations.push('string')
             }
 
-            if(field.validation){
+            if(field.validation && String(field.value).length > 0){
                 if(field.validation.min){
                     validations.push(`min:${field.validation.min}`)
                 }
 
-                if(field.validation.max){
+                if(field.validation.max && String(field.value).length > 0){
                     validations.push(`max:${field.validation.max}`)
                 }
 
-                if(field.validation.in){
+                if(field.validation.in && String(field.value).length > 0){
                     validations.push(`in:${field.validation.in}`)
                 }
             }
