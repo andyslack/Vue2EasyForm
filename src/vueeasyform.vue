@@ -150,7 +150,7 @@
                                 id="vef_submit_button"
                                 :class="field.class"
                                 :style="field.style"
-                                @click="submit"
+                                @click="submitForm"
                             >
                                 <i v-if="field.submit.i && !field.submit.i.after" :class="field.submit.i.icon" id="vef_submit_icon_before"></i>
                                 {{ field.submit.label }}
@@ -203,7 +203,7 @@ export default {
         this.setupForm(this.form)
     },
     methods: {
-        submit() {
+        submitForm() {
             this.buttonClicked('submit')
 
             if (this.validateForm()) {
@@ -285,8 +285,9 @@ export default {
                 this.$emit('error', {[field.key]: this.localform.fields[f].error_message})
                 log(this.localform.debug, `VEF_ERROR`,  {[field.key]: validation.errors.first(field.key)});
                 return false
-            }else if(field.input && field.input.value && field.value.length >= 1){
+            }else if(this.localform.fields[f].input && this.localform.fields[f].value && this.localform.fields[f].value.length >= 1){
                 this.localform.fields[f].success = true
+                this.localform.fields[f].success_message = this.localform.fields[f].success_message ? this.localform.fields[f].success_message : false
                 this.localform.fields[f].error = false
                 return true
             }
