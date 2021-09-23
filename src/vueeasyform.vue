@@ -287,7 +287,7 @@ export default {
                 return false
             }else if(this.localform.fields[f].input && this.localform.fields[f].value && this.localform.fields[f].value.length >= 1){
                 this.localform.fields[f].success = true
-                this.localform.fields[f].success_message = this.localform.fields[f].success_message ? this.localform.fields[f].success_message : false
+                this.localform.fields[f].success_message = this.localform.fields[f].success_message ? this.localform.fields[f].success_message : null
                 this.localform.fields[f].error = false
                 return true
             }
