@@ -188,6 +188,8 @@ A field with the Div #id `vef_dropdown_${key}`
 | `autocomplete`      | `boolean`  |        | Enables the use of autocomplete in the select.  | 
 | `i`      | `object`  |          | Element icon [See Icon](#icons)     |         |
 
+
+
 #### Example:
 
 ```json5
@@ -233,8 +235,11 @@ Pass the following properities depending on the type:
 #### timezone_dropdown
 
 | Property | Type | Required | Description |
-| ---------- | ------ | ---------- | ------------- | 
-| `timezone`      | `string`  |         | The timezone you wish to set as the default |  
+| ---------- | ------ | ---------- | ------------- |
+| `autocomplete`      | `boolean`  |        | Enables the use of autocomplete in the select.  | 
+| `i`      | `object`  |          | Element icon [See Icon](#icons)     |         |
+| `locale`      | `string(5)`  |        | Locale (e.g. en-GB)  | 
+| `label`      | `string`  |        | The label of the dropdown.  | 
 
 #### country_dropdown
 
