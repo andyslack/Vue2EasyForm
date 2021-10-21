@@ -126,9 +126,11 @@
                             :class="field.class"
                             :style="field.style"
                         >
-                            <i v-if="record.button.i && !record.button.i.after" :class="record.button.i.icon" :id="`vef_button_icon_before_${field.key}`"></i>
-                            {{field.button.label}}
-                            <i v-if="record.button.i && record.button.i.after" :class="record.button.i.icon" :id="`vef_button_icon_after_${field.key}`"></i>
+
+                            <i v-if="field.button.i && !field.button.i.after" :class="`${field.button.i.pack} ${field.button.i.icon} ${field.button.i.class}`" :style="field.button.i.style" :id="`vef_button_${field.key}_icon_before`"></i>
+                            {{ field.button.label }}
+                            <i v-if="field.button.i && field.button.i.after" :class="`${field.button.i.pack} ${field.button.i.icon} ${field.button.i.class}`" :style="field.button.i.style" :id="`vef_button_${field.key}_icon_after`"></i>
+
                         </vs-button>
 
                         <FormModule
@@ -152,9 +154,9 @@
                                 :style="field.style"
                                 @click="submitForm"
                             >
-                                <i v-if="field.submit.i && !field.submit.i.after" :class="field.submit.i.icon" id="vef_submit_icon_before"></i>
+                                <i v-if="field.submit.i && !field.submit.i.after" :class="`${field.submit.i.pack} ${field.submit.i.icon} ${field.submit.i.class}`" :style="field.submit.i.style" id="vef_submit_icon_before"></i>
                                 {{ field.submit.label }}
-                                <i v-if="field.submit.i && field.submit.i.after" :class="field.submit.i.icon" id="vef_submit_icon_after"></i>
+                                <i v-if="field.submit.i && field.submit.i.after" :class="`${field.submit.i.pack} ${field.submit.i.icon} ${field.submit.i.class}`" :style="field.submit.i.style" id="vef_submit_icon_after"></i>
 
                             </vs-button>
                         </div>

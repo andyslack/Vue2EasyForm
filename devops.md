@@ -6,4 +6,5 @@ To deploy a new verison:
 git push
 npm version patch
 npm run build
+npm publish
 ```

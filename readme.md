@@ -339,6 +339,8 @@ Some fields allow you to transform content as it is entered, see below:
 | `icon`      | `string`  |  The icon you wish to use, e.g. `bxs-heart`   |  
 | `pack`      | `string`  |  The icon-pack you have installed e.g. `bx`  |
 | `after`      | `string`  |  Puts your icon after the element `input` `button` `submit` |
+| `class` | `string`       |  Allows you to pass in classes dynamically         |                                                                                                                                                  |                      |
+| `style` | `string`       |    Allows you to pass in styles dynamically |
 
 ## Events
 
