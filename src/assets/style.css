@@ -26,11 +26,3 @@
 .material-icons{
   display: none;
 }
-
-.vs-button-primary.vs-button-filled{
-  background: var(--primary) !important;
-}
-
-.vs-button-primary.vs-button-filled:hover{
-  box-shadow: 0 8px 25px -8px rgba(var(--primary),1);
-}
